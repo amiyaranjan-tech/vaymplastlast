@@ -352,19 +352,19 @@ const ProductsPage = () => {
                   <img src={`${process.env.PUBLIC_URL}/noproductshd.png`} alt="No Products Found" className="max-w-4/5 max-h-4/5" />
                 </div>
               ) : null}
-              <div className="pt-0 md:hidden">
+              {/* <div className="pt-0 md:hidden"> */}
                 {/* Auto-load more products on scroll for mobile */}
-                <div className="grid grid-cols-2 gap-1 mb-12">
+                {/* <div className="grid grid-cols-2 gap-1 mb-12">
                   {data.map((product, index) => (
                     <ProductCard key={index} data={product} />
                   ))}
                 </div>
                 {data.length === 0 ? (
-                  <div className="flex justify-center items-center">
+                  <div className="flex justify-center items-center"> */}
                     {/* <img src={`${process.env.PUBLIC_URL}/noproductshd.png`} alt="No Products Found" className="max-w-4/5 max-h-4/5" /> */}
-                  </div>
-                ) : null}
-              </div>
+                  {/* </div>
+                ) : null} */}
+              {/* </div> */}
 
               {/* Pagination for all screens */}
               <div className="mt-4 flex justify-center">
