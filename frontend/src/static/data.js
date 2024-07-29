@@ -736,7 +736,7 @@ export const navItems = [
     },
     {
       id: 11,
-      title: "Running Shoes"
+      title: "Running"
     },
     {
       id: 12,
@@ -776,10 +776,6 @@ export const navItems = [
     },
     {
       id: 21,
-      title: "Shoes"
-    },
-    {
-      id: 22,
       title: "Crocs"
     }
   ];
@@ -1414,7 +1410,7 @@ export const eventType =
       name: "Formal Shirts",
     },
     {
-      name: "Tshirts",
+      name: "T-shirts",
     },
     {
       name: "Jeans",

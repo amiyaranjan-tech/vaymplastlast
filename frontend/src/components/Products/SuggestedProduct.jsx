@@ -9,9 +9,12 @@ const SuggestedProduct = ({ data }) => {
   const [productData,setProductData] = useState();
 
   useEffect(() => {
-    const filteredData = allProducts.filter((product) => product.listing !== "Event" && product.category === data.category);
+    const filteredData = allProducts
+      .filter((product) => product.listing !== "Event" && product.category === data.category)
+      .slice(0, 10); 
     setProductData(filteredData);
   }, [allProducts, data.category]);
+
 
   return (
     <div>
@@ -23,8 +26,8 @@ const SuggestedProduct = ({ data }) => {
             Related Product
           </h2>
           <div className="grid grid-cols-2 gap-[20px] md:grid-cols-2 md:gap-[25px] lg:grid-cols-4 lg:gap-[25px] xl:grid-cols-5 xl:gap-[30px] mb-12">             {
-                productData && productData.map((i,index) => (
-                    <ProductCard data={i} key={index} />
+                productData && productData.map((product, index) => (
+                    <ProductCard data={product} key={index} />
                 ))
              }
       </div>

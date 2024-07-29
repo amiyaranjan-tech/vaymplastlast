@@ -244,7 +244,7 @@ const ProductDetails = ({ data }) => {
                           key={index}
                           src={`${i?.url}`}
                           alt=""
-                          className={`inline-block h-[400px] border border-gray-300 rounded mr-2 cursor-pointer ${select === index ? "border-blue-500" : ""
+                          className={`inline-block h-[400px] object-contain border border-gray-300 rounded mr-2 cursor-pointer ${select === index ? "border-blue-500" : ""
                             }`}
                           onClick={() =>  setSelect(index)}
                           style={{ minWidth: 'calc(100% - 40px)' , marginRight: '5px' }}
