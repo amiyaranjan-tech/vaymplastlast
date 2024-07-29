@@ -537,7 +537,7 @@ console.log("hfejshmehgmfe,")
                 </button>
               </div> */}
       
-         <div className="fixed bottom-0 left-0 right-0 bg-white shadow-md p-2 flex justify-around items-center border-t border-gray-300 bg-zinc-100">
+         <div className="fixed bottom-0 left-0 right-0 shadow-md p-2 flex justify-around items-center border-t border-gray-300 bg-zinc-100">
          <button className="flex flex-row items-center space-x-2 p-2 hover:bg-gray-100 rounded" onClick={toggleDrawer}>
         <FaFilter className="w-4 h-4 text-gray-600 opacity-75" />
         <span className="font-bold text-base">FILTER</span>

@@ -30,6 +30,10 @@ const Payment = () => {
     setOrderData(orderData);
   }, []);
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const createOrder = (data, actions) => {
     return actions.order
       .create({
@@ -88,13 +92,17 @@ const Payment = () => {
         setLoading(false);
         setOpen(false);
         navigate("/order/success");
-        toast.success("Order successful!");
+        toast.success("Order successful!", {
+          autoClose:1000, // Duration in milliseconds
+        });
         localStorage.setItem("cartItems", JSON.stringify([]));
         localStorage.setItem("latestOrder", JSON.stringify([]));
         window.location.reload();
       })
       .catch((error) => {
-        toast.error(error.response.data.message);
+        toast.error(error.response.data.message, {
+          autoClose:1000, // Duration in milliseconds
+        });
         setLoading(false);
       });
   };
@@ -129,7 +137,9 @@ const Payment = () => {
       });
 
       if (result.error) {
-        toast.error(result.error.message);
+        toast.error(result.error.message, {
+          autoClose:1000, // Duration in milliseconds
+        });
         setLoading(false);
       } else {
         if (result.paymentIntent.status === "succeeded") {
@@ -145,19 +155,25 @@ const Payment = () => {
               setLoading(false);
               setOpen(false);
               navigate("/order/success");
-              toast.success("Order successful!");
+              toast.success("Order successful!", {
+                autoClose:1000, // Duration in milliseconds
+              });
               localStorage.setItem("cartItems", JSON.stringify([]));
               localStorage.setItem("latestOrder", JSON.stringify([]));
               window.location.reload();
             })
             .catch((error) => {
-              toast.error(error.response.data.message); // Show backend error message
+              toast.error(error.response.data.message, {
+                autoClose:1000, // Duration in milliseconds
+              }); // Show backend error message
               setLoading(false);
             });
         }
       }
     } catch (error) {
-      toast.error(error.message);
+      toast.error(error.message, {
+        autoClose:1000, // Duration in milliseconds
+        });
       setLoading(false);
     }
   };
@@ -181,13 +197,17 @@ const Payment = () => {
         setLoading(false);
         setOpen(false);
         navigate("/order/success");
-        toast.success("Order successful!");
+        toast.success("Order successful!", {
+          autoClose:1000, // Duration in milliseconds
+        });
         localStorage.setItem("cartItems", JSON.stringify([]));
         localStorage.setItem("latestOrder", JSON.stringify([]));
         window.location.reload();
       })
       .catch((error) => {
-        toast.error(error.response.data.message);
+        toast.error(error.response.data.message, {
+          autoClose:1000, // Duration in milliseconds
+        });
         setLoading(false);
       });
   };

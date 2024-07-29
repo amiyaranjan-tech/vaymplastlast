@@ -16,17 +16,17 @@ const OrderCard = ({ order }) => {
   } = order;
 console.log("zzzz",order)
   return (
-    <Link to={`/user/order/${kuchviId}`} className="">
+    <Link to={`/user/order/${kuchviId}`} >
     <div className="bg-white ml-2 p-4 rounded shadow flex items-start gap-4">
     <div className="flex items-start flex-grow">
           {image && (
             <div className="flex-none w-34">
-              <img src={image} alt={productName} className="w-[70px] h-[90px] object-cover rounded" />
+              <img src={image} alt={productName} className="w-[70px] h-[90px] object-contain rounded" />
             </div>
           )}
           <div className="flex flex-col justify-between flex-grow ml-4">
             <div className="mb-2">
-            <Link to={`/user/order/${id}`}className="hover:text-blue-500">
+            <Link to={`/user/order/${kuchviId}`}className="hover:text-blue-500">
              {productName}
               </Link>
             </div>
@@ -36,7 +36,7 @@ console.log("zzzz",order)
           </div>
         </div>
         <div className="flex flex-col sm:flex-row-reverse items-center mt-6">
-        <Link to={`/user/order/${kuchviId}`} className="">
+        <Link to={`/user/order/${kuchviId}`} >
         <Button 
               variant="contained" 
               style={{ 

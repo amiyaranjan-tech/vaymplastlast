@@ -53,7 +53,9 @@ const Address = () => {
     e.preventDefault();
 
     if (name===""||addressType === "" || phoneNumber === "" || city === "") {
-      toast.error("Please fill all the fields!");
+      toast.error("Please fill all the fields!",{
+        autoClose:1000, // Duration in milliseconds
+        });
     } else {
       dispatch(
         updatUserAddress(

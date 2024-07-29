@@ -11,7 +11,7 @@ const BestDeals = () => {
     if (allProducts) {
       const filteredData = allProducts.filter((product) => product.listing !== "Event");
       const sortedData = filteredData.sort((a, b) => b.sold_out - a.sold_out);
-      const firstFive = sortedData.slice(0, 5);
+      const firstFive = sortedData.slice(0, 10);
       setData(firstFive);
     }
   }, [allProducts]);

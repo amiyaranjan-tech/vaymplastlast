@@ -30,7 +30,9 @@ const ShopLogin = () => {
         { withCredentials: true }
       )
       .then((res) => {
-        toast.success("Login Success!");
+        toast.success("Login Success!",{
+          autoClose:1000, // Duration in milliseconds
+          });
         navigate("/dashboard");
         window.location.reload(true); 
       })

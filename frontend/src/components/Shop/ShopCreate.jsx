@@ -37,7 +37,9 @@ const ShopCreate = () => {
         phoneNumber,
       })
       .then((res) => {
-        toast.success(res.data.message);
+        toast.success(res.data.message,{
+          autoClose:2000, // Duration in milliseconds
+          });
         setLoading(false);
 
         setName("");

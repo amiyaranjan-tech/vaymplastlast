@@ -29,7 +29,9 @@ const Login = () => {
         },
         { withCredentials: true }
       );
-      toast.success("Login Success!");
+      toast.success("Login Success!",{
+        autoClose:1000, // Duration in milliseconds
+        });
       navigate("/");
       window.location.reload(true);
     } catch (err) {

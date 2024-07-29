@@ -63,7 +63,9 @@ const CreateProduct = () => {
   ];  
   useEffect(() => {
     if (error) {
-      toast.error(error);
+      toast.error(error,{
+        autoClose:1000, // Duration in milliseconds
+        });
     }
     if (success) {
       toast.success("Product created successfully!");

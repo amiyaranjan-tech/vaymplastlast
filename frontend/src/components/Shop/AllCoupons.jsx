@@ -58,7 +58,9 @@ const AllCoupons = () => {
       q=`${server}/coupon/delete-coupon/${id1}`
     }
     axios.delete(q,{withCredentials: true}).then((res) => {
-      toast.success("Coupon code deleted succesfully!")
+      toast.success("Coupon code deleted succesfully!",{
+        autoClose:1000, // Duration in milliseconds
+        });
     })
     window.location.reload();
   };
@@ -80,12 +82,16 @@ const AllCoupons = () => {
         { withCredentials: true }
       )
       .then((res) => {
-       toast.success("Coupon code created successfully!");
+       toast.success("Coupon code created successfully!",{
+        autoClose:1000, // Duration in milliseconds
+        });
        setOpen(false);
        window.location.reload();
       })
       .catch((error) => {
-        toast.error(error.response.data.message);
+        toast.error(error.response.data.message,{
+          autoClose:1000, // Duration in milliseconds
+          });
       });
   };
 

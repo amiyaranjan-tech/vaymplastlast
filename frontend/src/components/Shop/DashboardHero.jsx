@@ -5,7 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { MdBorderClear } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllOrdersOfShop } from "../../redux/actions/order";
-
+import { RxCross1 } from "react-icons/rx";
 import { server } from "../../server";
 import axios from "axios";
 
@@ -16,7 +16,7 @@ import {  updateShopStatus } from "../../redux/actions/sellers";
 import { Button } from "@material-ui/core";
 import { DataGrid } from "@material-ui/data-grid";
 import { useParams } from "react-router-dom";
-
+import { toast } from "react-toastify";
 const DashboardHero = () => {
   const { seller } = useSelector((state) => state.seller);
 
@@ -27,6 +27,7 @@ const DashboardHero = () => {
   const [kuchvi, setkuchvi] = useState([]);
   const [row, setRows] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [open, setOpen] = useState(false);
   const navigate = useNavigate();
 
   // const seller=id;
@@ -116,22 +117,38 @@ const DashboardHero = () => {
     }
   };
   
+  // const handleShopStatus = async () => {
+  //   const confirmation = showShopStatus
+  //     ? window.confirm("Do you want to close the shop?")
+  //     : window.confirm("Do you want to open the shop?");
+  //   if (confirmation) {
+  //     try {
+  //       const newShopStatus = !showShopStatus;
+  //       setShowShopStatus(newShopStatus);
+  //       window.location.reload();
+  //       await dispatch(updateShopStatus(seller._id, newShopStatus));
+  //     } catch (error) {
+  //       console.error(`Error updating shop status:`, error);
+  //     }
+  //   }
+  // };
 
-   // Ensure that shopId and newStockValue are correctly passed to updateNewStockNotification
-   const handleShopStatus = async () => {
-    try {
-      const newShopStatus = !showShopStatus; // Toggle the new stock value
-      setShowShopStatus(newShopStatus); // Update the local state if the backend update is successful
-      window.location.reload();
-      // Make a request to update the new stock notification in the backend
-      const response = await dispatch(updateShopStatus(seller._id, newShopStatus));
 
-    } catch (error) {
-      console.error(`Error updating new stock notification:`, error);
-    }
-  };
+ // Ensure that shopId and newStockValue are correctly passed to updateNewStockNotification
+ const handleShopStatus = async () => {
+  try {
+    const newShopStatus = !showShopStatus; // Toggle the new stock value
+    setShowShopStatus(newShopStatus); // Update the local state if the backend update is successful
+    // Make a request to update the new stock notification in the backend
+    const response = await dispatch(updateShopStatus(seller._id, newShopStatus));
+    // toast.success(`Your shop is ${newShopStatus ? "open" : "closed"}`);
+    window.location.reload();
 
 
+  } catch (error) {
+    console.error(`Error updating new stock notification:`, error);
+  }
+};
 
 
   useEffect(() => {
@@ -218,18 +235,6 @@ const DashboardHero = () => {
   };
   
 
-  // const row = [];
-
-  // orders &&
-  //   orders.forEach((item) => {
-  //     row.push({
-  //       id: item._id,
-  //       itemsQty: item.cart.reduce((acc, item) => acc + item.qty, 0),
-  //       total: "Rs" + item.totalPrice,
-  //       status: item.status,
-  //     });
-  //   });
-
   return (
     <div className="w-full p-8">
       <h3 className="text-[22px] font-Poppins pb-2">Overview</h3>
@@ -246,10 +251,39 @@ const DashboardHero = () => {
         className={`py-2 px-4 rounded ${
           showShopStatus ? "bg-blue-500 text-white" : "bg-red-500 text-white"
         }`}
-        onClick={handleShopStatus}
+        onClick={() =>setOpen(true)}
       >
-        {showShopStatus ? "Shop Open" : "Shop Closed"}
+        {showShopStatus ? "Open Your Shop" : "Close Your Shop"}
       </button>
+      {open && (
+          <div className="w-full fixed top-0 left-0 z-[999] bg-[#00000039] flex items-center justify-center h-screen">
+            <div className="w-[95%] 800px:w-[40%] min-h-[20vh] bg-white rounded shadow p-5">
+              <div className="w-full flex justify-end cursor-pointer">
+                <RxCross1 size={25} onClick={() => setOpen(false)} />
+              </div>
+              <h3 className="text-[25px] text-center py-5 font-Poppins text-[#000000cb]">
+                {showShopStatus ? "Are you sure you want to close your shop?" : "Are you sure you want to open your shop?"}
+              </h3>
+              <div className="w-full flex items-center justify-center">
+                <div
+                  className={`${styles.button} text-white text-[18px] !h-[42px] mr-4`}
+                  onClick={() => setOpen(false)}
+                >
+                  Cancel
+                </div>
+                <div
+                  className={`${styles.button} text-white text-[18px] !h-[42px] ml-4`}
+                  onClick={() => {
+                    setOpen(false);
+                    handleShopStatus();
+                  }}
+                >
+                  Confirm
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
       <br></br>
       <div className="w-full block 800px:flex items-center justify-between">

@@ -17,11 +17,15 @@ const EventCard = ({ active, data }) => {
   const addToCartHandler2 = async (data, selectedSize, count) => {
     const selectedProduct = data.stock.find((item) => item.size === selectedSize);
     if (!selectedProduct) {
-      toast.error("Please select a valid size!");
+      toast.error("Please select a size!",{
+        autoClose:1000, // Duration in milliseconds
+        });
       return;
     }
     if (selectedProduct.quantity < count) {
-      toast.error("Insufficient quantity available for the selected size!");
+      toast.error("Insufficient quantity available for the selected size!",{
+        autoClose:2000, // Duration in milliseconds
+        });
       return;
     }
 
@@ -33,7 +37,9 @@ const EventCard = ({ active, data }) => {
       );
 
       if (isExists) {
-        toast.error("Item already in cart!");
+        toast.error("Item already in cart!",{
+          autoClose:1000, // Duration in milliseconds
+          });
         return;
       }
 
@@ -52,10 +58,14 @@ const EventCard = ({ active, data }) => {
 
       try {
         dispatch(updateTocart(newCart));
-        toast.success("Item updated in cart successfully!");
+        toast.success("Item updated in cart successfully!",{
+          autoClose:1000, // Duration in milliseconds
+          });
       } catch (error) {
         console.error("Error updating cart:", error.message);
-        toast.error("Failed to update item in cart!");
+        toast.error("Failed to update item in cart!",{
+          autoClose:1000, // Duration in milliseconds
+          });
       }
     } else {
       let newData = JSON.parse(JSON.stringify(data));
@@ -71,10 +81,14 @@ const EventCard = ({ active, data }) => {
 
       try {
         dispatch(addTocart(newData));
-        toast.success("Item added to cart successfully!");
+        toast.success("Item added to cart successfully!",{
+          autoClose:1000, // Duration in milliseconds
+          });
       } catch (error) {
         console.error("Error adding to cart:", error.message);
-        toast.error("Failed to add item to cart!");
+        toast.error("Failed to add item to cart!",{
+          autoClose:1000, // Duration in milliseconds
+          });
       }
     }
   };

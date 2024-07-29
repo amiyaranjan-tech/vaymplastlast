@@ -115,7 +115,9 @@ const Cart = ({ setOpenCart }) => {
       // toast.success("Item added to cart successfully!");
     } catch (error) {
       console.error("Error updating stock:", error.message);
-      toast.error("Failed to change item to cart!");
+      toast.error("Failed to change item to cart!",{
+        autoClose:2000, // Duration in milliseconds
+        });
     }
     //       }
     //     }
@@ -268,8 +270,9 @@ const CartSingle = ({
         if (stockItem && stockItem.quantity === 0) {
           removeFromCartHandler(data, selectedSize);
           toast.error(
-            `The size ${selectedSize} for the product ${data.name} is out of stock and has been removed from the cart.`
-          );
+            `The size ${selectedSize} for the product ${data.name} is out of stock and has been removed from the cart.`,{
+              autoClose:2000, // Duration in milliseconds
+              });
         }
       }
     }
@@ -279,7 +282,9 @@ const CartSingle = ({
     console.log("mydata", selectedSize);
     const stock = data.stock.find((item) => item.size === selectedSize);
     if (stock && stock.quantity - 1 < value) {
-      toast.error("Product stock limited!");
+      toast.error("Product stock limited!",{
+        autoClose:1000, // Duration in milliseconds
+        });
     } else {
       setValue(value + 1);
       quantityChangeHandler(data, value + 1, "inc", selectedSize);

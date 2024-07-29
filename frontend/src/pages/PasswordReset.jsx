@@ -14,7 +14,9 @@ const PasswordReset = () => {
     e.preventDefault();
     console.log('Submitting password reset form...'); // Debugging statement
     if (password !== confirmPassword) {
-      toast.error("Passwords don't match");
+      toast.error("Passwords isn't matching",{
+        autoClose:2000, // Duration in milliseconds
+        });
       return;
     }
     setLoading(true);
@@ -23,9 +25,13 @@ const PasswordReset = () => {
         password,
         confirmPassword, // Include confirmPassword in the request body
       });
-      toast.success(res.data.message);
+      toast.success(res.data.message,{
+        autoClose:1000, // Duration in milliseconds
+        });
     } catch (err) {
-      toast.error(err.response.data.message);
+      toast.error(err.response.data.message,{
+        autoClose:1000, // Duration in milliseconds
+        });
     } finally {
       setLoading(false);
     }

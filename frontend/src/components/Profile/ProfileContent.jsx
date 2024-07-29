@@ -41,11 +41,15 @@ const ProfileContent = ({ active }) => {
 }
   useEffect(() => {
     if (error) {
-      toast.error(error);
+      toast.error(error, {
+        autoClose:2000, // Duration in milliseconds
+        });
       dispatch({ type: "clearErrors" });
     }
     if (successMessage) {
-      toast.success(successMessage);
+      toast.success(successMessage, {
+        autoClose:2000, // Duration in milliseconds
+        });
       dispatch({ type: "clearMessages" });
     }
   }, [error, successMessage]);
@@ -53,6 +57,9 @@ const ProfileContent = ({ active }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(updateUserInformation(name, email, phoneNumber, password));
+    toast.success("Profile Updated", {
+      autoClose:2000, // Duration in milliseconds
+        });
   };
 
   const handleEmailBlur = () => {
@@ -503,13 +510,17 @@ const ChangePassword = () => {
         { withCredentials: true }
       )
       .then((res) => {
-        toast.success(res.data.message);
+        toast.success(res.data.message, {
+          autoClose:2000, // Duration in milliseconds
+          });
         setOldPassword("");
         setNewPassword("");
         setConfirmPassword("");
       })
       .catch((error) => {
-        toast.error(error.response.data.message);
+        toast.error(error.response.data.message,{
+          autoClose:2000, // Duration in milliseconds
+          });
       });
   };
   return (
@@ -589,7 +600,9 @@ const Address = () => {
     e.preventDefault();
 
     if (name===""||addressType === "" || phoneNumber === "" || city === "") {
-      toast.error("Please fill all the fields!");
+      toast.error("Please fill all the fields!",{
+        autoClose:2000, // Duration in milliseconds
+        });
     } else {
       dispatch(
         updatUserAddress(

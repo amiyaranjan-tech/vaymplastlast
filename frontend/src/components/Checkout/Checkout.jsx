@@ -61,7 +61,9 @@ const Checkout = () => {
       phoneNumber === "" ||
       city === ""
     ) {
-      toast.error("Please choose your delivery address!");
+      toast.error("Please choose your delivery address!",{
+        autoClose:2000, // Duration in milliseconds
+        });
     } else {
       const shippingAddress = {
         userName: username,
@@ -143,7 +145,9 @@ const Checkout = () => {
         const isCouponValid = cart && cart.filter((item) => item.shopId === shopId);
 
         if (isCouponValid.length === 0) {
-          toast.error("Coupon code is not valid for this shop");
+          toast.error("Coupon code is not valid for this shop",{
+            autoClose:2000, // Duration in milliseconds
+            });
           setCouponCode("");
         } else {
           const eligiblePrice = isCouponValid.reduce(
@@ -157,7 +161,9 @@ const Checkout = () => {
         }
       }
       if (res.data.couponCode === null) {
-        toast.error("Coupon code doesn't exist!");
+        toast.error("Coupon code doesn't exist!",{
+          autoClose:2000, // Duration in milliseconds
+          });
         setCouponCode("");
       }
     });

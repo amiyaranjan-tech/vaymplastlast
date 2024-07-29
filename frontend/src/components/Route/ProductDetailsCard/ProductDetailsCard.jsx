@@ -38,14 +38,20 @@ const ProductDetailsCard = ({ setOpen, data }) => {
   const addToCartHandler = () => {
     const isItemExists = cart && cart.find((i) => i._id === data._id);
     if (isItemExists) {
-      toast.error("Item already in cart!");
+      toast.error("Item already in cart!",{
+        autoClose:1000, // Duration in milliseconds
+        });
     } else {
       if (data.stock.quantity < count) {
-        toast.error("Product stock limited!");
+        toast.error("Product stock limited!",{
+          autoClose:1000, // Duration in milliseconds
+          });
       } else {
         const cartData = { ...data, qty: count };
         dispatch(addTocart(cartData));
-        toast.success("Item added to cart successfully!");
+        toast.success("Item added to cart successfully!",{
+          autoClose:1000, // Duration in milliseconds
+          });
       }
     }
   };

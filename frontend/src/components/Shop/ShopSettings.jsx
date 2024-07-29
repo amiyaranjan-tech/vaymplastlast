@@ -64,11 +64,15 @@ const ShopSettings = () => {
         { withCredentials: true }
       )
       .then((res) => {
-        toast.success("Shop info updated succesfully!");
+        toast.success("Shop info updated succesfully!",{
+          autoClose:1000, // Duration in milliseconds
+          });
         dispatch(loadSeller());
       })
       .catch((error) => {
-        toast.error(error.response.data.message);
+        toast.error(error.response.data.message,{
+          autoClose:1000, // Duration in milliseconds
+          });
       });
   };
 

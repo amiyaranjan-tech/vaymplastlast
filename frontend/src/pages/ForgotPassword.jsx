@@ -13,7 +13,9 @@ const ForgotPassword = () => {
 
     try {
       const res = await axios.post(`${server}/user/forgot-password`, { email });
-      toast.success(res.data.message);
+      toast.success(res.data.message,{
+        autoClose:1000, // Duration in milliseconds
+        });
     } catch (err) {
       toast.error(err.response?.data?.message || "Something went wrong");
     } finally {

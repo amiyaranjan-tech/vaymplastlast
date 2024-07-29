@@ -81,7 +81,8 @@ router.get(
     
     catchAsyncErrors(async (req, res, next) => {
       try {
-        const kuchvis = await Kuchvi.find();
+        const kuchvis1 = await Kuchvi.find();
+        const kuchvis = kuchvis1.sort((a, b) => b.createdAt - a.createdAt);// Sorting by createdAt in descending order
         // console.log("refunds",refunds)
         const allKuchviRequest=kuchvis.map((i)=>({
             // refundId:i._id,

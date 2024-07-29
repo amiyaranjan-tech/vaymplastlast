@@ -22,9 +22,13 @@ const ShopUploadPhoto = () => {
             {withCredentials:true},
           );
 
-          toast.success("Avatar updated successfully!");
+          toast.success("Avatar updated successfully!",{
+            autoClose:1000, // Duration in milliseconds
+            });
         } catch (error) {
-          toast.error(error.response.data.message);
+          toast.error(error.response.data.message,{
+            autoClose:1000, // Duration in milliseconds
+            });
         }
       }
     };

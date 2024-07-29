@@ -9,7 +9,7 @@ const OrderSuccessPage = () => {
     <div>
       <Header />
       <Success />
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 };

@@ -38,7 +38,9 @@ const Singup = () => {
     axios
       .post(`${server}/user/create-user`, { name, email, password })
       .then((res) => {
-        toast.success(res.data.message);
+        toast.success(res.data.message,{
+          autoClose:1000, // Duration in milliseconds
+          });
         setLoading(false);
 
         setName("");
