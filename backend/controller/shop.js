@@ -175,7 +175,7 @@ router.post(
       .createHash("sha256")
       .update(resetToken)
       .digest("hex");
-    shop.resetPasswordTime = Date.now() + 30 * 60 * 1000; // 30 minutes
+    shop.resetPasswordTime = Date.now + 30 * 60 * 1000; // 30 minutes
 
     await shop.save({ validateBeforeSave: false });
 
@@ -226,7 +226,7 @@ router.put(
     // Find the shop by reset token and check expiry
     const shop = await Shop.findOne({
       resetPasswordToken,
-      resetPasswordTime: { $gt: Date.now() },
+      resetPasswordTime: { $gt: Date.now },
     });
 
     // If shop not found or token expired, return error
@@ -284,7 +284,7 @@ router.get(
   catchAsyncErrors(async (req, res, next) => {
     try {
       res.cookie("seller_token", null, {
-        expires: new Date(Date.now()),
+        expires: new Date(Date.now),
         httpOnly: true,
         sameSite: "None",
         secure: true,

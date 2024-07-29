@@ -167,10 +167,10 @@ router.get(
           kuchvi.paymentInfo = paymentInfo;
         }
         if (deliveredAt !== undefined) {
-          kuchvi.deliveredAt=Date.now();
+          kuchvi.deliveredAt=Date.now;
         }
         if (returnedAt !== undefined) {
-          kuchvi.returnedAt=Date.now();
+          kuchvi.returnedAt=Date.now;
         }
         
   

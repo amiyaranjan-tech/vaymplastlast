@@ -125,7 +125,7 @@ const AllOrdersForAdmin = () => {
           console.log("params.row.kuchviId",params.row.kuchviId)
          const response=await axios.patch(`http://localhost:8000/api/v2/kuchvi/update-kuchvi/${params.row.kuchviId}`, {
           status: "Delivered",
-          deliveredAt:Date.now(),
+          deliveredAt:Date.now,
           delivered:true,
           paymentInfo:{ status: "Paid" }, // Update the stock value in the request body
           });
