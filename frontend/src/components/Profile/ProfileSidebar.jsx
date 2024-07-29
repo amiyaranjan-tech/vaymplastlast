@@ -73,7 +73,7 @@ const ProfileSidebar = ({ setActive, active }) => {
           Orders
         </span>
       </div>
-      <div
+      {/* <div
         className="flex flex-col sm:flex-row items-center cursor-pointer w-full mb-6"
         onClick={() => setActive(3)}
       >
@@ -92,7 +92,7 @@ const ProfileSidebar = ({ setActive, active }) => {
         >
           Refunds
         </span>
-      </div>
+      </div> */}
       <div
         className="flex flex-col sm:flex-row items-center cursor-pointer w-full mb-6"
         onClick={() => setActive(4) || navigate("/inbox")}
@@ -113,7 +113,7 @@ const ProfileSidebar = ({ setActive, active }) => {
           Inbox
         </span>
       </div>
-      <div
+      {/* <div
         className="flex flex-col sm:flex-row items-center cursor-pointer w-full mb-6"
         onClick={() => setActive(5)}
       >
@@ -132,7 +132,7 @@ const ProfileSidebar = ({ setActive, active }) => {
         >
           Track Order
         </span>
-      </div>
+      </div> */}
       <div
         className="flex flex-col sm:flex-row items-center cursor-pointer w-full mb-6"
         onClick={() => setActive(6)}

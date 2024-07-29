@@ -1428,16 +1428,16 @@ export const eventType =
       name: "FAQ",
     },
     {
-      name: "Reviews",
+      name: "Products",
     },
     {
-      name: "Contact Us",
+      name: "Events",
     },
     {
-      name: "Shipping",
+      name: "Shops",
     },
     {
-      name: "Live chat",
+      name: "Profile",
     },
   ];
   

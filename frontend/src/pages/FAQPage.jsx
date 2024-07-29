@@ -33,6 +33,54 @@ const Faq = () => {
         <div className="border-b border-gray-200 pb-4">
           <button
             className="flex items-center justify-between w-full"
+            onClick={() => toggleTab(1)}
+          >
+            <span className="text-lg font-medium text-gray-900">
+              What is Vaymp ?
+            </span>
+            {activeTab === 1 ? (
+              <svg
+                className="h-6 w-6 text-gray-500"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            ) : (
+              <svg
+                className="h-6 w-6 text-gray-500"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M9 5l7 7-7 7"
+                />
+              </svg>
+            )}
+          </button>
+          {activeTab === 1 && (
+            <div className="mt-4">
+              <p className="text-base text-gray-500">
+              Vaymp is a Hyperlocal ECommerce platform Incubated at Lovely Professional University. <br></br>
+              Now shop from your city from the convenience of your home.Find the latest Phagwara collection and info about sales, experience hassle-free delivery, try the clothes from your home without worrying about returns.
+              </p>
+            </div>
+          )}
+        </div>
+
+        <div className="border-b border-gray-200 pb-4">
+          <button
+            className="flex items-center justify-between w-full"
             onClick={() => toggleTab(2)}
           >
             <span className="text-lg font-medium text-gray-900">
@@ -71,7 +119,7 @@ const Faq = () => {
           {activeTab === 2 && (
             <div className="mt-4">
               <p className="text-base text-gray-500">
-              If you're not completely satisfied with your purchase, we gladly accept returns within 48 hours of delivery. To start the return process, simply visit your orders page and click on the refund button. If you have any further questions, feel free to reach out to us on WhatsApp.
+              If you're not completely satisfied with your purchase, we gladly accept returns within 48 hours of delivery. To start the return process, simply visit your orders page and click on the Return button. If you have any further questions, feel free to reach out to us on WhatsApp.
               </p>
             </div>
           )}
@@ -83,7 +131,7 @@ const Faq = () => {
             onClick={() => toggleTab(3)}
           >
             <span className="text-lg font-medium text-gray-900">
-              How do I track my order?
+              what is your Average dilevery time?
             </span>
             {activeTab === 3 ? (
               <svg
@@ -118,9 +166,7 @@ const Faq = () => {
           {activeTab === 3 && (
             <div className="mt-4">
               <p className="text-base text-gray-500">
-                You can track your order by clicking the tracking link in your
-                shipping confirmation email, or by logging into your account on
-                our website and viewing the order details.
+               We deliver your products within the same day of order preferably in an hour or two. In case you order after 7 P.M IST we deliver your product the very next day as early as possible
               </p>
             </div>
           )}

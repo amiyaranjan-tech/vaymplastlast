@@ -385,7 +385,7 @@ const UserOrderDetails = () => {
     </div>
     {!data.isReviewed && (data.status === "Delivered" || data.status === "Transferred to delivery partner") ? (
             <div
-        className={`${styles.button} text-[#fff]`}
+        className={`${styles.button} text-black !bg-flipkart-yellow`}
         onClick={(e) => {
           e.stopPropagation();
           setOpen(true);
@@ -476,7 +476,7 @@ const UserOrderDetails = () => {
         ></textarea>
       </div>
       <div
-        className={`${styles.button} text-white text-[20px] ml-3`}
+        className={`${styles.button} !bg-flipkart-orange text-white text-[20px] ml-3`}
         onClick={reviewHandler}
       >
         Submit
@@ -513,7 +513,7 @@ const UserOrderDetails = () => {
       <div className="fixed bottom-0 left-0 w-full bg-gray-800 shadow-lg p-1 lg:hidden" style={{ zIndex: 0 }}>
       <div className="flex justify-between items-center">
       <div
-        className={`${styles.button} bg-blue-500 rounded-[4px] h-11`}
+        className={`${styles.button} !bg-flipkart-blue rounded-[4px] h-11`}
         onClick={handleMessageSubmit}
       >
         <span className="font-medium text-sm flex items-center">SEND MESSAGE</span>
@@ -523,7 +523,7 @@ const UserOrderDetails = () => {
       data.status == "Returned" ||
       data.status == "Return Request" ? (
         <Button
-        className={`${styles.button} rounded-[10px] h-11`}
+        className={`${styles.button} !bg-flipkart-blue rounded-[10px] h-11`}
         variant="contained"
         style={{ backgroundColor: !isReturnable || data.status === "Returned" || data.return1 ? '#bfdbfe' : '#60a5fa', 
           color: !isReturnable || data.status === "Returned" || data.return1 ? '#a0aec0' : '#000',
@@ -538,7 +538,7 @@ const UserOrderDetails = () => {
         </Button>
       ) : (
         <Button
-          className={`${styles.button} rounded-[4px] h-11`}
+          className={`${styles.button} !bg-flipkart-blue rounded-[4px] h-11`}
           variant="contained"
           style={{
             backgroundColor: data.status === "cancel Request" || data.cancel ? '#bfdbfe' : '#60a5fa',
@@ -563,13 +563,13 @@ const UserOrderDetails = () => {
             </h3>
             <div className="w-full flex items-center justify-center">
               <div
-                className={`${styles.button} text-white text-[18px] !h-[42px] mr-4`}
+                className={`${styles.button} !bg-red-500 text-white text-[18px] !h-[42px] mr-4`}
                 onClick={() => setOpn(false)}
               >
                 No
               </div>
               <div
-                className={`${styles.button} text-white text-[18px] !h-[42px] ml-4`}
+                className={`${styles.button} !bg-red-500 text-white text-[18px] !h-[42px] ml-4`}
                 onClick={() => { setOpn(false); handleCancelClick();}}
               >
                 Yes
@@ -589,13 +589,13 @@ const UserOrderDetails = () => {
             </h3>
             <div className="w-full flex items-center justify-center">
               <div
-                className={`${styles.button} text-white text-[18px] !h-[42px] mr-4`}
+                className={`${styles.button} !bg-red-500 text-white text-[18px] !h-[42px] mr-4`}
                 onClick={() => setOpens(false)}
               >
                 No
               </div>
               <div
-                className={`${styles.button} text-white text-[18px] !h-[42px] ml-4`}
+                className={`${styles.button} !bg-red-500 text-white text-[18px] !h-[42px] ml-4`}
                 onClick={() => { setOpens(false); handleReturnClick();}}
               >
                 Yes
@@ -610,7 +610,7 @@ const UserOrderDetails = () => {
       {/* for larger screen */}
       <div className="hidden lg:flex justify-between items-center">
       <div
-        className={`${styles.button} bg-blue-500 rounded-[4px] h-11`}
+        className={`${styles.button} !bg-flipkart-blue rounded-[4px] h-11`}
         onClick={handleMessageSubmit}
       >
         <span className="font-medium text-sm flex items-center">SEND MESSAGE</span>
@@ -620,7 +620,7 @@ const UserOrderDetails = () => {
       data.status === "Returned" ||
       data.status === "Return Request" ? (
         <Button
-          className={`${styles.button} rounded-[10px] h-11`}
+          className={`${styles.button} !bg-flipkart-blue rounded-[10px] h-11`}
           variant="contained"
           style={{
             backgroundColor: !isReturnable || data.status === "Returned" || data.return1 ? '#bfdbfe' : '#60a5fa',
@@ -635,7 +635,7 @@ const UserOrderDetails = () => {
         
       ) : (
         <Button
-          className={`${styles.button} rounded-[4px] h-11`}
+          className={`${styles.button} !bg-flipkart-blue rounded-[4px] h-11`}
           variant="contained"
           style={{
             backgroundColor: data.status === "cancel Request" || data.cancel ? '#bfdbfe' : '#60a5fa',
@@ -660,13 +660,13 @@ const UserOrderDetails = () => {
             </h3>
             <div className="w-full flex items-center justify-center">
               <div
-                className={`${styles.button} text-white text-[18px] !h-[42px] mr-4`}
+                className={`${styles.button} !bg-red-500 text-white text-[18px] !h-[42px] mr-4`}
                 onClick={() => setOpn(false)}
               >
                 No
               </div>
               <div
-                className={`${styles.button} text-white text-[18px] !h-[42px] ml-4`}
+                className={`${styles.button} !bg-red-500 text-white text-[18px] !h-[42px] ml-4`}
                 onClick={() => { setOpn(false); handleCancelClick();}}
               >
                 Yes
@@ -686,13 +686,13 @@ const UserOrderDetails = () => {
             </h3>
             <div className="w-full flex items-center justify-center">
               <div
-                className={`${styles.button} text-white text-[18px] !h-[42px] mr-4`}
+                className={`${styles.button} !bg-red-500 text-white text-[18px] !h-[42px] mr-4`}
                 onClick={() => setOpens(false)}
               >
                 No
               </div>
               <div
-                className={`${styles.button} text-white text-[18px] !h-[42px] ml-4`}
+                className={`${styles.button} !bg-red-500 text-white text-[18px] !h-[42px] ml-4`}
                 onClick={() => { setOpens(false); handleReturnClick();}}
               >
                 Yes

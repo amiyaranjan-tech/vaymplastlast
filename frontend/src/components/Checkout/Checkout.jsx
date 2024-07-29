@@ -221,9 +221,9 @@ const Checkout = () => {
       </div>
       {/* for mobile view */}
       <div className="relative" style={{ zIndex: 1 }}>
-        <div className="fixed bottom-0 left-0 w-full bg-gray-800 shadow-lg p-4 md:hidden" style={{ zIndex: 0 }}>
+        <div className="fixed bottom-0 left-0 w-full bg-gray-900 shadow-lg p-4 md:hidden" style={{ zIndex: 0 }}>
           <div
-            className="w-full max-w-[280px] mx-auto flex justify-center items-center bg-gray-900 rounded-lg py-3 cursor-pointer transition-transform transform hover:scale-105 active:scale-95"
+            className="w-full max-w-[280px] mx-auto flex justify-center items-center  !bg-flipkart-orange rounded-lg py-3 cursor-pointer transition-transform transform hover:scale-105 active:scale-95"
             onClick={paymentSubmit}
           >
             <h5 className="text-white font-semibold">Go to Payment</h5>
@@ -232,7 +232,7 @@ const Checkout = () => {
       </div>
       {/* for larger screen */}
       <div
-        className="w-full max-w-[280px] mt-10 hidden md:flex justify-center items-center bg-gray-900 rounded-lg py-3 cursor-pointer transition-transform transform hover:scale-105 active:scale-95"
+        className="w-full max-w-[280px] mt-10 hidden md:flex justify-center items-center bg-flipkart-orange rounded-lg py-3 cursor-pointer transition-transform transform hover:scale-105 active:scale-95"
         onClick={paymentSubmit}
       >
         <h5 className="text-white font-semibold">Go to Payment</h5>

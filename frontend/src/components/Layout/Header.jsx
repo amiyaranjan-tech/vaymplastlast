@@ -267,7 +267,7 @@ const Header = ({ activeHeading }) => {
                 size={30}
                 className="absolute right-2 top-1.5 cursor-pointer" onClick={handleSearchClick}
               />
-              {searchData && searchData.length !== 0 ? (
+              {/* {searchData && searchData.length !== 0 ? (
                 <div className="absolute min-h-[5vh] bg-slate-50 shadow-sm-2 z-[9] p-4">
                   {searchData &&
                     searchData.map((i, index) => {
@@ -285,7 +285,7 @@ const Header = ({ activeHeading }) => {
                       );
                     })}
                 </div>
-              ) : null}
+              ) : null} */}
             </div>
 
             <div className={`${styles.button} !bg-[#142337]`}>
@@ -485,7 +485,7 @@ const Header = ({ activeHeading }) => {
             <div className="flex items-center justify-start space-x-6">
               <div className="relative" onClick={() => setOpenWishlist(true)}>
                 <AiOutlineHeart size={30} />
-                <span className="absolute right-0 top-0 rounded-full bg-[#3bc177] w-4 h-4 p-0 m-0 text-white font-mono text-[12px] leading-tight text-center">
+                <span className="absolute right-0 top-0 rounded-full bg-[#f44336] w-4 h-4 p-0 m-0 text-white font-mono text-[12px] leading-tight text-center">
                   {wishlist && wishlist.length}
                 </span>
               </div>
@@ -494,7 +494,7 @@ const Header = ({ activeHeading }) => {
                 onClick={() => setOpenCart(true)}
               >
                 <AiOutlineShoppingCart size={30} />
-                <span className="absolute right-0 top-0 rounded-full bg-[#3bc177] w-4 h-4 p-0 m-0 text-white font-mono text-[12px] leading-tight text-center">
+                <span className="absolute right-0 top-0 rounded-full bg-[#f44336] w-4 h-4 p-0 m-0 text-white font-mono text-[12px] leading-tight text-center">
                   {totalCount}
                 </span>
               </div>
@@ -593,7 +593,7 @@ const Header = ({ activeHeading }) => {
                 >
                   Inbox
                 </Link>
-                <Link
+                {/* <Link
                   to='/Refund'
                   className={` ${isActive('/Refund') ? "text-yellow-500"  : "text-black 800px:text-[#fff]"} pb-[30px] 800px:pb-0 font-[500] px-6 cursor-pointer`}
                 >
@@ -604,7 +604,7 @@ const Header = ({ activeHeading }) => {
                   className={` ${isActive('/Track') ? "text-yellow-500"  : "text-black 800px:text-[#fff]"} pb-[30px] 800px:pb-0 font-[500] px-6 cursor-pointer`}
                 >
                   TrackOrder
-                </Link>
+                </Link> */}
               </div>
                <div className={`${styles.button} !bg-[#142337] ml-12`}>
               <Link to={`${isSeller ? "/dashboard" : "/shop-create"}`}>
@@ -637,7 +637,7 @@ const Header = ({ activeHeading }) => {
             className="absolute right-2 top-1.5 cursor-pointer" onClick={handleMobileSearchClick}
           />
 
-          {mobileSearchData && mobileSearchData.length > 0 && (
+          {/* {mobileSearchData && mobileSearchData.length > 0 && (
             <div className="absolute bg-[#fff] z-10 shadow w-full left-0 p-3">
               {mobileSearchData.map((i) => (
                 <a href={`/product/${i._id}`} key={i._id}>
@@ -652,7 +652,7 @@ const Header = ({ activeHeading }) => {
                 </a>
               ))}
             </div>
-          )}
+          )} */}
         </div>
       </div>
     </>

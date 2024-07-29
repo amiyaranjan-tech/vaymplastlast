@@ -47,7 +47,7 @@ const Payment = () => {
           },
         ],
         application_context: {
-          shipping_preference: "NO_SHIPPING",
+          _preference: "NO_SHIPPING",
         },
       })
       .then((orderID) => {
@@ -245,7 +245,7 @@ const PaymentInfo = ({
   cashOnDeliveryHandler,
   loading,
 }) => {
-  const [select, setSelect] = useState(1);
+  const [select, setSelect] = useState(3);
 
   return (
     <div className="w-full 800px:w-[95%] bg-[#fff] rounded-md p-5 pb-8">
@@ -403,7 +403,7 @@ const PaymentInfo = ({
                 <input
                   type="submit"
                   value="Confirm"
-                  className={`${styles.button} !bg-[#f63b60] text-[#fff] h-[45px] rounded-[5px] cursor-pointer text-[18px] font-[600]`}
+                  className={`${styles.button} !bg-flipkart-orange text-[#fff] h-[45px] rounded-[5px] cursor-pointer text-[18px] font-[600]`}
                 />
               )}
             </form>

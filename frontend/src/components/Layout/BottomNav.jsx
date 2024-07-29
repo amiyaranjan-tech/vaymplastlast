@@ -60,7 +60,7 @@ const BottomNav = () => {
 
     return (
         <div className="w-full h-80vh">
-            <section id="bottom-navigation" className="md:hidden block fixed inset-x-0 bottom-0 z-10 bg-blue-100 shadow-top">
+            <section id="bottom-navigation" className="md:hidden block fixed inset-x-0 bottom-0 z-10 bg-sky-100 shadow-top">
                 <div id="tabs" className="flex justify-between">
                     <Link to="/" className="w-full focus:text-blue-500 hover:text-blue-500 flex flex-col items-center pt-2 pb-1">
                         <BiHomeAlt size={30} className="inline-block mb-1" />
@@ -69,7 +69,7 @@ const BottomNav = () => {
                     <button onClick={handleWishlistClick} className="w-full focus:text-blue-500 hover:text-blue-500 flex flex-col items-center pt-2 pb-1 relative">
                         <FiHeart size={30} className="inline-block mb-1" />
                         {wishlist && wishlist.length > 0 && (
-                            <span className="absolute top-2 right-5 rounded-full bg-[#6f30e4] w-4 h-4 p-0 m-0 text-white font-mono text-[12px] leading-tight text-center">
+                            <span className="absolute top-2 right-5 rounded-full bg-[#f44336] w-4 h-4 p-0 m-0 text-white font-mono text-[12px] leading-tight text-center">
                                 {wishlist.length}
                             </span>
                         )}
@@ -83,7 +83,7 @@ const BottomNav = () => {
                         <div>
                             <AiOutlineShoppingCart size={30} className="inline-block mb-1" />
                             {totalCount > 0 && (
-                                <span className="absolute top-2 right-5 rounded-full bg-[#6f30e4] w-4 h-4 p-0 m-0 text-white font-mono text-[12px] leading-tight text-center">
+                                <span className="absolute top-2 right-5 rounded-full bg-[#f44336] w-4 h-4 p-0 m-0 text-white font-mono text-[12px] leading-tight text-center">
                                     {totalCount}
                                 </span>
                             )}

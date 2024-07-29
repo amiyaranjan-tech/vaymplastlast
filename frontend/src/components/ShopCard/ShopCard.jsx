@@ -15,7 +15,7 @@ const ShopCard = ({ shopName, image, shopId }) => {
         <img className="w-full h-56 object-contain object-center" src={image} alt={shopName} />      
       <div className="px-6 py-4">
           <Link to={`/shop/preview/${shopId}`}>
-          <h5 className="text-xl text-center font-bold text-blue-800 shadow-md">{shopName}</h5>
+          <h5 className="text-xl text-center font-bold text-sky-700 shadow-md">{shopName}</h5>
           </Link>
         </div>
         </div>
