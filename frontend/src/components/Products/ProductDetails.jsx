@@ -1,4 +1,4 @@
-import React, { useEffect, useState,useRef } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import {
   AiFillHeart,
   AiOutlineHeart,
@@ -27,7 +27,7 @@ import axios from "axios";
 import Cart from "../cart/Cart";
 import { BsHandbag } from "react-icons/bs";
 
-const ProductDetails =  ({ data }) => {
+const ProductDetails = ({ data }) => {
   const [openCart, setOpenCart] = useState(false);
   const { wishlist } = useSelector((state) => state.wishlist);
   const { cart } = useSelector((state) => state.cart);
@@ -39,26 +39,26 @@ const ProductDetails =  ({ data }) => {
   const [select, setSelect] = useState(0);
   const [selectedSize, setSelectedSize] = useState(""); // State for selected size
   const [showDescription, setShowDescription] = useState(false);
-  const [a,seta]=useState(0);
-  const sectionRef=useRef(null)
+  const [a, seta] = useState(0);
+  const sectionRef = useRef(null)
   const handleMouseEnter = () => {
     setShowDescription(true);
   };
   const copyToClipboard = () => {
     navigator.clipboard.writeText(window.location.href).then(() => {
       toast.success('Link has been copied to clipboard', {
-        autoClose:1000, // Duration in milliseconds
-        });
+        autoClose: 1000, // Duration in milliseconds
+      });
     }).catch((error) => {
       toast.error('Failed to copy link', {
-        autoClose:1000, // Duration in milliseconds
-        });
+        autoClose: 1000, // Duration in milliseconds
+      });
     });
   };
   const handleMouseLeave = () => {
     setShowDescription(false);
   };
-//const [adminuser,setadminuser]=useState({});
+  //const [adminuser,setadminuser]=useState({});
   const navigate = useNavigate();
   const dispatch = useDispatch();
   // useEffect(async()=>{
@@ -102,8 +102,8 @@ const ProductDetails =  ({ data }) => {
     );
     if (selectedProduct.quantity < count) {
       toast.error("Insufficient quantity available for the selected size!", {
-        autoClose:1000, // Duration in milliseconds
-        });
+        autoClose: 1000, // Duration in milliseconds
+      });
       return;
     }
     // console.log("id23",id)
@@ -114,7 +114,7 @@ const ProductDetails =  ({ data }) => {
       });
     console.log("item exist", isItemExists);
     if (isItemExists) {
-   
+
       let newData = JSON.parse(JSON.stringify(isItemExists));
       // console.log("newData1",newData)
       const isExists = newData.stock.some((val) => val.size === selectedSize && val.isSelected === true);
@@ -148,21 +148,21 @@ const ProductDetails =  ({ data }) => {
       // })
       try {
         // await updateStockAfterOrderCreation(itemToUpdate);
-          if(isExists){
-            toast.error("Item already in cart!", {
-              autoClose:1000, // Duration in milliseconds
-              });
-          }else{
-        dispatch(updateTocart(newCart));
-        toast.success("Item added to cart successfully!", {
-          autoClose:1000, // Duration in milliseconds
-        });
-          }
+        if (isExists) {
+          toast.error("Item already in cart!", {
+            autoClose: 1000, // Duration in milliseconds
+          });
+        } else {
+          dispatch(updateTocart(newCart));
+          toast.success("Item added to cart successfully!", {
+            autoClose: 1000, // Duration in milliseconds
+          });
+        }
       } catch (error) {
         console.error("Error updating stock:", error.message);
         toast.error("Failed to add item to cart!", {
-          autoClose:1000, // Duration in milliseconds
-          });
+          autoClose: 1000, // Duration in milliseconds
+        });
       }
     } else {
       let newData = JSON.parse(JSON.stringify(data));
@@ -183,13 +183,13 @@ const ProductDetails =  ({ data }) => {
         // await updateStockAfterOrderCreation(itemToUpdate);
         dispatch(addTocart(newData));
         toast.success("Item added to cart successfully!", {
-          autoClose:1000, // Duration in milliseconds
+          autoClose: 1000, // Duration in milliseconds
         });
       } catch (error) {
         console.error("Error updating stock:", error.message);
         toast.error("Failed to add item to cart!", {
-          autoClose:1000, // Duration in milliseconds
-          });
+          autoClose: 1000, // Duration in milliseconds
+        });
       }
     }
   };
@@ -213,13 +213,13 @@ const ProductDetails =  ({ data }) => {
   const avg = totalRatings / totalReviewsLength || 0;
 
   const averageRating = avg.toFixed(2);
- const handleMessageSubmit = async () => {
+  const handleMessageSubmit = async () => {
     if (isAuthenticated) {
       const groupTitle = data._id + user._id;
       const userId = user._id;
       // const adminId = data.shop._id;
       // const adminId="65fae1d3497be0c126658a67";
-      const sellerId=data?.product.adminCreated;
+      const sellerId = data?.product.adminCreated;
       // console.log("data.adminCreated",data?.cart[0].adminCreated)
 
       await axios
@@ -238,7 +238,7 @@ const ProductDetails =  ({ data }) => {
       toast.error("Please login to create a conversation");
     }
   };
-  
+
   return (
     <div className="bg-white">
       {data ? (
@@ -266,30 +266,29 @@ const ProductDetails =  ({ data }) => {
                   ) : (
                     <AiOutlineHeart
                       size={34}
-                      className="ml-2 text-blue-400 "                      
+                      className="ml-2 text-blue-400 "
                       title="Add to wishlist"
                       onClick={() => {
                         addToWishlistHandler(data);
                       }}
                     />
                   )}
-                  
+
                   <RiShareForwardLine
-                      size={34}
-                      className="ml-2 text-blue-400"
-                      title="Share this product"
-                      onClick={copyToClipboard}
-                    />
-                  
+                    size={34}
+                    className="ml-2 text-blue-400"
+                    title="Share this product"
+                    onClick={copyToClipboard}
+                  />
+
                 </div>
                 <div className="w-full flex p-2 py-0 lg:pl-12">
                   {data &&
                     data.images.map((i, index) => (
                       <div
                         key={index}
-                        className={`${
-                          select === 0 ? "border" : "" // Remove "null"
-                        } cursor-pointer`}
+                        className={`${select === 0 ? "border" : "" // Remove "null"
+                          } cursor-pointer`}
                       >
                         <img
                           src={`${i?.url}`}
@@ -300,9 +299,8 @@ const ProductDetails =  ({ data }) => {
                       </div>
                     ))}
                   <div
-                    className={`${
-                      select === 1 ? "border" : "null"
-                    } cursor-pointer`}
+                    className={`${select === 1 ? "border" : "null"
+                      } cursor-pointer`}
                   ></div>
                 </div>
               </div>
@@ -333,8 +331,8 @@ const ProductDetails =  ({ data }) => {
                     />
                     {showDescription && (
                       <div className="absolute top-8 left-2 bg-white border border-gray-300 rounded-md shadow-lg p-4 z-10"
-                      onMouseEnter={handleMouseEnter}
-                      onMouseLeave={handleMouseLeave}
+                        onMouseEnter={handleMouseEnter}
+                        onMouseLeave={handleMouseLeave}
                       >
                         <div className="absolute top-0 left-[170px] transform -translate-x-1/2 -translate-y-full">
                           <div className="w-0 h-0 border-l-8 border-r-8 border-b-8 border-transparent border-b-gray-200"></div>
@@ -360,20 +358,22 @@ const ProductDetails =  ({ data }) => {
                   </div>
                   <div className="relative flex items-center mt-3">
                     <div className="inline-flex rounded-full bg-blue-500 px-3 py-1 mb-2 text-sm"
-                    style={{alignItems:'center',justifyContent:'center', color:'white'}}
+                      style={{ alignItems: 'center', justifyContent: 'center', color: 'white' }}
                     >
-                    <b>{averageRating.slice(0, 3)}</b>
-                    <AiFillStar className="ml-1" />
+                      <b>{averageRating.slice(0, 3)}</b>
+                      <AiFillStar className="ml-1" />
                     </div>
-                    <span 
-                      className="flex text-xs mb-2 ml-5 cursor-pointer" 
-                      onClick={() => {sectionRef.current.scrollIntoView({behavior:'smooth'}) 
-                      seta(a+1)}}
+                    <span
+                      className="flex text-xs mb-2 ml-5 cursor-pointer"
+                      onClick={() => {
+                        sectionRef.current.scrollIntoView({ behavior: 'smooth' })
+                        seta(a + 1)
+                      }}
                     >
-                    {data.reviews.length} reviews
-                   </span>
+                      {data.reviews.length} reviews
+                    </span>
                   </div>
-                  <div className="inline-flex rounded-full bg-blue-100 px-3 py-1 text-sm mt-2" style={{ fontFamily: 'Roboto, sans-serif', color:'gray' }}>
+                  <div className="inline-flex rounded-full bg-blue-100 px-3 py-1 text-sm mt-2" style={{ fontFamily: 'Roboto, sans-serif', color: 'gray' }}>
                     Free Delivery
                   </div>
                 </div>
@@ -394,11 +394,10 @@ const ProductDetails =  ({ data }) => {
 
                           // Calculate the button classes based on whether the item is available
                           const sizeButtonClasses = isAvailable
-                            ? `mr-2 mb-2 px-3 py-1 border rounded-full focus:outline-none ${
-                                selectedSize === item.size
-                                  ? "bg-blue-600 text-white border-blue-600"
-                                  : "bg-gray-100 text-gray-800 border-gray-300"
-                              }`
+                            ? `mr-2 mb-2 px-3 py-1 border rounded-full focus:outline-none ${selectedSize === item.size
+                              ? "bg-blue-600 text-white border-blue-600"
+                              : "bg-gray-100 text-gray-800 border-gray-300"
+                            }`
                             : `mr-2 mb-2 px-3 py-1 border rounded-full cursor-not-allowed focus:outline-none bg-gray-300 text-gray-400 border-gray-300 line-through`;
                           return (
                             <button
@@ -409,7 +408,7 @@ const ProductDetails =  ({ data }) => {
                                   setSelectedSize(item.size);
                                 }
                               }}
-                              // disabled={!isAvailable} // Optionally, you can add this to disable the button if the size is not available
+                            // disabled={!isAvailable} // Optionally, you can add this to disable the button if the size is not available
                             >
                               {item.size}
                             </button>
@@ -419,81 +418,81 @@ const ProductDetails =  ({ data }) => {
                     </div>
                   </div>
                 </div>
-                
+
                 {/* Button container */}
                 <div className="relative" style={{ zIndex: 1 }}>
-                <div className="fixed bottom-0 left-0 w-full bg-white shadow-lg p-2 md:hidden" style={{ zIndex: 0 }}>                  
-                <div className="flex justify-between items-center">
-                    {/* Add to Cart Button */}
-                    <div
-                      className={`${styles.button} !mt-6 !rounded !h-11 flex items-center mr-10`}
-                      onClick={() => {
-                        if (selectedSize === "") {
-                          toast.error("Please select a size!", {
-                            autoClose:1000, // Duration in milliseconds
-                            });
-                          return;
-                        }
-                        const j1 = data.stock.find(
-                          (val) => val.size === selectedSize
-                        );
-                        console.log("object data", data);
-                        addToCartHandler2(data, selectedSize, count);
-                      }}
-                    >
-                      <span className="text-white flex items-center">
-                        Add to Cart{" "}
-                        <AiOutlineShoppingCart className="ml-2" size={20} />
-                      </span>
-                    </div>
+                  <div className="fixed bottom-0 left-0 w-full bg-white shadow-lg px-2 pt-0 md:hidden" style={{ zIndex: 0 }}>
+                    <div className="flex justify-between items-center">
+                      {/* Add to Cart Button */}
+                      <div
+                        className={`${styles.button} !mt-6 !rounded !h-11 flex items-center mr-10 !bg-flipkart-yellow`}
+                        onClick={() => {
+                          if (selectedSize === "") {
+                            toast.error("Please select a size!", {
+                              autoClose: 1000, // Duration in milliseconds
+                            });
+                            return;
+                          }
+                          const j1 = data.stock.find(
+                            (val) => val.size === selectedSize
+                          );
+                          console.log("object data", data);
+                          addToCartHandler2(data, selectedSize, count);
+                        }}
+                      >
+                        <span className="text-white flex items-center font-bold">
+                          Add to Cart{" "}
+                          <AiOutlineShoppingCart className="ml-2" size={20} />
+                        </span>
+                      </div>
 
-                    {/* Add to Wishlist Button */}
-                    <div
-                      className={`${styles.button} !mt-6 !rounded !h-11 flex items-center`}
-                      onClick={() => {
-                        if (selectedSize === "") {
-                          toast.error("Please select a size!", {
-                            autoClose:1000, // Duration in milliseconds
-                            });
-                          return;
-                        }
-                        const j1 = data.stock.find(
-                          (val) => val.size === selectedSize
-                        );
-                        console.log("object data", data);
-                        addToCartHandler2(data, selectedSize, count);
-                        setOpenCart(true); // Set the cart to open
+                      {/* Add to But Now Button */}
+                      <div
+                        className={`${styles.button} !mt-6 !rounded !h-11 flex items-center !bg-flipkart-orange`}
+                        onClick={() => {
+                          if (selectedSize === "") {
+                            toast.error("Please select a size!", {
+                              autoClose: 1000, // Duration in milliseconds
+                            });
+                            return;
+                          }
+                          const j1 = data.stock.find(
+                            (val) => val.size === selectedSize
+                          );
+                          console.log("object data", data);
+                          addToCartHandler2(data, selectedSize, count);
+                          setOpenCart(true); // Set the cart to open
 
 
-                      }}
-                    >
-                      <span className="text-white flex items-center">
-                        Buy Now
-                        
+                        }}
+                      >
+                        <span className="text-white flex items-center font-bold">
+                          Buy Now
+
                           <BsHandbag
                             size={20}
                             color="white"
                             className="ml-2"
                             title="Remove from wishlist"
                           />
-                      </span>
-                    </div>
-                    {openCart ? <Cart setOpenCart={setOpenCart} /> : null}
+                        </span>
+                      </div>
+                      {openCart ? <Cart setOpenCart={setOpenCart} /> : null}
 
+                    </div>
                   </div>
                 </div>
-              </div>
 
                 {/* for large screen */}
                 <div className=" hidden md:block items-center mt-6">
                   <div className="flex">
                     <div
-                      className={`${styles.button} !mt-6 !rounded !h-11 flex items-center mr-10`}
+                      className={`${styles.button} !mt-6 !rounded !h-11 flex items-center mr-10 !bg-flipkart-yellow`}
                       onClick={() => {
                         if (selectedSize === "") {
                           toast.error("Please select a size!", {
-                            autoClose:1000, // Duration in milliseconds
-                            });
+                            autoClose: 1000, // Duration in milliseconds
+                          });
                           return;
                         }
                         const j1 = data.stock.find(
@@ -503,19 +502,19 @@ const ProductDetails =  ({ data }) => {
                         addToCartHandler2(data, selectedSize, count);
                       }}
                     >
-                      <span className="text-white flex items-center">
+                      <span className="text-white flex items-center font-bold">
                         Add to Cart{" "}
                         <AiOutlineShoppingCart className="ml-2" size={20} />
                       </span>
                     </div>
 
                     <div
-                      className={`${styles.button} !mt-6 !rounded !h-11 flex items-center`}
+                      className={`${styles.button} !mt-6 !rounded !h-11 flex items-center !bg-flipkart-orange`}
                       onClick={() => {
                         if (selectedSize === "") {
                           toast.error("Please select a size!", {
-                            autoClose:1000, // Duration in milliseconds
-                            });
+                            autoClose: 1000, // Duration in milliseconds
+                          });
                           return;
                         }
                         const j1 = data.stock.find(
@@ -528,16 +527,16 @@ const ProductDetails =  ({ data }) => {
 
                       }}
                     >
-                      <span className="text-white flex items-center">
+                      <span className="text-white flex items-center font-bold">
                         Buy Now
-                        
-                          <BsHandbag
-                            size={20}
-                            color="white"
-                            className="ml-2"
-                            title="Remove from wishlist"
-                          />
-                         
+
+                        <BsHandbag
+                          size={20}
+                          color="white"
+                          className="ml-2"
+                          title="Remove from wishlist"
+                        />
+
                       </span>
                     </div>
                     {openCart ? <Cart setOpenCart={setOpenCart} /> : null}
@@ -546,40 +545,40 @@ const ProductDetails =  ({ data }) => {
                 </div>
 
                 {/* for shop */}
-                <div className=" hidden md:block items-center pt-8">
+                {/* <div className=" hidden md:block items-center pt-8">
                   <div className="flex pt-5">
-                  <Link to={`/shop/preview/${data?.shop._id}`}>
-                  <div className="w-[80px] h-[80px] flex items-center justify-center rounded-full bg-slate-200">
-                
-                  <BsShop
-                    className="w-[50px] h-[50px] text-black-500 object-contain"
-                  />
+                    <Link to={`/shop/preview/${data?.shop._id}`}>
+                      <div className="w-[80px] h-[80px] flex items-center justify-center rounded-full bg-slate-200">
 
-        </div>
-                  </Link>
-                  
-                   {/*<img
+                        <BsShop
+                          className="w-[50px] h-[50px] text-black-500 object-contain"
+                        />
+
+                      </div>
+                    </Link>
+
+                    {/*<img
                       src={`${adminuser?.avatar?.url}`}
                       alt=""
                       className="w-[50px] h-[50px] rounded-full mr-2"
                 />*/}
-                 
-                  <div className="pr-8">
-                    <Link to={`/shop/preview/${data?.shop._id}`}>
-                      <h3 className={`${styles.shop_name} pb-1 pt-1`}>
-                        {data.shop.name}
-                      </h3>
-                    </Link>
-                   
+
+                    {/* <div className="pr-8">
+                      <Link to={`/shop/preview/${data?.shop._id}`}>
+                        <h3 className={`${styles.shop_name} pb-1 pt-1`}>
+                          {data.shop.name}
+                        </h3>
+                      </Link> */}
+
                       {/* <h3 className={`${styles.shop_name} pb-1 pt-1`}>
                         {adminuser?.name}
                       </h3> */}
-                    
-                    <h5 className="pb-3 text-[15px]" ref={sectionRef}>
-                      ({averageRating}/5) Ratings
-                    </h5>
-                  </div>
-                  {/* <div
+
+                      {/* <h5 className="pb-3 text-[15px]" ref={sectionRef}>
+                        ({averageRating}/5) Ratings
+                      </h5>
+                    </div> */}
+                    {/* <div
                     className={`${styles.button} bg-[#6443d1] mt-4 !rounded !h-11`}
                     onClick={handleMessageSubmit}
                   >
@@ -587,13 +586,13 @@ const ProductDetails =  ({ data }) => {
                       Send Message1 <AiOutlineMessage className="ml-1" />
                     </span>
                     </div> */}
-                  </div>
-                </div>
+                  {/* </div> */}
+                {/* </div> */}
               </div>
             </div>
           </div>
           <ProductDetailsInfo
-          a={a}
+            a={a}
             data={data}
             products={products}
             totalReviewsLength={totalReviewsLength}
@@ -615,16 +614,16 @@ const ProductDetailsInfo = ({
   averageRating,
   a,
 }) => {
-  const [active, setActive] = useState(1);
+  const [active, setActive] = useState(3);
   const getFirstLetter = (name) => {
     if (!name) return '';
     return name.charAt(0).toUpperCase();
-}
-  useEffect(()=>{
-    if(a!=0){
+  }
+  useEffect(() => {
+    if (a != 0) {
       setActive(2)
     }
-  },[a])
+  }, [a])
   return (
     <div className="bg-[#f5f6fb] px-3 800px:px-10 py-2 rounded">
       <div className="w-full flex justify-between border-b pt-10 pb-2">
@@ -661,7 +660,7 @@ const ProductDetailsInfo = ({
             }
             onClick={() => setActive(3)}
           >
-            Seller Information
+            Shop Profile
           </h5>
           {active === 3 ? (
             <div className={`${styles.active_indicator}`} />
@@ -670,8 +669,8 @@ const ProductDetailsInfo = ({
       </div>
       {active === 1 ? (
         <>
-<p className="py-2 text-[18px] leading-8 pb-10 whitespace-pre-line overflow-hidden break-words">
-              {data.description}
+          <p className="py-2 text-[16px] pb-10 whitespace-pre-line overflow-hidden break-words">
+            {data.description}
           </p>
         </>
       ) : null}
@@ -682,10 +681,10 @@ const ProductDetailsInfo = ({
             data.reviews.map((item, index) => (
               <div className="w-full flex my-2">
                 <div className="w-[40px] h-[40px] flex items-center justify-center rounded-full bg-slate-200">
-                      <div className="w-[50px] h-[50px] flex items-center justify-center text-blue-300 text-3xl font-bold">
-                        {getFirstLetter(item?.user?.name)}
-                      </div>          
-                    </div>
+                  <div className="w-[50px] h-[50px] flex items-center justify-center text-blue-300 text-3xl font-bold">
+                    {getFirstLetter(item?.user?.name)}
+                  </div>
+                </div>
                 <div className="pl-2 ">
                   <div className="w-full flex items-center">
                     <h1 className="font-[500] mr-3">{item.user.name}</h1>
@@ -709,14 +708,14 @@ const ProductDetailsInfo = ({
           <div className="w-full 800px:w-[50%]">
             <Link to={`/shop/preview/${data.shop._id}`}>
               <div className="flex items-center">
-              <div className="w-[80px] h-[80px] flex items-center justify-center rounded-full bg-slate-200">
-                
-                <BsShop
-                  className="w-[50px] h-[50px] text-black-500 object-contain"
-                />
+                <div className="w-[80px] h-[80px] flex items-center justify-center rounded-full bg-slate-200">
 
-      </div>
-              <div className="pl-3">
+                  <BsShop
+                    className="w-[50px] h-[50px] text-black-500 object-contain"
+                  />
+
+                </div>
+                <div className="pl-3">
                   <h3 className={`${styles.shop_name}`}>{data.shop.name}</h3>
                   <h5 className="pb-2 text-[15px]">
                     ({averageRating}/5) Ratings
@@ -724,16 +723,16 @@ const ProductDetailsInfo = ({
                 </div>
               </div>
             </Link>
-            <p className="pt-2">{data.shop.description}</p>
+            {/* <p className="pt-2">{data.shop.description}</p> */}
           </div>
           <div className="w-full 800px:w-[50%] mt-5 800px:mt-0 800px:flex flex-col items-end">
             <div className="text-left">
-              <h5 className="font-[600]">
+              {/* <h5 className="font-[600]">
                 Joined on:{" "}
                 <span className="font-[500]">
                   {data.shop?.createdAt?.slice(0, 10)}
                 </span>
-              </h5>
+              </h5> */}
               <h5 className="font-[600] pt-3">
                 Total Products:{" "}
                 <span className="font-[500]">
@@ -746,7 +745,7 @@ const ProductDetailsInfo = ({
               </h5>
               <Link to={`/shop/preview/${data.shopId}`}>
                 <div
-                  className={`${styles.button} !rounded-[4px] !h-[39.5px] mt-3`}
+                  className={`${styles.button} !rounded-[4px] !h-[39.5px] mt-3 !bg-flipkart-blue`}
                 >
                   <h4 className="text-white">Visit Shop</h4>
                 </div>

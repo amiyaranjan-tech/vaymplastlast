@@ -288,7 +288,7 @@ const Header = ({ activeHeading }) => {
               ) : null}
             </div>
 
-            <div className={`${styles.button}`}>
+            <div className={`${styles.button} !bg-[#142337]`}>
               <Link to={`${isSeller ? "/dashboard" : "/shop-create"}`}>
                 <h1 className="text-[#fff] flex items-center">
                   {isSeller ? "Go Dashboard" : "Become Seller"}{" "}
@@ -300,7 +300,7 @@ const Header = ({ activeHeading }) => {
         </div>
         <div
           className={`${active === true ? "shadow-sm fixed top-0 left-0 z-10" : null
-            } transition hidden 800px:flex items-center justify-between w-full bg-[#3321c8] h-[60px]`}
+            } transition hidden 800px:flex items-center justify-between w-full bg-flipkart-blue h-[60px]`}
         >
           <div
             className={`${styles.section} relative ${styles.noramlFlex} justify-between `}
@@ -571,42 +571,42 @@ const Header = ({ activeHeading }) => {
               <div className="flex flex-col">
                 <Link
                   to="/profile"
-                  className={` ${isActive('/profile') ? "text-[#17dd1f]" : "text-black 800px:text-[#fff]"} pb-[30px] 800px:pb-0 font-[500] px-6 cursor-pointer`}
+                  className={` ${isActive('/profile') ? "text-yellow-500" : "text-black 800px:text-[#fff]"} pb-[30px] 800px:pb-0 font-[500] px-6 cursor-pointer`}
                 >
                   Profile
                 </Link>
                 <Link
                   to='/orders'
-                  className={` ${isActive('/orders') ? "text-[#17dd1f]" : "text-black 800px:text-[#fff]"} pb-[30px] 800px:pb-0 font-[500] px-6 cursor-pointer`}
+                  className={` ${isActive('/orders') ? "text-yellow-500"  : "text-black 800px:text-[#fff]"} pb-[30px] 800px:pb-0 font-[500] px-6 cursor-pointer`}
                 >
                   Orders
                 </Link>
                 <Link
                   to='/Address'
-                  className={` ${isActive('/Address') ? "text-[#17dd1f]" : "text-black 800px:text-[#fff]"} pb-[30px] 800px:pb-0 font-[500] px-6 cursor-pointer`}
+                  className={` ${isActive('/Address') ? "text-yellow-500"  : "text-black 800px:text-[#fff]"} pb-[30px] 800px:pb-0 font-[500] px-6 cursor-pointer`}
                 >
                   Address
                 </Link>
                 <Link
                   to='/inbox'
-                  className={` ${isActive('/inbox') ? "text-[#17dd1f]" : "text-black 800px:text-[#fff]"} pb-[30px] 800px:pb-0 font-[500] px-6 cursor-pointer`}
+                  className={` ${isActive('/inbox') ? "text-yellow-500"  : "text-black 800px:text-[#fff]"} pb-[30px] 800px:pb-0 font-[500] px-6 cursor-pointer`}
                 >
                   Inbox
                 </Link>
                 <Link
                   to='/Refund'
-                  className={` ${isActive('/Refund') ? "text-[#17dd1f]" : "text-black 800px:text-[#fff]"} pb-[30px] 800px:pb-0 font-[500] px-6 cursor-pointer`}
+                  className={` ${isActive('/Refund') ? "text-yellow-500"  : "text-black 800px:text-[#fff]"} pb-[30px] 800px:pb-0 font-[500] px-6 cursor-pointer`}
                 >
                   Refund
                 </Link>
                 <Link
                   to='/Track'
-                  className={` ${isActive('/Track') ? "text-[#17dd1f]" : "text-black 800px:text-[#fff]"} pb-[30px] 800px:pb-0 font-[500] px-6 cursor-pointer`}
+                  className={` ${isActive('/Track') ? "text-yellow-500"  : "text-black 800px:text-[#fff]"} pb-[30px] 800px:pb-0 font-[500] px-6 cursor-pointer`}
                 >
                   TrackOrder
                 </Link>
               </div>
-               <div className={`${styles.button} ml-12`}>
+               <div className={`${styles.button} !bg-[#142337] ml-12`}>
               <Link to={`${isSeller ? "/dashboard" : "/shop-create"}`}>
                 <h1 className="text-[#fff] flex items-center">
                   {isSeller ? "Go Dashboard" : "Become Seller"}{" "}
