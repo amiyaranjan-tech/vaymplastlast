@@ -4,8 +4,7 @@ import styles from "../../styles/styles";
 import { Link, useNavigate } from "react-router-dom";
 import { MdBorderClear } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllOrdersOfShop } from "../../redux/actions/order";
-import { RxCross1 } from "react-icons/rx";
+import { getAllOrdersOfShop } from "../../redux/actions/order";import { RxCross1 } from "react-icons/rx";
 import { server } from "../../server";
 import axios from "axios";
 
@@ -64,7 +63,7 @@ const DashboardHero = () => {
           size: val.size,
           image: val.img,
           itemsQty: 1,
-          total: "US$ " + val.markedPrice,
+          total: "US$ " + val.shopPrice,
           status: val.status,
           address: val.shippingAddress,
           userId: val.userId,
@@ -117,38 +116,23 @@ const DashboardHero = () => {
     }
   };
   
-  // const handleShopStatus = async () => {
-  //   const confirmation = showShopStatus
-  //     ? window.confirm("Do you want to close the shop?")
-  //     : window.confirm("Do you want to open the shop?");
-  //   if (confirmation) {
-  //     try {
-  //       const newShopStatus = !showShopStatus;
-  //       setShowShopStatus(newShopStatus);
-  //       window.location.reload();
-  //       await dispatch(updateShopStatus(seller._id, newShopStatus));
-  //     } catch (error) {
-  //       console.error(`Error updating shop status:`, error);
-  //     }
-  //   }
-  // };
+
+   // Ensure that shopId and newStockValue are correctly passed to updateNewStockNotification
+   const handleShopStatus = async () => {
+    try {
+      const newShopStatus = !showShopStatus; // Toggle the new stock value
+      setShowShopStatus(newShopStatus); // Update the local state if the backend update is successful
+      // Make a request to update the new stock notification in the backend
+      const response = await dispatch(updateShopStatus(seller._id, newShopStatus));
+      window.location.reload();
 
 
- // Ensure that shopId and newStockValue are correctly passed to updateNewStockNotification
- const handleShopStatus = async () => {
-  try {
-    const newShopStatus = !showShopStatus; // Toggle the new stock value
-    setShowShopStatus(newShopStatus); // Update the local state if the backend update is successful
-    // Make a request to update the new stock notification in the backend
-    const response = await dispatch(updateShopStatus(seller._id, newShopStatus));
-    // toast.success(`Your shop is ${newShopStatus ? "open" : "closed"}`);
-    window.location.reload();
+    } catch (error) {
+      console.error(`Error updating new stock notification:`, error);
+    }
+  };
 
 
-  } catch (error) {
-    console.error(`Error updating new stock notification:`, error);
-  }
-};
 
 
   useEffect(() => {
@@ -235,6 +219,18 @@ const DashboardHero = () => {
   };
   
 
+  // const row = [];
+
+  // orders &&
+  //   orders.forEach((item) => {
+  //     row.push({
+  //       id: item._id,
+  //       itemsQty: item.cart.reduce((acc, item) => acc + item.qty, 0),
+  //       total: "Rs" + item.totalPrice,
+  //       status: item.status,
+  //     });
+  //   });
+
   return (
     <div className="w-full p-8">
       <h3 className="text-[22px] font-Poppins pb-2">Overview</h3>
@@ -252,109 +248,108 @@ const DashboardHero = () => {
           showShopStatus ? "bg-blue-500 text-white" : "bg-red-500 text-white"
         }`}
         onClick={() =>setOpen(true)}
-      >
-        {showShopStatus ? "Open Your Shop" : "Close Your Shop"}
-      </button>
-      {open && (
-          <div className="w-full fixed top-0 left-0 z-[999] bg-[#00000039] flex items-center justify-center h-screen">
-            <div className="w-[95%] 800px:w-[40%] min-h-[20vh] bg-white rounded shadow p-5">
-              <div className="w-full flex justify-end cursor-pointer">
-                <RxCross1 size={25} onClick={() => setOpen(false)} />
-              </div>
-              <h3 className="text-[25px] text-center py-5 font-Poppins text-[#000000cb]">
-                {showShopStatus ? "Are you sure you want to close your shop?" : "Are you sure you want to open your shop?"}
-              </h3>
-              <div className="w-full flex items-center justify-center">
-                <div
-                  className={`${styles.button} text-white text-[18px] !h-[42px] mr-4`}
-                  onClick={() => setOpen(false)}
-                >
-                  Cancel
+        >
+          {showShopStatus ? "Open Your Shop" : "Close Your Shop"}
+        </button>
+        {open && (
+            <div className="w-full fixed top-0 left-0 z-[999] bg-[#00000039] flex items-center justify-center h-screen">
+              <div className="w-[95%] 800px:w-[40%] min-h-[20vh] bg-white rounded shadow p-5">
+                <div className="w-full flex justify-end cursor-pointer">
+                  <RxCross1 size={25} onClick={() => setOpen(false)} />
                 </div>
-                <div
-                  className={`${styles.button} text-white text-[18px] !h-[42px] ml-4`}
-                  onClick={() => {
-                    setOpen(false);
-                    handleShopStatus();
-                  }}
-                >
-                  Confirm
+                <h3 className="text-[25px] text-center py-5 font-Poppins text-[#000000cb]">
+                  {showShopStatus ? "Are you sure you want to close your shop?" : "Are you sure you want to open your shop?"}
+                </h3>
+                <div className="w-full flex items-center justify-center">
+                  <div
+                    className={`${styles.button} text-white text-[18px] !h-[42px] mr-4`}
+                    onClick={() => setOpen(false)}
+                  >
+                    Cancel
+                  </div>
+                  <div
+                    className={`${styles.button} text-white text-[18px] !h-[42px] ml-4`}
+                    onClick={() => {
+                      setOpen(false);
+                      handleShopStatus();
+                    }}
+                  >
+                    Confirm
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        )}
-      </div>
-      <br></br>
-      <div className="w-full block 800px:flex items-center justify-between">
-        <div className="w-full mb-4 800px:w-[30%] min-h-[20vh] bg-white shadow rounded px-2 py-5">
-          <div className="flex items-center">
-            <AiOutlineMoneyCollect
-              size={30}
-              className="mr-2"
-              fill="#00000085"
-            />
-            <h3
-              className={`${styles.productTitle} !text-[18px] leading-5 !font-[400] text-[#00000085]`}
-            >
-              Account Balance{" "}
-              <span className="text-[16px]">(with 10% service charge)</span>
-            </h3>
-          </div>
-          <h5 className="pt-2 pl-[36px] text-[22px] font-[500]">Rs.{availableBalance}</h5>          
-          <Link to="/dashboard-withdraw-money">
-          <h5 className="pt-4 pl-[2] text-[#077f9c]">Total Income</h5>
-          </Link>
+          )}
         </div>
-
-        <div className="w-full mb-4 800px:w-[30%] min-h-[20vh] bg-white shadow rounded px-2 py-5">
-          <div className="flex items-center">
-            <MdBorderClear size={30} className="mr-2" fill="#00000085" />
-            <h3
-              className={`${styles.productTitle} !text-[18px] leading-5 !font-[400] text-[#00000085]`}
-            >
-              All Orders
-            </h3>
+        <br></br>
+        <div className="w-full block 800px:flex items-center justify-between">
+          <div className="w-full mb-4 800px:w-[30%] min-h-[20vh] bg-white shadow rounded px-2 py-5">
+            <div className="flex items-center">
+              <AiOutlineMoneyCollect
+                size={30}
+                className="mr-2"
+                fill="#00000085"
+              />
+              <h3
+                className={`${styles.productTitle} !text-[18px] leading-5 !font-[400] text-[#00000085]`}
+              >
+                Account Balance{" "}
+              </h3>
+            </div>
+            <h5 className="pt-2 pl-[36px] text-[22px] font-[500]">Rs.{availableBalance}</h5>          
+            <Link to="/dashboard-withdraw-money">
+            <h5 className="pt-4 pl-[2] text-[#077f9c]">Total Income</h5>
+            </Link>
           </div>
-          <h5 className="pt-2 pl-[36px] text-[22px] font-[500]">{row && row.length}</h5>
-          <Link to="/dashboard-orders">
-            <h5 className="pt-4 pl-2 text-[#077f9c]">View Orders</h5>
-          </Link>
+  
+          <div className="w-full mb-4 800px:w-[30%] min-h-[20vh] bg-white shadow rounded px-2 py-5">
+            <div className="flex items-center">
+              <MdBorderClear size={30} className="mr-2" fill="#00000085" />
+              <h3
+                className={`${styles.productTitle} !text-[18px] leading-5 !font-[400] text-[#00000085]`}
+              >
+                All Orders
+              </h3>
+            </div>
+            <h5 className="pt-2 pl-[36px] text-[22px] font-[500]">{row && row.length}</h5>
+            <Link to="/dashboard-orders">
+              <h5 className="pt-4 pl-2 text-[#077f9c]">View Orders</h5>
+            </Link>
+          </div>
+  
+          <div className="w-full mb-4 800px:w-[30%] min-h-[20vh] bg-white shadow rounded px-2 py-5">
+            <div className="flex items-center">
+              <AiOutlineMoneyCollect
+                size={30}
+                className="mr-2"
+                fill="#00000085"
+              />
+              <h3
+                className={`${styles.productTitle} !text-[18px] leading-5 !font-[400] text-[#00000085]`}
+              >
+                All Products
+              </h3>
+            </div>
+            <h5 className="pt-2 pl-[36px] text-[22px] font-[500]">{products && products.length}</h5>
+            <Link to="/dashboard-products">
+              <h5 className="pt-4 pl-2 text-[#077f9c]">View Products</h5>
+            </Link>
+          </div>
         </div>
-
-        <div className="w-full mb-4 800px:w-[30%] min-h-[20vh] bg-white shadow rounded px-2 py-5">
-          <div className="flex items-center">
-            <AiOutlineMoneyCollect
-              size={30}
-              className="mr-2"
-              fill="#00000085"
-            />
-            <h3
-              className={`${styles.productTitle} !text-[18px] leading-5 !font-[400] text-[#00000085]`}
-            >
-              All Products
-            </h3>
-          </div>
-          <h5 className="pt-2 pl-[36px] text-[22px] font-[500]">{products && products.length}</h5>
-          <Link to="/dashboard-products">
-            <h5 className="pt-4 pl-2 text-[#077f9c]">View Products</h5>
-          </Link>
+        <br />
+        <h3 className="text-[22px] font-Poppins pb-2">Latest Orders</h3>
+        <div className="w-full min-h-[45vh] bg-white rounded">
+          <DataGrid
+            rows={row}
+            columns={columns}
+            pageSize={10}
+            onRowClick={handleRowClick}
+            disableSelectionOnClick
+            autoHeight
+          />
         </div>
       </div>
-      <br />
-      <h3 className="text-[22px] font-Poppins pb-2">Latest Orders</h3>
-      <div className="w-full min-h-[45vh] bg-white rounded">
-        <DataGrid
-          rows={row}
-          columns={columns}
-          pageSize={10}
-          onRowClick={handleRowClick}
-          disableSelectionOnClick
-          autoHeight
-        />
-      </div>
-    </div>
-  );
-};
-
-export default DashboardHero;
+    );
+  };
+  
+  export default DashboardHero;

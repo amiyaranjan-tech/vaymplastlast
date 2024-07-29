@@ -88,9 +88,7 @@ const AllProducts = () => {
           <Loader />
         ) : (
           !filteredProducts || filteredProducts.length === 0 ? (
-            <div className="flex justify-center items-center h-[50vh]">
-          <p className="text-xl">No Products listed</p>
-        </div>
+            <p>No products found.</p>
           ) : (
             filteredProducts.map((product) => (
 
@@ -163,4 +161,3 @@ const AllProducts = () => {
 };
 
 export default AllProducts;
-

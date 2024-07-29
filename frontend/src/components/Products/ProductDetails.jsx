@@ -26,6 +26,8 @@ import Ratings from "./Ratings";
 import axios from "axios";
 import Cart from "../cart/Cart";
 import { BsHandbag } from "react-icons/bs";
+import { IoShareSocialOutline } from "react-icons/io5";
+// import { BsSortNumericDownAlt } from "react-icons/bs";
 
 const ProductDetails = ({ data }) => {
   const [openCart, setOpenCart] = useState(false);
@@ -41,6 +43,9 @@ const ProductDetails = ({ data }) => {
   const [showDescription, setShowDescription] = useState(false);
   const [a, seta] = useState(0);
   const sectionRef = useRef(null)
+
+
+  console.log("ddddddddddddd", select)
   const handleMouseEnter = () => {
     setShowDescription(true);
   };
@@ -246,18 +251,40 @@ const ProductDetails = ({ data }) => {
           <div className="w-full sm:py-5 lg:py-10">
             <div className="block w-full 800px:flex">
               <div className="w-full 800px:w-[50%] relative">
-                <img
-                  src={`${data && data.images[select]?.url}`}
-                  alt=""
-                  className="w-full sm:w-[80%] mx-auto border border-gray-300 m-3 p-1 rounded"
-                  style={{ transitionDelay: "800ms" }}
-                />
+                <div className="md:hidden">
+                  <div
+                    className="relative overflow-hidden"
+                    style={{ width: '100%', height: 'auto', whiteSpace: 'nowrap', overflowX: 'scroll' }}
+                  >
+                    <div className="flex">
+                      {data.images.map((i, index) => (
+                        <img
+                          key={index}
+                          src={`${i?.url}`}
+                          alt=""
+                          className={`inline-block h-[400px] object-contain border border-gray-300 rounded mr-2 cursor-pointer ${select === index ? "border-blue-500" : ""
+                            }`}
+                          onClick={() => setSelect(index)}
+                          style={{ minWidth: 'calc(100% - 40px)', marginRight: '5px' }}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                </div>
+                <div className="hidden md:block">
+                  <img
+                    src={`${data && data.images[select]?.url}`}
+                    alt=""
+                    className="w-full sm:w-[80%] mx-auto border border-gray-300 m-3 p-1 rounded"
+                    style={{ transitionDelay: "800ms" }}
+                  />
+                </div>
                 <div className="absolute top-2 right-2">
                   {click ? (
                     <AiFillHeart
                       size={30}
                       color="red"
-                      className="ml-2"
+                      className="pb-1"
                       title="Remove from wishlist"
                       onClick={() => {
                         removeFromWishlistHandler(data);
@@ -265,8 +292,8 @@ const ProductDetails = ({ data }) => {
                     />
                   ) : (
                     <AiOutlineHeart
-                      size={34}
-                      className="ml-2 text-blue-400 "
+                      size={30}
+                      className=" text-gray-600 pb-1"
                       title="Add to wishlist"
                       onClick={() => {
                         addToWishlistHandler(data);
@@ -274,30 +301,32 @@ const ProductDetails = ({ data }) => {
                     />
                   )}
 
-                  <RiShareForwardLine
-                    size={34}
-                    className="ml-2 text-blue-400"
+                  <IoShareSocialOutline
+                    size={30}
+                    className="text-gray-600 pt-1"
                     title="Share this product"
                     onClick={copyToClipboard}
                   />
 
                 </div>
-                <div className="w-full flex p-2 py-0 lg:pl-12">
-                  {data &&
-                    data.images.map((i, index) => (
-                      <div
-                        key={index}
-                        className={`${select === 0 ? "border" : "" // Remove "null"
-                          } cursor-pointer`}
-                      >
-                        <img
-                          src={`${i?.url}`}
-                          alt=""
-                          className="h-[60px] overflow-hidden mr-3 mt-3 sm:hover:cursor"
-                          onClick={() => setSelect(index)}
-                        />
-                      </div>
-                    ))}
+                <div className="hidden md:block">
+                  <div className="w-full flex p-2 py-0 lg:pl-12">
+                    {data &&
+                      data.images.map((i, index) => (
+                        <div
+                          key={index}
+                          className={`${select === 0 ? "border" : "" // Remove "null"
+                            } cursor-pointer`}
+                        >
+                          <img
+                            src={`${i?.url}`}
+                            alt=""
+                            className="h-[60px] overflow-hidden mr-3 mt-3 sm:hover:cursor"
+                            onClick={() => setSelect(index)}
+                          />
+                        </div>
+                      ))}
+                  </div>
                   <div
                     className={`${select === 1 ? "border" : "null"
                       } cursor-pointer`}
@@ -446,7 +475,7 @@ const ProductDetails = ({ data }) => {
                         </span>
                       </div>
 
-                      {/* Add to But Now Button */}
+                      {/* Add to Wishlist Button */}
                       <div
                         className={`${styles.button} !mt-6 !rounded !h-11 flex items-center !bg-flipkart-orange`}
                         onClick={() => {
@@ -545,8 +574,8 @@ const ProductDetails = ({ data }) => {
                 </div>
 
                 {/* for shop */}
-                {/* <div className=" hidden md:block items-center pt-8">
-                  <div className="flex pt-5">
+                {/* <div className=" hidden md:block items-center pt-8"> */}
+                {/* <div className="flex pt-5">
                     <Link to={`/shop/preview/${data?.shop._id}`}>
                       <div className="w-[80px] h-[80px] flex items-center justify-center rounded-full bg-slate-200">
 
@@ -555,30 +584,30 @@ const ProductDetails = ({ data }) => {
                         />
 
                       </div>
-                    </Link>
+                    </Link> */}
 
-                    {/*<img
+                {/*<img
                       src={`${adminuser?.avatar?.url}`}
                       alt=""
                       className="w-[50px] h-[50px] rounded-full mr-2"
                 />*/}
 
-                    {/* <div className="pr-8">
+                {/* <div className="pr-8">
                       <Link to={`/shop/preview/${data?.shop._id}`}>
                         <h3 className={`${styles.shop_name} pb-1 pt-1`}>
                           {data.shop.name}
                         </h3>
                       </Link> */}
 
-                      {/* <h3 className={`${styles.shop_name} pb-1 pt-1`}>
+                {/* <h3 className={`${styles.shop_name} pb-1 pt-1`}>
                         {adminuser?.name}
                       </h3> */}
 
-                      {/* <h5 className="pb-3 text-[15px]" ref={sectionRef}>
+                {/* <h5 className="pb-3 text-[15px]" ref={sectionRef}>
                         ({averageRating}/5) Ratings
                       </h5>
                     </div> */}
-                    {/* <div
+                {/* <div
                     className={`${styles.button} bg-[#6443d1] mt-4 !rounded !h-11`}
                     onClick={handleMessageSubmit}
                   >
@@ -586,8 +615,8 @@ const ProductDetails = ({ data }) => {
                       Send Message1 <AiOutlineMessage className="ml-1" />
                     </span>
                     </div> */}
-                  {/* </div> */}
-                {/* </div> */}
+                {/* </div>
+                </div> */}
               </div>
             </div>
           </div>
@@ -745,7 +774,7 @@ const ProductDetailsInfo = ({
               </h5>
               <Link to={`/shop/preview/${data.shopId}`}>
                 <div
-                  className={`${styles.button} !rounded-[4px] !h-[39.5px] mt-3 !bg-flipkart-blue`}
+                  className={`${styles.button} !bg-flipkart-blue !rounded-[4px] !h-[39.5px] mt-3`}
                 >
                   <h4 className="text-white">Visit Shop</h4>
                 </div>
