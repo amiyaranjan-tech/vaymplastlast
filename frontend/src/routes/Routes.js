@@ -29,6 +29,8 @@ import TrackOrderr from "../pages/TrackOrderr.jsx";
 import ShopForgotPassword from "../components/Shop/ShopForgotPassword.jsx";
 import ShopResetPassword from "../components/Shop/ShopResetPassword.jsx";
 import Cart from "../components/cart/Cart.jsx";
+import SuccessfulRefunds from "../components/Shop/SuccessfulRefunds.jsx";
+import ProcessingRefunds from "../components/Shop/ProcessingRefunds.jsx";
 import Wishlist from "../components/Wishlist/Wishlist.jsx";
 import Categories from "../components/Route/Categories/Categories.jsx";
 export { 
@@ -39,6 +41,8 @@ export {
     ActivationPage,
     HomePage,
     ProductsPage,
+    SuccessfulRefunds,
+    ProcessingRefunds,
     // BestSellingPage,
     ComingSoon,
     EventsPage,

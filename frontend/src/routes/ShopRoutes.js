@@ -9,6 +9,8 @@ import ShopPreviewPage from "../pages/Shop/ShopPreviewPage";
 import ShopPreviewPageForShop from "../pages/Shop/ShopPreviewPageForShop";
 import ShopAllOrders from "../pages/Shop/ShopAllOrders";
 import ShopOrderDetails from "../pages/Shop/ShopOrderDetails";
+import ShopSuccessfulRefunds from "../pages/Shop/ShopSuccessfulRefunds";
+import ShopProcessingRefunds from "../pages/Shop/ShopProcessingRefunds";
 import ShopAllRefunds from "../pages/Shop/ShopAllRefunds";
 import ShopSettingsPage from "../pages/Shop/ShopSettingsPage";
 import ShopWithDrawMoneyPage from "../pages/Shop/ShopWithDrawMoneyPage";
@@ -16,6 +18,8 @@ import ShopInboxPage from "../pages/Shop/ShopInboxPage";
 
 export {
     ShopDashboardPage,
+    ShopSuccessfulRefunds,
+    ShopProcessingRefunds,
     ShopCreateProduct,
     ShopAllProducts,
     ShopCreateEvents,
