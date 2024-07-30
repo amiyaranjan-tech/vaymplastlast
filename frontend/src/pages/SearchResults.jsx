@@ -922,7 +922,7 @@ console.log("hfejshmehgmfe,")
                   {dropdowns.customerRatings &&
                     [
                       { label: "3 and below", value: "3-and-below" },
-                      { label: "3 to 4", value: "3-to-4" },
+                      { label: "3 and above", value: "3-to-4" },
                       { label: "4 and above", value: "4-and-above" },
                     ].map((rating) => (
                       <label key={rating.id} className="block ml-2">
@@ -948,7 +948,7 @@ console.log("hfejshmehgmfe,")
                     {dropdowns.priceRanges ? <AiOutlineCaretUp /> : <AiOutlineCaretDown />}
                   </h3>
                   {dropdowns.priceRanges &&
-                    ["0-50", "51-100", "101-200", "1501-1700", "700-1500"].map((range) => (
+                    ["0-500", "501-1000", "1001-1500", "1501-2000", "2001-10000"].map((range) => (
                       <label key={range} className="block ml-2">
                         <input
                           type="checkbox"
@@ -956,7 +956,7 @@ console.log("hfejshmehgmfe,")
                           checked={filters.priceRanges.includes(range)}
                           onChange={() => handleCheckboxChange("priceRanges", range)}
                         />
-                        {`RS.${range.split('-')[0]} - Rs.${range.split('-')[1]}`}
+                        {`₹${range.split('-')[0]} - ₹${range.split('-')[1]}`}
                       </label>
                     ))}
                 </div>

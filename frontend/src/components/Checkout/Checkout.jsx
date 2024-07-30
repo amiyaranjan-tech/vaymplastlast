@@ -478,11 +478,11 @@ const CartData = ({
       <br />
       <div className="flex justify-between">
         <h5 className="text-[16px] font-[400]">Subtotal:</h5>
-        <h5 className="text-[16px] font-[400]">${subTotalPrice}</h5>
+        <h5 className="text-[16px] font-[400]">₹{subTotalPrice}</h5>
       </div>
       <div className="flex justify-between">
         <h5 className="text-[16px] font-[400]">Shipping:</h5>
-        <h5 className="text-[16px] font-[400]">${shipping.toFixed(2)}</h5>
+        <h5 className="text-[16px] font-[400]">₹{shipping.toFixed(2)}</h5>
       </div>
       <div className="flex justify-between border-b pb-3">
         <h5 className="text-[16px] font-[400]">Discount:</h5>
@@ -492,7 +492,7 @@ const CartData = ({
       </div>
       <div className="flex justify-between pt-3">
         <h5 className="text-[18px] font-[600]">Total:</h5>
-        <h5 className="text-[18px] font-[600]">${totalPrice}</h5>
+        <h5 className="text-[18px] font-[600]">₹{totalPrice}</h5>
       </div>
       <br />
       <form onSubmit={handleSubmit}>

@@ -63,7 +63,7 @@ const DashboardHero = () => {
           size: val.size,
           image: val.img,
           itemsQty: 1,
-          total: "US$ " + val.shopPrice,
+          total: "₹" + val.shopPrice,
           status: val.status,
           address: val.shippingAddress,
           userId: val.userId,
@@ -241,7 +241,7 @@ const DashboardHero = () => {
         }`}
         onClick={handleStockNotification}
       >
-        {showNewStock ? "No New Stock" : "New Stock"}
+        {showNewStock ? "No New Stock" : "New Stock Available"}
       </button>
       <button
         className={`py-2 px-4 rounded ${
@@ -262,13 +262,13 @@ const DashboardHero = () => {
                 </h3>
                 <div className="w-full flex items-center justify-center">
                   <div
-                    className={`${styles.button} text-white text-[18px] !h-[42px] mr-4`}
+                    className={`${styles.button} !bg-red-500 text-white text-[18px] !h-[42px] mr-4`}
                     onClick={() => setOpen(false)}
                   >
                     Cancel
                   </div>
                   <div
-                    className={`${styles.button} text-white text-[18px] !h-[42px] ml-4`}
+                    className={`${styles.button} !bg-red-500 text-white text-[18px] !h-[42px] ml-4`}
                     onClick={() => {
                       setOpen(false);
                       handleShopStatus();
@@ -296,7 +296,7 @@ const DashboardHero = () => {
                 Account Balance{" "}
               </h3>
             </div>
-            <h5 className="pt-2 pl-[36px] text-[22px] font-[500]">Rs.{availableBalance}</h5>          
+            <h5 className="pt-2 pl-[36px] text-[22px] font-[500]">₹{availableBalance}</h5>          
             <Link to="/dashboard-withdraw-money">
             <h5 className="pt-4 pl-[2] text-[#077f9c]">Total Income</h5>
             </Link>

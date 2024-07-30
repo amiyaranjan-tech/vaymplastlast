@@ -121,7 +121,7 @@ const AllOrders = () => {
             size: val.size,
             image: val.img, // Replace with actual image URL if available
             itemsQty: 1,
-            total: "US$ " + val.markedPrice,
+            total: "₹" + val.markedPrice,
             status: val.status,
             address: val.shippingAddress,
             userId:val.userId,

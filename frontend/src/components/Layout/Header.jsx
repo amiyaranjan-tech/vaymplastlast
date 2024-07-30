@@ -156,7 +156,7 @@ const Header = ({ activeHeading }) => {
       navigate(`/search/${searchTerm}`);
       setSearchTerm("");
       setSearchData(null);
-      // window.location.reload();
+      window.location.reload();
     }
   };
 

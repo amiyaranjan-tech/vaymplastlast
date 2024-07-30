@@ -99,7 +99,7 @@ const UserOrderDetails = () => {
   useEffect(() => {
     if (data?.delivered) {
       const deliveredAt = new Date(data.deliveredAt).getTime();
-      const currentTime = Date.now;
+      const currentTime = Date.now();
       const returnPeriod = 2 * 24 * 60 * 60 * 1000; // 2 days in milliseconds
 
       if (currentTime - deliveredAt < returnPeriod) {
@@ -227,7 +227,7 @@ const UserOrderDetails = () => {
         `${server}/kuchvi/update-kuchvi/${data.kuchviId}`,
         {
           return1: true,
-          returnedAt: Date.now,
+          returnedAt: Date.now(),
           status: "Return Request",
         }
       );

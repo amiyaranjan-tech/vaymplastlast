@@ -267,7 +267,7 @@ const AllOrders = () => {
             size: val.size,
             image: val.img, 
             itemsQty: 1,
-            total: "Rs " + val.markedPrice,
+            total: "₹" + val.markedPrice,
             status: val.status,
             address: val.shippingAddress,
             userId:val.userId,

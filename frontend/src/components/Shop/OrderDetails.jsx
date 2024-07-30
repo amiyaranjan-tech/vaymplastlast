@@ -50,7 +50,7 @@ const OrderDetails = () => {
           size: val.size,
           image: val.img,
           itemsQty: 1,
-          total: "US$ " + val.markedPrice,
+          total: "₹" + val.markedPrice,
           status: val.status,
           address: val.shippingAddress,
           userId: val.userId,

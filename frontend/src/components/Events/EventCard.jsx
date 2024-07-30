@@ -122,17 +122,17 @@ const EventCard = ({ active, data }) => {
               <span className="ml-1">{Math.round(((data.originalPrice - data.discountPrice) / data.originalPrice) * 100)}%</span>
             </span>
             <h5 className="text-red-500 font-medium text-lg line-through mr-3">
-              Rs.{data.originalPrice}
+            ₹{data.originalPrice}
             </h5>
             <h5 className="text-gray-900 font-bold text-xl">
-              Rs.{data.discountPrice}
+            ₹{data.discountPrice}
             </h5>
           </div>
         </div>
         <CountDown data={data} />
         <div className="mt-4">
           <Link to={`/product/${data._id}?isEvent=true`}>
-          <div className={`${styles.button} bg-gray-900 text-white py-2 px-4 rounded-lg shadow-md hover:bg-black`}>
+          <div className={`${styles.button} !bg-flipkart-blue text-white py-2 px-4 rounded-lg shadow-md`}>
             See Details
             </div>
           </Link>

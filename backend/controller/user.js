@@ -164,7 +164,7 @@ router.get(
   "/logout",
   catchAsyncErrors(async (req, res, next) => {
     res.cookie("token", null, {
-      expires: new Date(Date.now),
+      expires: new Date(Date.now()),
       httpOnly: true,
       sameSite: "None",
       secure: true,
@@ -431,7 +431,7 @@ router.post(
       .createHash("sha256")
       .update(resetToken)
       .digest("hex");
-    user.resetPasswordTime = Date.now + 30 * 60 * 1000; // 30 minutes
+    user.resetPasswordTime = Date.now() + 30 * 60 * 1000; // 30 minutes
 
     // Log the generated reset token and expiration time
     console.log("Generated reset token:", resetToken);
@@ -487,7 +487,7 @@ router.put(
 
     const user = await User.findOne({
       resetPasswordToken,
-      resetPasswordTime: { $gt: Date.now },
+      resetPasswordTime: { $gt: Date.now() },
     });
 
     if (!user) {

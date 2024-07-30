@@ -265,14 +265,14 @@ export const navItems = [
 
   export const subCategory = [
     { id: 1, title: "Tshirt" },
-    { id: 2, title: "Blouses" },
-    { id: 3, title: "Shirts" },
-    { id: 4, title: "Tank tops" },
-    { id: 5, title: "Sweaters" },
-    { id: 6, title: "Hoodies" },
-    { id: 7, title: "Jeans" },
-    { id: 8, title: "Trousers" },
-    { id: 9, title: "Shorts" },
+    { id: 2, title: "Shirts" },
+    { id: 3, title: "Jeans" },
+    { id: 4, title: "tops" },
+    { id: 5, title: "Trousers" },
+    { id: 6, title: "Shorts" },
+    { id: 7, title: "Kurta" },
+    { id: 8, title: "Sweaters" },
+    { id: 9, title: "Hoodies" },
     { id: 10, title: "Skirts" },
     { id: 11, title: "Leggings" },
     { id: 12, title: "Jackets" },
@@ -301,7 +301,9 @@ export const navItems = [
     { id: 35, title: "Briefs" },
     { id: 36, title: "Undershirts" },
     { id: 37, title: "Suits" },
-    { id: 38, title: "Tuxedos" }
+    { id: 38, title: "Tuxedos" },
+    { id: 39, title: "Tank tops" },
+    { id: 40, title: "Blouses" }
   ];
   
   export const sleeveType = [
@@ -315,35 +317,31 @@ export const navItems = [
     },
     {
       id: 3,
-      title: "Short Sleeve",
-    },
-    {
-      id: 4,
       title: "Sleeveless",
-    },
+    }
 
   ];
   export const neckType = [
     {
       id: 1,
-      title: "Boat Neck",
+      title: "Collar Neck",
     },
     {
       id: 2,
-      title: "Cowl Neck",
+      title: "Round Neck",
     },
     {
       id: 3,
-      title: "Crew Neck",
+      title: "V Neck",
     },
     {
       id: 4,
-      title: "Halter Neck",
+      title: "Turtle Neck",
     },
     {
       id: 5,
-      title: "Henley Neck",
-    },
+      title: "Zip Neck",
+    }, 
     {
       id: 6,
       title: "High Neck",
@@ -366,7 +364,7 @@ export const navItems = [
     },
     {
       id: 11,
-      title: "Collar Neck",
+      title: "Boat Neck",
     },
     {
       id: 12,
@@ -374,7 +372,7 @@ export const navItems = [
     },
     {
       id: 13,
-      title: "Round Neck",
+      title: "Cowl Neck",
     },
     {
       id: 14,
@@ -394,41 +392,41 @@ export const navItems = [
     },
     {
       id: 18,
-      title: "Turtle Neck",
+      title: "Halter Neck",
     },
     {
       id: 19,
-      title: "V Neck",
+      title: "Crew Neck",
     },
     {
       id: 20,
-      title: "Zip Neck",
+      title: "Henley Neck",
     }
   ];
   export const color = [
     {
       id: 1,
-      name: "Beige",
-    },
-    {
-      id: 2,
       name: "Black",
     },
     {
-      id: 3,
+      id: 2,
       name: "Blue",
     },
     {
+      id: 3,
+      name: "Red",
+    },
+    {
       id: 4,
-      name: "Brown",
+      name: "Yellow",
     },
     {
       id: 5,
-      name: "Dark Blue",
+      name: "White",
     },
     {
       id: 6,
-      name: "Dark Green",
+      name: "Green",
     },
     {
       id: 7,
@@ -436,7 +434,7 @@ export const navItems = [
     },
     {
       id: 8,
-      name: "Green",
+      name: "Dark Green",
     },
     {
       id: 9,
@@ -476,7 +474,7 @@ export const navItems = [
     },
     {
       id: 18,
-      name: "Red",
+      name: "Beige",
     },
     {
       id: 19,
@@ -484,17 +482,25 @@ export const navItems = [
     },
     {
       id: 20,
-      name: "White",
+      name: "Dark Blue",
     },
     {
       id: 21,
-      name: "Yellow",
+      name: "Brown",
+    },
+    {
+      id: 22,
+      name: "Cream",
+    },
+    {
+      id: 23,
+      name: "Khaki",
     }
   ];
   export const fabric = [
     {
       id: 1,
-      type: "Modal",
+      type: "Denim",
     },
     {
       id: 2,
@@ -535,6 +541,10 @@ export const navItems = [
     {
       id: 11,
       type: "Pure Cotton",
+    },
+    {
+      id: 12,
+      type: "Modal",
     }
   ];
   export const occasion = [
@@ -561,6 +571,14 @@ export const navItems = [
     {
       id: 6,
       type: "Sports",
+    },
+    {
+      id: 7,
+      type: "Festive",
+    },
+    {
+      id: 8,
+      type: "Wedding",
     }
   ];
   export const shoeOccasions = [
@@ -699,23 +717,23 @@ export const navItems = [
     },
     {
       id: 2,
-      title: "Slide Sandals"
+      title: "Sneakers"
     },
     {
       id: 3,
-      title: "House Slippers"
+      title: "Running"
     },
     {
       id: 4,
-      title: "Thong Slippers"
+      title: "Loafers"
     },
     {
       id: 5,
-      title: "Gladiator Sandals"
+      title: "Oxfords"
     },
     {
       id: 6,
-      title: "Sport Sandals"
+      title: "Boots"
     },
     {
       id: 7,
@@ -731,19 +749,19 @@ export const navItems = [
     },
     {
       id: 10,
-      title: "Sneakers"
+      title: "Slide Sandals"
     },
     {
       id: 11,
-      title: "Running"
+      title: "House Slippers"
     },
     {
       id: 12,
-      title: "Loafers"
+      title: "Thong Slippers"
     },
     {
       id: 13,
-      title: "Oxfords"
+      title: "Gladiator Sandals"
     },
     {
       id: 14,
@@ -751,7 +769,7 @@ export const navItems = [
     },
     {
       id: 15,
-      title: "Boots"
+      title: "Sport Sandals"
     },
     {
       id: 16,
@@ -776,6 +794,18 @@ export const navItems = [
     {
       id: 21,
       title: "Crocs"
+    },
+    {
+      id: 22,
+      title: "Canvas"
+    },
+    {
+      id: 23,
+      title: "High rise"
+    },
+    {
+      id: 24,
+      title: "juti"
     }
   ];
   
@@ -804,6 +834,10 @@ export const navItems = [
     {
       id: 6,
       type: "Slims",
+    },
+    {
+      id: 7,
+      type: "Comfort Fit",
     }
   ];
   export const gender = [
@@ -838,6 +872,10 @@ export const navItems = [
     {
       id: 8,
       type: "Baby Girls",
+    },
+    {
+      id: 9,
+      type: "Unisex",
     }
   ];
   export const ratingOptions = [
@@ -869,31 +907,31 @@ export const navItems = [
     },
     {
       id: 2,
-      type: "2XS"
-    },
-    {
-      id: 3,
-      type: "XS"
-    },
-    {
-      id: 4,
       type: "S"
     },
     {
-      id: 5,
+      id: 3,
       type: "M"
     },
     {
-      id: 6,
+      id: 4,
       type: "L"
     },
     {
-      id: 7,
+      id: 5,
       type: "XL"
     },
     {
-      id: 8,
+      id: 6,
       type: "2XL"
+    },
+    {
+      id: 7,
+      type: "2XS"
+    },
+    {
+      id: 8,
+      type: "XS"
     },
     {
       id: 9,

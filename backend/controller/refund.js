@@ -124,8 +124,8 @@ router.get(
   
         // Update the product's stock with the new stock array
         refund.refundStatus = true;
-        refund.deliveredAt=Date.now;
-        refund.returnedAt=Date.now;
+        refund.deliveredAt=Date.now();
+        refund.returnedAt=Date.now();
   
         // Save the updated product
         await refund.save();

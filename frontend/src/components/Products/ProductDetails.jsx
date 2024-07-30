@@ -342,7 +342,7 @@ const ProductDetails = ({ data }) => {
                     <h4
                       className={`${styles.productDiscountPrice}{"text-lg font-bold"}`}
                     >
-                      ₹ {data.discountPrice}
+                      ₹{data.discountPrice}
                     </h4>
                     <div className="flex items-center ml-2">
                       <h4 className="text-sm text-gray-500 line-through">

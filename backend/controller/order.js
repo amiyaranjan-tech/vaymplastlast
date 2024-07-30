@@ -326,7 +326,7 @@ router.put(
       order.status = req.body.status;
 
       if (req.body.status === "Delivered") {
-        order.deliveredAt = Date.now;
+        order.deliveredAt = Date.now();
         order.paymentInfo.status = "Succeeded";
         // const serviceCharge = order.totalPrice * .10;
         // await updateSellerInfo(order.totalPrice - serviceCharge);

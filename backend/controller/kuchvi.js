@@ -163,7 +163,7 @@ router.get(
           if (delivered) {
             seller.availableBalance += kuchvi.shopPrice;
             product.sold_out +=1;
-            kuchvi.deliveredAt = Date.now;
+            kuchvi.deliveredAt = Date.now();
           }
         }
         if (return1 !== undefined) kuchvi.return1 = return1;
@@ -172,7 +172,7 @@ router.get(
           if (refundStatus) {
             seller.availableBalance -= kuchvi.shopPrice;
             product.sold_out -=1;
-            kuchvi.returnedAt = Date.now;
+            kuchvi.returnedAt = Date.now();
           }
         }
         if (paymentInfo !== undefined) kuchvi.paymentInfo = paymentInfo;
