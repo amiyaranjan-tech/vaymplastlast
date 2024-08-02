@@ -48,7 +48,7 @@ app.use("/test", (req, res) => {
 // Config
 if (process.env.NODE_ENV !== "PRODUCTION") {
   require("dotenv").config({
-    path: "./.env"
+    path: path.resolve(__dirname, '.env') // Use path.resolve to ensure correct path
   });
 }
 
