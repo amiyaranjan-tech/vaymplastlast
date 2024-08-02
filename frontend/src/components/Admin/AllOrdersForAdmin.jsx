@@ -123,7 +123,7 @@ const AllOrdersForAdmin = () => {
           const delivered=params.row.delivered
           const img=params.row.image
           console.log("params.row.kuchviId",params.row.kuchviId)
-         const response=await axios.patch(`https://api.vaymp.com/api/v2/kuchvi/update-kuchvi/${params.row.kuchviId}`, {
+         const response=await axios.patch(`http://api.vaymp.com/api/v2/kuchvi/update-kuchvi/${params.row.kuchviId}`, {
           status: "Delivered",
           deliveredAt:Date.now(),
           delivered:true,
@@ -179,7 +179,7 @@ const AllOrdersForAdmin = () => {
                 const product=params.row.product;
 
                 const kuchviId=params.row.kuchviId
-                const response=await axios.patch(`https://api.vaymp.com/api/v2/kuchvi/update-kuchvi/${params.row.kuchviId}`, {
+                const response=await axios.patch(`http://api.vaymp.com/api/v2/kuchvi/update-kuchvi/${params.row.kuchviId}`, {
                   cancel:true, // Update the stock value in the request body
                   status:"cancel Request"
                   });
