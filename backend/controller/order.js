@@ -241,7 +241,7 @@ async function updateStockCancel(item, size) {
 
         // Make HTTP PUT request to update stock using Axios
         const response = await axios.patch(
-          `http://api.vaymp.com/api/v2/product/update-stock/${productId}`,
+          `https://api.vaymp.com/api/v2/product/update-stock/${productId}`,
           {
             stock: newStock // Update the stock value in the request body
           }
