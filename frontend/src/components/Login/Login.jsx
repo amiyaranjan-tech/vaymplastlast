@@ -19,7 +19,7 @@ const Login = () => {
     e.preventDefault();
     setLoading(true);
     setError({ message: "", field: "" });
-
+  
     try {
       const res = await axios.post(
         `${server}/user/login-user`,
@@ -29,19 +29,27 @@ const Login = () => {
         },
         { withCredentials: true }
       );
-      toast.success("Login Success!",{
-        autoClose:1000, // Duration in milliseconds
-        });
+      toast.success("Login Success!", {
+        autoClose: 1000, // Duration in milliseconds
+      });
       navigate("/");
       window.location.reload(true);
     } catch (err) {
-      setError({
-        message: err.response.data.message,
-        field: err.response.data.field,
-      });
+      if (err.response) {
+        setError({
+          message: err.response.data.message || "An error occurred",
+          field: err.response.data.field || "",
+        });
+      } else {
+        setError({
+          message: "An unexpected error occurred",
+          field: "",
+        });
+      }
       setLoading(false);
     }
   };
+  
 
   const handleInputChange = (setter) => (e) => {
     setter(e.target.value);
