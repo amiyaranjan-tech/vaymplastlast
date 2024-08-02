@@ -42,7 +42,7 @@ router.post("/create-shop", catchAsyncErrors(async (req, res, next) => {
 
     const activationToken = createActivationToken(seller);
 
-    const activationUrl = `http://localhost:3000/seller/activation/${activationToken}`;
+    const activationUrl = `http://vaymp.com/seller/activation/${activationToken}`;
 
     try {
       await sendMail({
@@ -170,7 +170,7 @@ router.post(
     await shop.save({ validateBeforeSave: false });
 
     // Create reset password URL
-    const resetUrl = `http://localhost:3000/shop-password/reset/${resetToken}`;
+    const resetUrl = `http://vaymp.com/shop-password/reset/${resetToken}`;
 
     
     // Send email with reset URL

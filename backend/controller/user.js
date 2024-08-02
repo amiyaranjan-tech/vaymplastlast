@@ -36,7 +36,7 @@ router.post("/create-user", async (req, res, next) => {
 
     const activationToken = createActivationToken(user);
 
-    const activationUrl = `http://localhost:3000/activation/${activationToken}`;
+    const activationUrl = `http://vaymp.com/activation/${activationToken}`;
 
     // Create HTML content with a button
     const htmlMessage = `
@@ -440,7 +440,7 @@ router.post(
     await user.save({ validateBeforeSave: false });
 
     // Create reset password URL
-    const resetUrl = `http://localhost:3000/password/reset/${resetToken}`;
+    const resetUrl = `http://vaymp.com/password/reset/${resetToken}`;
 
     // Create the email message with a button
     const message = `
