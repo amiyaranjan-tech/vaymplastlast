@@ -35,20 +35,15 @@ const Login = () => {
       navigate("/");
       window.location.reload(true);
     } catch (err) {
-      if (err.response) {
-        setError({
-          message: err.response.data.message || "An error occurred",
-          field: err.response.data.field || "",
-        });
-      } else {
-        setError({
-          message: "An unexpected error occurred",
-          field: "",
-        });
-      }
+      const errorMessage = err.response?.data?.message || 'An unexpected error occurred';
+      setError({
+        message: errorMessage,
+        field: err.response?.data?.field || '',
+      });
       setLoading(false);
     }
   };
+  
   
 
   const handleInputChange = (setter) => (e) => {
