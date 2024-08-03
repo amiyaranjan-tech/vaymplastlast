@@ -8,7 +8,7 @@ const { isAuthenticated, isSeller, isAdmin } = require("./middleware/auth");
 
 // CORS configuration
 const corsOptions = {
-  origin: ['https://vaymp.com'], // Replace with your frontend origin
+  origin: ['https://www.vaymp.com','https://vaymp.com'], // Replace with your frontend origin
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   allowedHeaders: 'Content-Type,Authorization',
   credentials: true, // Only if you need cookies or authentication
