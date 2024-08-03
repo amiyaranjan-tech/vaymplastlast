@@ -7,8 +7,8 @@ import styles from "../../../styles/styles";
 const Hero = () => {
   const backgroundImageUrls = [
     "./banner.png",
-    // "./banner2.png",
-    // "./banner3.png",
+    "./banner2.png",
+    "./banner3.png",
   ];
 
   // Function to handle next slide
