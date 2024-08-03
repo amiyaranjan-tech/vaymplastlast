@@ -8,7 +8,7 @@ const { isAuthenticated, isSeller, isAdmin } = require("./middleware/auth");
 
 // CORS configuration
 const corsOptions = {
-  origin: 'http://vaymp.com', // Allowed origin
+  origin: '*', // Allowed origin
   credentials: true, // Allow credentials (cookies)
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   allowedHeaders: 'Content-Type,Authorization',
