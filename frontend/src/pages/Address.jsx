@@ -95,7 +95,7 @@ const Address = () => {
   return (
 <>
 <Header/>    
-<div className="w-full mx-4">
+<div className="w-full px-4">
       {open && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-25 z-50">
          <div className="bg-white w-full sm:max-w-full md:max-w-xl p-4 sm:p-4 md:p-8 rounded-lg shadow-lg relative max-h-screen overflow-y-auto">
@@ -217,7 +217,7 @@ const Address = () => {
       <div className="flex w-full items-center justify-between">
         <h1 className="text-xl font-bold text-[#000000ba] pb-2">My Addresses</h1>
         <button 
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 pl-2 pr-2 mt-2 rounded cursor-pointer"
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mt-2 rounded cursor-pointer"
           onClick={() => setOpen(true)}
         >
           Add New
@@ -250,7 +250,7 @@ const Address = () => {
       ))}
       {user && user.addresses.length === 0 && (
         <h5 className="text-center pt-8 text-[18px]">
-          You do not have any saved addresses!
+          You do not have any saved address!
         </h5>
       )}
     </div>
