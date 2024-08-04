@@ -52,7 +52,7 @@ const Address = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (name===""||addressType === "" || phoneNumber === "" || city === "") {
+    if (name===""||addressType === "" || phoneNumber === "" || city === "" || address1===""|| zipCode==="") {
       toast.error("Please fill all the fields!",{
         autoClose:1000, // Duration in milliseconds
         });
@@ -66,7 +66,7 @@ const Address = () => {
             // landmark,
             city,
             address1,
-            address2,
+            // address2,
             zipCode,
             addressType: "Home",
             isLastUsed: true
@@ -217,7 +217,7 @@ const Address = () => {
       <div className="flex w-full items-center justify-between">
         <h1 className="text-xl font-bold text-[#000000ba] pb-2">My Addresses</h1>
         <button 
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 pl-4 pr-8 mt-2 rounded cursor-pointer"
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 pl-2 pr-2 mt-2 rounded cursor-pointer"
           onClick={() => setOpen(true)}
         >
           Add New

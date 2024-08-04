@@ -599,7 +599,7 @@ const Address = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (name===""||addressType === "" || phoneNumber === "" || city === "") {
+    if (name===""||addressType === "" || phoneNumber === "" || city === "" || address1===""|| zipCode==="") {
       toast.error("Please fill all the fields!",{
         autoClose:2000, // Duration in milliseconds
         });
@@ -609,11 +609,11 @@ const Address = () => {
           {
             userName: name,
             phoneNumber,
-            altphoneNumber,
-            landmark,
+            // altphoneNumber,
+            // landmark,
             city,
             address1,
-            address2,
+            // address2,
             zipCode,
             addressType: "Home",
             isLastUsed: true
