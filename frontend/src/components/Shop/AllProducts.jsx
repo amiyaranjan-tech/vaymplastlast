@@ -82,73 +82,84 @@ const AllProducts = () => {
   };
 
   return (
-    <div className="container mx-auto">
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+    <div className="container mx-auto px-4 py-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {isLoading ? (
           <Loader />
         ) : (
           !filteredProducts || filteredProducts.length === 0 ? (
-            <p>No products found.</p>
+            <div className="col-span-full text-center text-gray-500 text-lg">No products found.</div>
           ) : (
             filteredProducts.map((product) => (
-
-              <div key={product._id} className="border rounded-lg p-4 shadow-md">
+              <div
+                key={product._id}
+                className="relative bg-gradient-to-r from-blue-50 to-blue-50 border border-gray-300 rounded-lg shadow-lg transform transition-transform hover:scale-105 hover:shadow-xl p-4"
+              >
                 <Link to={`/product/${product._id}`}>
-                  <img src={product.images[0]?.url} alt="Product" className="w-full h-64 object-contain rounded mb-2" />
-                  <div className="cursor-pointer absolute right-2 top-5">
-                    <Link to={`/product/${product._id}`}>
-                      <button className="text-blue-500 hover:text-blue-700"><AiOutlineEye size={20} /></button>
-                    </Link>
+                  <div className="w-full h-48 relative overflow-hidden rounded-t-lg">
+                    <img
+                      src={product.images[0]?.url}
+                      alt={product.name}
+                      className="w-full h-full object-contain transition-transform duration-300 ease-in-out hover:scale-110"
+                    />
                   </div>
                 </Link>
-                <Link to={`/product/${product._id}`} className="text-lg font-semibold hover:text-blue-500">{product.name}</Link>
-                <p className="text-gray-600">Price: ₹{product.ShopPrice}</p>
-                <div className="flex">
-                  <select
-                    className="mt-2 border p-1 rounded-md w-1/2"
-                    value={selectedSize[product._id] || ""}
-                    onChange={(e) => handleSizeChange(product._id, e.target.value)}
+                
+                <div className="p-2 flex flex-col h-full">
+                  <Link
+                    to={`/product/${product._id}`}
+                    className="text-md font-semibold text-gray-800 hover:text-blue-600 transition-colors duration-300 block truncate"
                   >
-                    <option value="">Select Size</option>
-                    {product.stock.map((stockItem, index) => (
-                      <option key={`${stockItem.size}-${index}`} value={stockItem.size}>{stockItem.size}</option>
-                    ))}
-                  </select>
-                  <div className="flex justify-between mt-2 ml-3">
-                    <button
-                      className="bg-blue-500 text-white font-extrabold text-xl px-2 py-1 rounded-md hover:bg-blue-600"
-                      onClick={() => handleQuantityDecrement(product._id)}
-                      disabled={selectedQuantity[product._id] === 0}
+                    {product.name}
+                  </Link>
+                  <p className="text-gray-600 text-sm mt-1">Price: ₹{product.ShopPrice}</p>
+                  <div className="flex items-center gap-2 mt-2">
+                    <select
+                      className="flex-shrink border border-gray-300 rounded-md shadow-sm text-sm focus:ring-blue-500 focus:border-blue-500 w-24 sm:w-28"
+                      value={selectedSize[product._id] || ""}
+                      onChange={(e) => handleSizeChange(product._id, e.target.value)}
                     >
-                      &#x2212;
-                    </button>
-                    <input
-                      type="number"
-                      className="border text-center w-1/2 px-1"
-                      value={selectedQuantity[product._id] || ""}
-                      onChange={(e) => handleQuantityChange(product._id, e.target.value)}
-                    />
-                    <button
-                      className="bg-blue-500 text-white font-extrabold text-xl px-2 py-1 rounded-md hover:bg-blue-600"
-                      onClick={() => handleQuantityIncrement(product._id)}
-                    >
-                      &#x002B;
-                    </button>
+                      <option value="">Select Size</option>
+                      {product.stock.map((stockItem, index) => (
+                        <option key={`${stockItem.size}-${index}`} value={stockItem.size}>
+                          {stockItem.size}
+                        </option>
+                      ))}
+                    </select>
+                    <div className="flex items-center gap-1 ml-2">
+                      <button
+                        className="bg-blue-500 text-white text-sm px-2 py-1 rounded-md shadow-sm hover:bg-blue-600 transition-colors duration-300"
+                        onClick={() => handleQuantityDecrement(product._id)}
+                        disabled={selectedQuantity[product._id] === 0}
+                      >
+                        &#x2212;
+                      </button>
+                      <input
+                        type="number"
+                        className="border border-gray-300 text-center text-sm w-12 px-1 py-0.5 rounded-md"
+                        value={selectedQuantity[product._id] || ""}
+                        onChange={(e) => handleQuantityChange(product._id, e.target.value)}
+                      />
+                      <button
+                        className="bg-blue-500 text-white text-sm px-2 py-1 rounded-md shadow-sm hover:bg-blue-600 transition-colors duration-300"
+                        onClick={() => handleQuantityIncrement(product._id)}
+                      >
+                        &#x002B;
+                      </button>
+                    </div>
                   </div>
-                </div>
-                <div className="flex justify-between mt-2">
-                  <button
-                    className="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600"
-                    onClick={() => handleUpdate(product._id)}
-                  >
-                    Update
-                  </button>
-                  <div className="mt-6">
+                  <div className="flex justify-between mt-2">
+                    <button
+                      className="bg-green-500 text-white text-sm px-3 py-1 rounded-md shadow-md hover:bg-green-600 transition-colors duration-300"
+                      onClick={() => handleUpdate(product._id)}
+                    >
+                      Update
+                    </button>
                     <Link to={`/product/${product._id}`}>
-                      <button className="text-blue-500 hover:text-blue-700"><AiOutlineEye size={20} /></button>
+                      <button className="text-blue-500 text-sm hover:text-blue-700 transition-colors duration-300">
+                        <AiOutlineEye size={18} />
+                      </button>
                     </Link>
-                    {/* Uncomment below if you want to include delete functionality */}
-                    {/* <button className="text-red-500 hover:text-red-700 ml-2" onClick={() => handleDelete(product._id)}><AiOutlineDelete size={20} /></button> */}
                   </div>
                 </div>
               </div>

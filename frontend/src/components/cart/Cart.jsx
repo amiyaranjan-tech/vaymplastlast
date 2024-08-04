@@ -173,7 +173,7 @@ const Cart = ({ setOpenCart }) => {
                 />
               )}
             </div>
-            <h5>Cart Items is empty!</h5>
+            <h5><strong>Cart is empty!</strong></h5>
           </div>
         ) : (
           <>
@@ -186,6 +186,9 @@ const Cart = ({ setOpenCart }) => {
                     onClick={() => setOpenCart(false)}
                   />
                 )}
+              </div>
+              <div className={`${styles.noramlFlex} p-4`}>
+                <h1 className="text-xl" >My Cart</h1>
               </div>
               {/* Item length */}
               <div className={`${styles.noramlFlex} p-4`}>

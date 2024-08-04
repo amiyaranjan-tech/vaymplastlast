@@ -62,8 +62,8 @@ const Address = () => {
           {
             userName: name,
             phoneNumber,
-            altphoneNumber,
-            landmark,
+            // altphoneNumber,
+            // landmark,
             city,
             address1,
             address2,
@@ -95,7 +95,7 @@ const Address = () => {
   return (
 <>
 <Header/>    
-<div className="w-full px-5">
+<div className="w-full mx-4">
       {open && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-25 z-50">
          <div className="bg-white w-full sm:max-w-full md:max-w-xl p-4 sm:p-4 md:p-8 rounded-lg shadow-lg relative max-h-screen overflow-y-auto">
@@ -110,7 +110,7 @@ const Address = () => {
             <h1 className="text-center text-2xl font-bold my-4">Add New Address</h1>
             <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label className="block pb-2">Name</label>
+                <label className="block pb-2">Name <span className="text-red-500">*</span></label>
                 <input
                   type="text"
                   className="border h-[40px] rounded-[5px] w-full"
@@ -120,7 +120,7 @@ const Address = () => {
                 />
               </div>
               <div>
-                <label className="block pb-2">Address 1</label>
+                <label className="block pb-2">House No, Building Name <span className="text-red-500">*</span></label>
                 <input
                   type="text"
                   className="border h-[40px] rounded-[5px] w-full"
@@ -130,7 +130,7 @@ const Address = () => {
                 />
               </div>
               <div>
-                <label className="block pb-2">Address 2</label>
+                <label className="block pb-2">Road Name, Area, Colony<span className="text-red-500">*</span></label>
                 <input
                   type="text"
                   className="border h-[40px] rounded-[5px] w-full"
@@ -139,7 +139,7 @@ const Address = () => {
                 />
               </div>
               <div>
-                <label className="block pb-2">LandMark</label>
+                <label className="block pb-2">Add Nearby LandMark</label>
                 <input
                   type="text"
                   className="border h-[40px] rounded-[5px] w-full"
@@ -148,7 +148,7 @@ const Address = () => {
                 />
               </div>
               <div>
-                <label className="block pb-2">City</label>
+                <label className="block pb-2">City <span className="text-red-500">*</span></label>
                 <input
                   type="text"
                   className="border h-[40px] rounded-[5px] w-full"
@@ -158,7 +158,7 @@ const Address = () => {
                 />
               </div>
               <div>
-                <label className="block pb-2">Phone Number</label>
+                <label className="block pb-2">Phone Number <span className="text-red-500">*</span></label>
                 <input
                   type="number"
                   className="border h-[40px] rounded-[5px] w-full"
@@ -178,7 +178,7 @@ const Address = () => {
                 />
               </div>
               <div>
-                <label className="block pb-2">Zip Code</label>
+                <label className="block pb-2">Zip Code <span className="text-red-500">*</span></label>
                 <input
                   type="text"
                   className="border h-[40px] rounded-[5px] w-full"
@@ -188,7 +188,7 @@ const Address = () => {
                 />
               </div>
               <div>
-                <label className="block pb-2">Address Type</label>
+                <label className="block pb-2">Address Type <span className="text-red-500">*</span></label>
                 <select
                   value={addressType}
                   onChange={(e) => setAddressType(e.target.value)}

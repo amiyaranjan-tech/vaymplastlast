@@ -2,6 +2,8 @@ import React from "react";
 import { AiOutlineFolderAdd, AiOutlineGift } from "react-icons/ai";
 import { FiPackage, FiShoppingBag } from "react-icons/fi";
 import { MdOutlineLocalOffer } from "react-icons/md";
+import { GiReturnArrow } from "react-icons/gi";
+import { TbCreditCardRefund } from "react-icons/tb";
 import { RxDashboard } from "react-icons/rx";
 import { VscNewFile } from "react-icons/vsc";
 import { CiMoneyBill, CiSettings } from "react-icons/ci";
@@ -177,7 +179,7 @@ const DashboardSideBar = ({ active }) => {
       
       <div className="w-full flex items-center p-4">
         <Link to="/dashboard-successful-refunds" className="w-full flex items-center">
-          <HiOutlineReceiptRefund
+          <GiReturnArrow
             size={30}
             color={`${active === 12 ? "crimson" : "#555"}`}
           />
@@ -192,7 +194,7 @@ const DashboardSideBar = ({ active }) => {
       </div>
       <div className="w-full flex items-center p-4">
         <Link to="/dashboard-Processing-refunds" className="w-full flex items-center">
-          <HiOutlineReceiptRefund
+          <TbCreditCardRefund
             size={30}
             color={`${active === 13 ? "crimson" : "#555"}`}
           />

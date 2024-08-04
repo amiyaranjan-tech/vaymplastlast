@@ -57,6 +57,7 @@ const Checkout = () => {
     if (
       username === "" ||
       address1 === "" ||
+      address2 ===""||
       zipCode === null ||
       phoneNumber === "" ||
       city === ""
@@ -309,7 +310,7 @@ const ShippingInfo = ({
       <form>
         <div className="w-full flex pb-3">
           <div className="w-[50%]">
-            <label className="block pb-2">Full Name</label>
+            <label className="block pb-2">Full Name <span className="text-red-500">*</span></label>
             <input
               type="text"
               value={username}
@@ -319,7 +320,7 @@ const ShippingInfo = ({
             />
           </div>
           <div className="w-[50%]">
-            <label className="block pb-2">Phone number</label>
+            <label className="block pb-2">Phone number <span className="text-red-500">*</span></label>
             <input
               type="number"
               value={phoneNumber}
@@ -333,7 +334,7 @@ const ShippingInfo = ({
 
         <div className="w-full flex pb-3">
           <div className="w-[50%]">
-            <label className="block pb-2">House No.,Building Name</label>
+            <label className="block pb-2">House No, Building Name <span className="text-red-500">*</span></label>
             <input
               type="address"
               value={address1}
@@ -343,7 +344,7 @@ const ShippingInfo = ({
             />
           </div>
           <div className="w-[50%]">
-            <label className="block pb-2">Road name, Area, Colony</label>
+            <label className="block pb-2">Road name, Area, Colony <span className="text-red-500">*</span></label>
             <input
               type="address"
               value={address2}
@@ -379,7 +380,7 @@ const ShippingInfo = ({
 
         <div className="w-full flex pb-3">
           <div className="w-[50%]">
-            <label className="block pb-2">City</label>
+            <label className="block pb-2">City<span className="text-red-500">*</span></label>
             <input
               type="text"
               value={city}
@@ -389,7 +390,7 @@ const ShippingInfo = ({
             />
           </div>
           <div className="w-[50%]">
-            <label className="block pb-2">Pincode</label>
+            <label className="block pb-2">Pincode<span className="text-red-500">*</span></label>
             <input
               type="number"
               value={zipCode}

@@ -55,7 +55,7 @@ const Wishlist = ({ setOpenWishlist }) => {
                   />
               )}
             </div>
-            <h5>Wishlist Items is empty!</h5>
+            <h5 className=""><strong>Wishlist is empty!</strong></h5>
           </div>
         ) : (
           <>
@@ -68,6 +68,9 @@ const Wishlist = ({ setOpenWishlist }) => {
                   onClick={() => setOpenWishlist(false)}
                   />
               )}
+              </div>
+              <div className={`${styles.noramlFlex} p-4`}>
+                <h1 className="text-xl" >My Wishlist</h1>
               </div>
               {/* Item length */}
               <div className={`${styles.noramlFlex} p-4`}>
