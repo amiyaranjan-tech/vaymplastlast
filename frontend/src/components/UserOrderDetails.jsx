@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from "react";
 import { BsFillBagFill } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
@@ -19,7 +18,7 @@ const UserOrderDetails = () => {
   const dispatch = useDispatch();
   const [comment, setComment] = useState("");
   const [selectedItem, setSelectedItem] = useState(null);
-  const [rating, setRating] = useState(1);
+  const [rating, setRating] = useState(0);
   const { user, isAuthenticated } = useSelector((state) => state.user);
   const navigate = useNavigate();
   const [kuchvi, setkuchvi] = useState([]);
@@ -405,85 +404,80 @@ const UserOrderDetails = () => {
       )}
 
 {open && (
-  <div className="w-full fixed top-0 left-0 h-screen bg-[#0005] z-50 flex items-center justify-center">
-    <div className="bg-[#fff] shadow rounded-md p-3 w-[90%] sm:w-[80%] md:w-[60%] lg:w-[50%]">
-      <div className="w-full flex justify-end p-3">
-        <RxCross1
-          size={30}
-          onClick={() => setOpen(false)}
-          className="cursor-pointer"
-        />
-      </div>
-      <h2 className="text-[30px] font-[500] font-Poppins text-center">
-        Give a Review
-      </h2>
-      <br />
-      <div className="w-full flex mb-3">
-        <img
-          src={`${data?.image}`}
-          alt=""
-          className="w-[90px] h-[80px]"
-        />
-        <div className="ml-5">
-          <h4 className="pl-3 text-[15px] font-semibold">{data.productName}</h4>
-          <h5 className="pl-3 text-[15px] text-[#00000091]">Size:{data.size}</h5>
-            <h5 className="pl-3 text-[15px] text-[#00000091]">Qty:{data.itemsQty}</h5>
-          <h4 className="pl-3 text-[15px] font-semibold">₹{data?.discountPrice}</h4>
+      <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+        <div className="bg-white shadow-lg rounded-lg p-6 w-full max-w-lg mx-4 md:mx-auto">
+          <div className="flex justify-end">
+            <RxCross1
+              size={30}
+              onClick={() => setOpen(false)}
+              className="cursor-pointer"
+            />
+          </div>
+          <h2 className="text-2xl font-semibold text-center mb-6">
+            Give a Review
+          </h2>
+          <div className="flex items-start mb-6">
+            <img
+              src={`${data?.image}`}
+              alt={data?.productName}
+              className="w-24 h-24 object-cover rounded-md"
+            />
+            <div className="ml-5">
+              <h4 className="text-lg font-medium">{data?.productName}</h4>
+              <p className="text-sm text-gray-600">Size: {data?.size}</p>
+              <p className="text-sm text-gray-600">Qty: {data?.itemsQty}</p>
+              <p className="text-lg font-semibold">₹{data?.discountPrice}</p>
+            </div>
+          </div>
+          <h5 className="text-lg font-medium mb-2">
+            Give a Rating <span className="text-red-500">*</span>
+          </h5>
+          <div className="flex mb-6">
+            {[1, 2, 3, 4, 5].map((i) =>
+              rating >= i ? (
+                <AiFillStar
+                  key={i}
+                  className="mr-1 cursor-pointer"
+                  color="rgb(246,186,0)"
+                  size={25}
+                  onClick={() => setRating(i)}
+                />
+              ) : (
+                <AiOutlineStar
+                  key={i}
+                  className="mr-1 cursor-pointer"
+                  color="rgb(246,186,0)"
+                  size={25}
+                  onClick={() => setRating(i)}
+                />
+              )
+            )}
+          </div>
+          <div className="mb-6">
+            <label className="block text-lg font-medium mb-1">
+              Write a comment
+              <span className="ml-1 text-sm text-gray-500">(optional)</span>
+            </label>
+            <textarea
+              name="comment"
+              id="comment"
+              cols="30"
+              rows="5"
+              value={comment}
+              onChange={(e) => setComment(e.target.value)}
+              placeholder="How was your product? Write your expression about it!"
+              className="w-full border rounded-md p-2 outline-none focus:ring focus:ring-flipkart-orange"
+            ></textarea>
+          </div>
+          <div
+            className={`${styles.button} bg-flipkart-orange text-white text-xl w-full py-2 text-center rounded-md cursor-pointer`}
+            onClick={reviewHandler}
+          >
+            Submit
+          </div>
         </div>
       </div>
-
-      <h5 className="pl-3 text-[17px] font-[500]">
-        Give a Rating <span className="text-red-500">*</span>
-      </h5>
-      <div className="flex w-full ml-2 pt-1">
-        {[1, 2, 3, 4, 5].map((i) =>
-          rating >= i ? (
-            <AiFillStar
-              key={i}
-              className="mr-1 cursor-pointer"
-              color="rgb(246,186,0)"
-              size={25}
-              onClick={() => setRating(i)}
-            />
-          ) : (
-            <AiOutlineStar
-              key={i}
-              className="mr-1 cursor-pointer"
-              color="rgb(246,186,0)"
-              size={25}
-              onClick={() => setRating(i)}
-            />
-          )
-        )}
-      </div>
-      <br />
-      <div className="w-full ml-3">
-        <label className="block text-[17px] font-[500]">
-          Write a comment
-          <span className="ml-1 font-[400] text-[16px] text-[#00000052]">
-            (optional)
-          </span>
-        </label>
-        <textarea
-          name="comment"
-          id=""
-          cols="20"
-          rows="5"
-          value={comment}
-          onChange={(e) => setComment(e.target.value)}
-          placeholder="How was your product? write your expresion about it!"
-          className="mt-2 w-[95%] border p-2 outline-none"
-        ></textarea>
-      </div>
-      <div
-        className={`${styles.button} !bg-flipkart-orange text-white text-[20px] ml-3`}
-        onClick={reviewHandler}
-      >
-        Submit
-      </div>
-    </div>
-  </div>
-)}
+    )}
 
 
       <div className="w-full 800px:flex items-center bg-white shadow rounded-lg p-4">
@@ -493,17 +487,21 @@ const UserOrderDetails = () => {
             {data?.address.userName}
           </h4>  
           <h4 className="pt-1 text-[14px]">
-          {data?.address.address1 + ", " + data?.address.address2}          </h4>
+          {data?.address.address1 + ", " + data?.address.address2+ "," + data?.address.landmark}          </h4>
           <h4 className="text-[14px]">{data?.address.country}</h4>
           <h4 className="text-[14px]">{data?.address.city + ", " + data?.address.zipCode}</h4>
 
-          <h4 className="text-[14px]">Phone Number: {data?.address.phoneNumber}</h4>
+          <h4 className="text-[14px]">Phone Number: {data?.address.phoneNumber}{","}{data?.address.altphoneNumber}</h4>
           </div>
         <div className="w-full 800px:w-[40%] mb-11">
           <h4 className="pt-3 text-[16px] font-medium">Payment Info</h4>
           <h4>
             Status:{" "}
-            {data?.paymentInfo?.status ? data?.paymentInfo?.status : "Not Paid"}
+            {data?.paymentInfo[0]?.status ? data?.paymentInfo[0]?.status : "Not Paid"}
+          </h4>
+          <h4>
+            Mode:{" "}
+            {data?.paymentInfo[0]?.type ? data?.paymentInfo[0]?.type : ""}
           </h4>
         </div>
       </div>

@@ -309,6 +309,9 @@ const AllOrders = () => {
             </div>
         ) : (
           <div className="">
+            <div className={`${styles.noramlFlex} p-4`}>
+              <h1 className="text-xl" >My Orders</h1>
+            </div>
             {rows.map((row) => (
               <OrderCard key={row.id} order={row} />
             ))}

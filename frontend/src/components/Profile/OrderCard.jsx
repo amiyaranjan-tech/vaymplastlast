@@ -11,7 +11,7 @@ const OrderCard = ({ order }) => {
     status,
     total,
     size,
-    productid,
+    discountPrice,
     kuchviId
   } = order;
 console.log("zzzz",order)
@@ -30,8 +30,8 @@ console.log("zzzz",order)
              {productName}
               </Link>
             </div>
-            <div className="text-sm text-gray-600">Status: {status}</div>
-            <div className="text-sm text-gray-600">Total: {total}</div>
+            <div className="text-sm text-gray-600">Status: {status==="cancel Request"?"Cancelled":status}</div>
+            <div className="text-sm text-gray-600">Price: {discountPrice}</div>
             <div className="text-sm text-gray-600">Size: {size}</div>
           </div>
         </div>
