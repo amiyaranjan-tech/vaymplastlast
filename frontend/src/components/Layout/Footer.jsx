@@ -103,12 +103,12 @@ const Footer = () => {
         <span>© Vaymp. All rights reserved.</span>
         <span>Terms · Privacy Policy</span>
         <div className="flex items-center justify-center">
-          <span>Incubated at Lovely Professional University</span>
-          <img
+          <span>UPI payments coming soon</span>
+          {/* <img
             src="/Lovely_Professional_University_logo.png"
             alt="Lovely Professional University Logo"
             className="ml-2 h-8"
-          />
+          /> */}
         </div>
         <div className="block lg:hidden">
       <br></br>

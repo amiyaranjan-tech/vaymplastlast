@@ -122,7 +122,7 @@ const CartSingle = ({ data,removeFromWishlistHandler }) => {
         <img
           src={`${data?.images[0]?.url}`}
           alt=""
-          className="w-[90px] h-min ml-2 mr-2 rounded-[5px]"
+          className="w-1/3 ml-2 mr-2 rounded-[5px] !box-border" 
         />
 
         <div className="flex-1 pl-[5px] overflow-hidden">

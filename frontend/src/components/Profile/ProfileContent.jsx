@@ -647,7 +647,7 @@ const Address = () => {
 <div className="w-full px-4">
       {open && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-25 z-50">
-         <div className="bg-white w-full sm:max-w-full md:max-w-xl p-4 sm:p-4 md:p-8 rounded-lg shadow-lg relative max-h-screen overflow-y-auto">
+         <div className="bg-white w-full top-10 pb-12 sm:max-w-full md:max-w-xl p-4 sm:p-4 md:p-8 rounded-lg shadow-lg relative max-h-screen overflow-y-auto">
             <div className="flex justify-end">
               <button
                 className="text-red-500 hover:text-red-600 font-bold text-xl focus:outline-none"
@@ -727,7 +727,7 @@ const Address = () => {
                 />
               </div>
               <div>
-                <label className="block pb-2">Zip Code <span className="text-red-500">*</span></label>
+                <label className="block pb-2">Pin Code <span className="text-red-500">*</span></label>
                 <input
                   type="text"
                   className="border h-[40px] rounded-[5px] w-full"

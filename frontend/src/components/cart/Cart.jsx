@@ -316,7 +316,7 @@ const CartSingle = ({
         <img
           src={`${data?.images?.[0]?.url}`}
           alt=""
-          className="w-[90px] h-min ml-1 mr-1 rounded-[5px] cursor-pointer"
+          className="w-1/3 ml-2 mr-2 rounded-[5px] !box-border cursor-pointer"
           onClick={handleProductClick}
         />
         <div
