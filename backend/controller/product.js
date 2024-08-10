@@ -343,12 +343,12 @@ router.get(
       // Apply gender filter
       // Apply gender filter
 const genderKeywords = [
-  "female", "females", "women", "woman", "womans", "womens", "women's", "womens'", "women'", "woman'", "womans'", "woman's",
+  "female", "females", "unisex", "women", "woman", "womans", "womens", "women's", "womens'", "women'", "woman'", "womans'", "woman's",
   "ladies", "ladie's", "lady", "girl", "gurl", "girls", "ladki", "ldki", "gurls","lady'","lady's","ladys'","ladies'","ladies's",
 ];
 
 const maleKeywords = [
-  "male", "males", "mans", "boys", "men", "mens", "men's", "man's", "mens'", "mans'", "guys", "ladka", "boy", "man"
+  "male", "males", "unisex", "mans", "boys", "men", "mens", "men's", "man's", "mens'", "mans'", "guys", "ladka", "boy", "man"
 ];
 
 words = words.filter(keyword => {

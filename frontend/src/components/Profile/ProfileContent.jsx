@@ -683,6 +683,7 @@ const Address = () => {
                 <input
                   type="text"
                   className="border h-[40px] rounded-[5px] w-full"
+                  required
                   value={address2}
                   onChange={(e) => setAddress2(e.target.value)}
                 />
@@ -721,7 +722,6 @@ const Address = () => {
                 <input
                   type="number"
                   className="border h-[40px] rounded-[5px] w-full"
-                  required
                   value={altphoneNumber}
                   onChange={(e) => setAltPhoneNumber(e.target.value)}
                 />

@@ -121,25 +121,13 @@ const ProductCard = ({ data, isEvent }) => {
               : `/product/${data._id}`
           }`}
         >
-          <div>
-            {/* Visible on small screens */}
-            <div className="md:hidden">
-              <h4 className="flex pb-3 text-base font-normal whitespace-nowrap text-ellipsis max-w-full">
-                {data.name.length > 13 ? data.name.slice(0, 13) + "..." : data.name}
-              </h4>
-            </div>
-            {/* Visible on medium screens */}
-            <div className="hidden md:block lg:hidden">
-              <h4 className="flex pb-3 text-base font-normal whitespace-nowrap text-ellipsis max-w-full">
-                {data.name.length > 35 ? data.name.slice(0, 35) + "..." : data.name}
-              </h4>
-            </div>
-            {/* Visible on large screens */}
-            <div className="hidden lg:block">
-              <h4 className="flex pb-3 text-base font-normal whitespace-nowrap text-ellipsis max-w-full">
-                {data.name.length > 25 ? data.name.slice(0, 25) + "..." : data.name}
-              </h4>
-            </div>
+           <div>
+            <Link
+                    to={`/product/${data._id}`}
+                    className="text-base font-normal text-black-400 hover:text-blue-600 transition-colors duration-300 block truncate"
+                  >
+                    {data.name}
+                  </Link>
           </div>
 
           <div className="flex">

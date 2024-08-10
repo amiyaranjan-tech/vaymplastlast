@@ -303,7 +303,7 @@ const ProductDetails = ({ data }) => {
 
                   <IoShareSocialOutline
                     size={30}
-                    className="text-gray-600 pt-1"
+                    className="text-gray-600 pt-1 mt-2"
                     title="Share this product"
                     onClick={copyToClipboard}
                   />

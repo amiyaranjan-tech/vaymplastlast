@@ -25,7 +25,12 @@ console.log("zzzz",order)
             </div>
           )}
           <div className="flex flex-col justify-between flex-grow ml-4">
-            <div className="mb-2">
+          <div className="mb-2 md:hidden">
+            <Link to={`/user/order/${kuchviId}`}className="hover:text-blue-500">
+             {productName.length > 27 ? productName.slice(0, 10) + "..." : productName}
+              </Link>
+            </div>
+            <div className="mb-2 hidden md:block">
             <Link to={`/user/order/${kuchviId}`}className="hover:text-blue-500">
              {productName}
               </Link>

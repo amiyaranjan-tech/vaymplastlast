@@ -34,9 +34,10 @@ import BasicPagination from "./BasicPagination";
 
 const SearchResults = () => {
   const { query } = useParams();
+  console.log( "harsh", query)
   const navigate = useNavigate();
   const location = useLocation();
-  
+ 
   const queryParams = new URLSearchParams(location.search);
   const initialPage = parseInt(queryParams.get('page')) || 1;
   console.log("khvbvmmvmvumv")
@@ -102,56 +103,35 @@ const SearchResults = () => {
 
   const isLargeScreen = useMediaQuery({ query: '(min-width: 1024px)' });
   const isSmallOrMediumScreen = useMediaQuery({ query: '(max-width: 1023px)' });
-  
-
-
-  const parseFiltersFromURL = (searchParams) => ({
-    colors: searchParams.get("colors") ? searchParams.get("colors").split(",") : [],
-    sizes: searchParams.get("sizes") ? searchParams.get("sizes").split(",") : [],
-    brandingDatas: searchParams.get("brandingDatas") ? searchParams.get("brandingDatas").split(",") : [],
-    neckTypes: searchParams.get("neckTypes") ? searchParams.get("neckTypes").split(",") : [],
-    sleeveTypes: searchParams.get("sleeveTypes") ? searchParams.get("sleeveTypes").split(",") : [],
-    fabrics: searchParams.get("fabrics") ? searchParams.get("fabrics").split(",") : [],
-    occasions: searchParams.get("occasions") ? searchParams.get("occasions").split(",") : [],
-    fits: searchParams.get("fits") ? searchParams.get("fits").split(",") : [],
-    subCategorys: searchParams.get("subCategorys") ? searchParams.get("subCategorys").split(",") : [],
-    genders: searchParams.get("genders") ? searchParams.get("genders").split(",") : [],
-    customerRatings: searchParams.get("customerRatings") ? searchParams.get("customerRatings").split(",") : [],
-    priceRanges: searchParams.get("priceRanges") ? searchParams.get("priceRanges").split(",") : [],
-    shoeSize: searchParams.get("shoeSize") ? searchParams.get("shoeSize").split(",") : [],
-    shoeOccasion: searchParams.get("shoeOccasion") ? searchParams.get("shoeOccasion").split(",") : [],
-    accessorySubCategorie: searchParams.get("accessorySubCategorie") ? searchParams.get("accessorySubCategorie").split(",") : [],
-    footwearSubCategorie: searchParams.get("footwearSubCategorie") ? searchParams.get("footwearSubCategorie").split(",") : [],
-  });
-
-  const compareFilters = (filters1, filters2) => {
-    const keys = Object.keys(filters1);
-    for (let key of keys) {
-      if (filters1[key].join(",") !== filters2[key].join(",")) {
-        return false;
-      }
-    }
-    return true;
-  };
-
   useEffect(() => {
     const searchParams = new URLSearchParams(location.search);
-    const newFilters = parseFiltersFromURL(searchParams);
+
+    const initialFilters = {
+      colors: searchParams.get("colors") ? searchParams.get("colors").split(",") : [],
+      sizes: searchParams.get("sizes") ? searchParams.get("sizes").split(",") : [],
+      brandingDatas: searchParams.get("brandingDatas") ? searchParams.get("brandingDatas").split(",") : [],
+      neckTypes: searchParams.get("neckTypes") ? searchParams.get("neckTypes").split(",") : [],
+      sleeveTypes: searchParams.get("sleeveTypes") ? searchParams.get("sleeveTypes").split(",") : [],
+      fabrics: searchParams.get("fabrics") ? searchParams.get("fabrics").split(",") : [],
+      occasions: searchParams.get("occasions") ? searchParams.get("occasions").split(",") : [],
+      fits: searchParams.get("fits") ? searchParams.get("fits").split(",") : [],
+      subCategorys: searchParams.get("subCategorys") ? searchParams.get("subCategorys").split(",") : [],
+      genders: searchParams.get("genders") ? searchParams.get("genders").split(",") : [],
+      customerRatings: searchParams.get("customerRatings") ? searchParams.get("customerRatings").split(",") : [],
+      priceRanges: searchParams.get("priceRanges") ? searchParams.get("priceRanges").split(",") : [],
+      shoeSize: searchParams.get("shoeSize") ? searchParams.get("shoeSize").split(",") : [],
+      shoeOccasion: searchParams.get("shoeOccasion") ? searchParams.get("shoeOccasion").split(",") : [],
+      accessorySubCategorie: searchParams.get("accessorySubCategorie") ? searchParams.get("accessorySubCategorie").split(",") : [],
+      footwearSubCategorie: searchParams.get("footwearSubCategorie") ? searchParams.get("footwearSubCategorie").split(",") : [],
+    };
 
     const initialSortBy = searchParams.get("sortBy") || "";
     const initialPage = parseInt(searchParams.get("page")) || 1;
 
-    // Only update state if there is a change in filters or sortBy or currentPage
-    if (
-      !compareFilters(newFilters, filters) ||
-      initialSortBy !== sortBy ||
-      initialPage !== currentPage
-    ) {
-      setFilters(newFilters);
-      setSortBy(initialSortBy);
-      setCurrentPage(initialPage);
-    }
-  }, [location]);
+    setFilters(initialFilters);
+    setSortBy(initialSortBy);
+    setCurrentPage(initialPage);
+  }, []);
 
   const updateURLParams = (newFilters) => {
     const searchParams = new URLSearchParams();
@@ -174,8 +154,12 @@ const SearchResults = () => {
   useEffect(() => {
     updateURLParams(filters);
   }, [filters, sortBy,query]);
+// }, [filters, sortBy,currentPage,query]);
 
-
+useEffect(() => {
+  console.log("kskskskkskskkskskskskskk",location.search,filters,query)
+  
+}, [location.search]);
 
 
 
@@ -230,17 +214,17 @@ const SearchResults = () => {
       setIsLoading(false);
     }
   };
-  
+
 // console.log("filteredDatafilteredDatafilteredData",filteredData)
 // console.log("filteredDatasxvvfdddddddddd",filteredDatas)
 
   useEffect(() => {
     const clothesKeywords = [
       "tshirts", "tshirt", "blouses", "shirts", "tank tops", "sweaters", "hoodies", "jeans", "trousers", "shorts",
-      "skirts", "leggings", "jackets", "coats", "blazers", "vests", "raincoats", "dress",
-      "maxi dresses", "cocktail dresses", "sundresses", "bras", "gym tops", "yoga pants", "track pants",
+      "skirts", "leggings", "jackets", "coats", "blazers", "vests", "raincoats", "casual dresses", "formal dresses",
+      "maxi dresses", "cocktail dresses", "sundresses", "sports bras", "gym tops", "yoga pants", "track pants",
       "running shorts", "pajamas", "robes", "sweatpants", "lounge tops", "half pants", "bras", "panties", "boxers",
-      "briefs", "undershirts", "suits", "tuxedos", "full sleeve", "half sleeve", "sleeveless",
+      "briefs", "undershirts", "suits", "tuxedos", "full sleeve", "half sleeve", "short sleeve", "sleeveless",
       "modal", "linen blend", "wool blend", "poly cotton", "nylon", "viscose rayon", "cotton blend", "elastane",
       "organic cotton", "polyester", "pure cotton", "2xs", "xs", "s", "m", "l", "xl", "2xl", "3xl", "4xl", "5xl", "6xl",
       "7xl", "8xl", "beach wear", "casual", "formal", "lounge wear", "party", "sports", "boxy", "compression", "loose",
@@ -282,8 +266,8 @@ console.log("hfejshmehgmfe,")
     if (isClothesQuery !== isShoesQuery) {
       setIsValid(true);
     }
-  
-    
+
+
     // fetchProducts();
     // const pagesToFetch = Array.from({ length: currentPage }, (_, i) => i + 1);
     // pagesToFetch.forEach((page) => {
@@ -349,14 +333,14 @@ console.log("hfejshmehgmfe,")
     // console.log("Selected Sort Option:", event.target.value);
     setSortBy(event.target.value);
   };
-  
+
   useEffect(() => {
     // console.log("Current SortBy:", sortBy);
     if (sortBy) {
       fetchProducts(currentPage);
     }
   }, [sortBy]);
-  
+
 
   const handleFilterSubmit = (e) => {
     e.preventDefault();
@@ -383,16 +367,33 @@ console.log("hfejshmehgmfe,")
     setSortBy(sortByOption);
     // setSortDrawerOpen(false); // Close the sort drawer after selecting an option
   };
+
+  // navigate(`${location.pathname}?${searchParams.toString()}`);
+  // console.log("zzzzzzzzz",filters);
+
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage);
-    navigate(`${location.pathname}?page=${newPage}`);
+    // console.log("zzzzzzzzz",searchParams.toString());
+    
+        console.log("zzzzzzzzz",location.pathname);
+        console.log("yyyyyyyy",location.search);
+        let p=location.search.split('&')
+        console.log("kkkkkkkk",`${location.pathname}${p[0]}&page=${newPage}`)
+        if(!p[0].includes("page")){
+          navigate(`${location.pathname}${p[0]}&page=${newPage}`);
+        }
+        else{
+          navigate(`${location.pathname}?page=${newPage}`);
+        }
+          
+    // navigate(`${location.pathname}?page=${newPage}`);
   };
   useEffect(() => {
     const page = parseInt(queryParams.get('page')) || 1;
     setCurrentPage(page);
   }, [location.search]);
   const toggleShowAll = (type) => {
-    
+
     switch (type) {
       case "sizes":
         setShowAllSizes(!showAllSizes);
@@ -467,7 +468,7 @@ console.log("hfejshmehgmfe,")
   };
 
 
-  
+
 
 
   const visibleSizes = showAllSizes ? size : size.slice(0, 6);
@@ -482,12 +483,12 @@ console.log("hfejshmehgmfe,")
   const { ref: loadMoreRef, inView } = useInView({
     threshold: 1.0,
   });
-  console.log("currentPagecurrentPage",currentPage)
-  console.log("currentPagecurrentPage",initialPage)
-  
+  // console.log("currentPagecurrentPage",currentPage)
+  // console.log("currentPagecurrentPage",initialPage)
+
   useEffect(() => {
     setCurrentPage(initialPage);
-      
+
     // dispatch(getAllProducts(currentPage));
   }, [initialPage]);
 
@@ -497,7 +498,7 @@ console.log("hfejshmehgmfe,")
     }
   }, [inView, currentPage, totalPages,isLoading,filters]);
 
-  
+
   const getAllProducts = () => {
     const allProducts = [];
     Object.values(filteredData).forEach((pageData) => {
@@ -637,7 +638,7 @@ console.log("hfejshmehgmfe,")
                   </h3>
                   {dropdowns.colors &&
                     visibleColors.map((c) => (
-                      <label key={c.id} className="block ml-2">
+                      <label key={c.id} className="block ml-2 my-2">
                         <input
                           type="checkbox"
                           value={c.name}
@@ -667,7 +668,7 @@ console.log("hfejshmehgmfe,")
                   </h3>
                   {dropdowns.shoeSize &&
                     visibleShoesSizes.map((s) => (
-                      <label key={s.id} className="block ml-2">
+                      <label key={s.id} className="block ml-2 my-2">
                         <input
                           type="checkbox"
                           value={s.type}
@@ -696,7 +697,7 @@ console.log("hfejshmehgmfe,")
                   </h3>
                   {dropdowns.sizes &&
                     visibleSizes.map((s) => (
-                      <label key={s.id} className="block ml-2">
+                      <label key={s.id} className="block ml-2 my-2">
                         <input
                           type="checkbox"
                           value={s.type}
@@ -726,7 +727,7 @@ console.log("hfejshmehgmfe,")
                   </h3>
                   {dropdowns.subCategorys &&
                     visibleSubCategories.map((s) => (
-                      <label key={s.id} className="block ml-2">
+                      <label key={s.id} className="block ml-2 my-2">
                         <input
                           type="checkbox"
                           value={s.title}
@@ -755,7 +756,7 @@ console.log("hfejshmehgmfe,")
                   </h3>
                   {dropdowns.footwearSubCategorie &&
                     visibleShoeSubCategories.map((s) => (
-                      <label key={s.id} className="block ml-2">
+                      <label key={s.id} className="block ml-2 my-2">
                         <input
                           type="checkbox"
                           value={s.title}
@@ -785,7 +786,7 @@ console.log("hfejshmehgmfe,")
                   </h3>
                   {dropdowns.neckTypes &&
                     visibleNeckTypes.map((n) => (
-                      <label key={n.id} className="block ml-2">
+                      <label key={n.id} className="block ml-2 my-2">
                         <input
                           type="checkbox"
                           value={n.title}
@@ -815,7 +816,7 @@ console.log("hfejshmehgmfe,")
                   </h3>
                   {dropdowns.fabrics &&
                     fabric.map((f) => (
-                      <label key={f.id} className="block ml-2">
+                      <label key={f.id} className="block ml-2 my-2">
                         <input
                           type="checkbox"
                           value={f.type}
@@ -837,7 +838,7 @@ console.log("hfejshmehgmfe,")
                   </h3>
                   {dropdowns.occasions &&
                     occasion.map((o) => (
-                      <label key={o.id} className="block ml-2">
+                      <label key={o.id} className="block ml-2 my-2">
                         <input
                           type="checkbox"
                           value={o.type}
@@ -858,7 +859,7 @@ console.log("hfejshmehgmfe,")
                   </h3>
                   {dropdowns.shoeOccasion &&
                     shoeOccasions.map((o) => (
-                      <label key={o.id} className="block ml-2">
+                      <label key={o.id} className="block ml-2 my-2">
                         <input
                           type="checkbox"
                           value={o.type}
@@ -880,7 +881,7 @@ console.log("hfejshmehgmfe,")
                   </h3>
                   {dropdowns.fits &&
                     fit.map((s) => (
-                      <label key={s.id} className="block ml-2">
+                      <label key={s.id} className="block ml-2 my-2">
                         <input
                           type="checkbox"
                           value={s.type}
@@ -902,7 +903,7 @@ console.log("hfejshmehgmfe,")
                   </h3>
                   {dropdowns.sleeveTypes &&
                     sleeveType.map((s) => (
-                      <label key={s.id} className="block ml-2">
+                      <label key={s.id} className="block ml-2 my-2">
                         <input
                           type="checkbox"
                           value={s.title}
@@ -924,7 +925,7 @@ console.log("hfejshmehgmfe,")
                   </h3>
                   {dropdowns.genders &&
                     gender.map((s) => (
-                      <label key={s.id} className="block ml-2">
+                      <label key={s.id} className="block ml-2 my-2">
                         <input
                           type="checkbox"
                           value={s.type}
@@ -950,7 +951,7 @@ console.log("hfejshmehgmfe,")
                       { label: "3 and above", value: "3-to-4" },
                       { label: "4 and above", value: "4-and-above" },
                     ].map((rating) => (
-                      <label key={rating.id} className="block ml-2">
+                      <label key={rating.id} className="block ml-2 my-2">
                         <input
                           type="checkbox"
                           value={rating.value}
@@ -974,7 +975,7 @@ console.log("hfejshmehgmfe,")
                   </h3>
                   {dropdowns.priceRanges &&
                     ["0-500", "501-1000", "1001-1500", "1501-2000", "2001-10000"].map((range) => (
-                      <label key={range} className="block ml-2">
+                      <label key={range} className="block ml-2 my-2">
                         <input
                           type="checkbox"
                           value={range}
@@ -1085,7 +1086,7 @@ console.log("hfejshmehgmfe,")
                       type="radio"
                       id="sortByPriceLowToHigh"
                       name="sortBy"
-                      className="mr-2"
+                      className="mr-2 my-2"
                       value="Price: Low to High"
                       onClick={() => handleSortOption("price-asc")}
                       onChange={toggleSortDrawer}
@@ -1097,7 +1098,7 @@ console.log("hfejshmehgmfe,")
                       type="radio"
                       id="sortByPriceHighToLow"
                       name="sortBy"
-                      className="mr-2"
+                      className="mr-2 my-2"
                       value="Price: High to Low"
                       onClick={() => handleSortOption("price-desc")}
                       onChange={toggleSortDrawer}
@@ -1109,7 +1110,7 @@ console.log("hfejshmehgmfe,")
                       type="radio"
                       id="sortByRatingLowToHigh"
                       name="sortBy"
-                      className="mr-2"
+                      className="mr-2 my-2"
                       value="Rating: Low to High"
                       onClick={() => handleSortOption("rating-asc")}
                       onChange={toggleSortDrawer}
@@ -1121,7 +1122,7 @@ console.log("hfejshmehgmfe,")
                       type="radio"
                       id="sortByRatingHighToLow"
                       name="sortBy"
-                      className="mr-2"
+                      className="mr-2 my-2"
                       value="Rating: High to Low"
                       onClick={() => handleSortOption("rating-desc")}
                       onChange={toggleSortDrawer}
@@ -1133,7 +1134,7 @@ console.log("hfejshmehgmfe,")
                       type="radio"
                       id="sortByDateOldToNew"
                       name="sortBy"
-                      className="mr-2"
+                      className="mr-2 my-2"
                       value="Date: Old to New"
                       onClick={() => handleSortOption("date-asc")}
                       onChange={toggleSortDrawer}
@@ -1145,7 +1146,7 @@ console.log("hfejshmehgmfe,")
                       type="radio"
                       id="sortByDateNewToOld"
                       name="sortBy"
-                      className="mr-2"
+                      className="mr-2 my-2"
                       value="Date: New to Old"
                       onClick={() => handleSortOption("date-desc")}
                       onChange={toggleSortDrawer}

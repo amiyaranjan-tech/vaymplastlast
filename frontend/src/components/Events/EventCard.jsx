@@ -99,7 +99,7 @@ const EventCard = ({ active, data }) => {
         <img src={`${data.images[0]?.url}`} alt="" className="rounded-lg object-contain w-full h-48" />
       </div>
       <div className="w-full lg:w-[60%] flex flex-col justify-center p-4">
-        <h2 className={`${styles.productTitle} text-xl font-bold mb-2`}>{data.name}</h2>
+        <h2 className={`${styles.productTitle} text-xl font-bold mb-2 truncate`}>{data.name}</h2>
         <p className="text-blue-700 font-semibold mb-2 text-xl underline">
           {data.eventDescription}
         </p>

@@ -9,6 +9,7 @@ import { toast } from "react-toastify";
 import { updatUserAddress } from "../../redux/actions/user"; // Import your action
 import axios from "axios";
 import { server } from "../../server";
+import { FaPlus } from "react-icons/fa";
 
 const Checkout = () => {
   const dispatch = useDispatch();
@@ -286,6 +287,9 @@ const ShippingInfo = ({
     setUserInfo(!userInfo);
   };
 
+  const [isDisabledd, setIsDisabledd] = useState(false);
+  const [error, setError] = useState('');
+
   const handleAddNewAddressClick = () => {
     setSelectedAddressIndex(null);
     setUsername("");
@@ -302,10 +306,84 @@ const ShippingInfo = ({
 
   const isDisabled = selectedAddressIndex !== null || lastUsedAddress !== null;
 
+  const nameRegex = /^[a-zA-Z\s]*$/;
+
+  const handleChangename = (e) => {
+    const value = e.target.value;
+
+    // Check if the value matches the regex
+    if (nameRegex.test(value)) {
+      setUsername(value);
+      setError('');
+    } else {
+      setError('Oops! only letters ans spaces allowed');
+    }
+  };
+
+  const handleFocus = () => {
+    setError('');
+  };
+
   return (
     <div className="w-full 800px:w-[95%] bg-white rounded-md p-5 pb-8">
+   <div>
+        <button
+          className="px-4 py-2 mt-3 border border-gray-300 rounded-md shadow-sm hover:bg-gray-100"
+          onClick={handleChooseSavedAddressClick}
+        >
+          Choose from saved address
+        </button>
 
-      <h5 className="text-[18px] font-[500]">Shipping Address</h5>
+        {userInfo && (
+          <div>
+            {user && user.addresses.map((item, index) => (
+              <div className="w-full bg-white rounded-lg shadow mb-5 p-3 relative flex flex-col"
+                key={index}
+                onClick={() => handleSavedAddressClick(index, item)}
+              >
+                <div className="flex items-center mb-2">
+                  <input
+                    type="radio"
+                    value={index}
+                    checked={selectedAddressIndex === index}
+                    onChange={() => handleSavedAddressClick(index, item)}
+                  />
+                  <h5 className="pl-2 font-semibold">{item.userName}</h5>
+                  <p className="pl-2 mt-1 mb-1">{item.phoneNumber}</p>
+                  <p className="ml-2 p-1 pt-0 pb-0 mt-1 mb-1 font-thin bg-slate-200 border rounded-md">{item.addressType}</p>
+                </div>
+                <div className="flex flex-col pl-6">
+                  {/* <p className="mb-1">{item.userName}</p> */}
+                  <p className="mb-1">{item.address1}</p>
+                  <p className="mb-1"> {item.address2}</p>
+                  {/* <p className="mb-1">{item.phoneNumber}</p> */}
+                  {/* <p className="mb-1">{item.altphoneNumber}</p> */}
+                  {/* <p className="mb-1">{item.landmark}</p> */}
+                  <div className="flex">
+                    <p className="mb-1">{item.city}</p>
+                    <p className="mb-1 ml-1"> {item.zipCode}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+            {user && user.addresses.length === 0 && (
+              <h5 className="text-center pt-8 text-[18px]">
+                You do not have any saved address!
+              </h5>
+            )}
+          </div>
+        )}
+
+        <div className="w-full flex mt-1">
+          <button
+            className="px-4 py-2 mt-3 border border-gray-300 rounded-md shadow-sm hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            onClick={handleAddNewAddressClick}
+          >
+           <span className="flex"> <span className="mt-1 mr-1"><FaPlus /></span> Add a New Address </span>
+          </button>
+        </div>
+      </div>
+      <h5 className="text-[18px] font-[500] mt-3 text-center">Shipping Address</h5>
       <br />
       <form>
         <div className="w-full flex pb-3">
@@ -314,10 +392,12 @@ const ShippingInfo = ({
             <input
               type="text"
               value={username}
-              disabled={isDisabled}
-              onChange={(e) => setUsername(e.target.value)}
+              disabled={isDisabledd}
+              onChange={handleChangename}
+              onFocus={handleFocus}
               className={`${styles.input} !w-[95%]`}
             />
+                { error && <p className="text-red-500">{error}</p>}
           </div>
           <div className="w-[50%]">
             <label className="block pb-2">Phone number <span className="text-red-500">*</span></label>
@@ -401,63 +481,6 @@ const ShippingInfo = ({
           </div>
         </div>
       </form>
-      <div>
-        <button
-          className="px-4 py-2 mt-3 border border-gray-300 rounded-md shadow-sm hover:bg-gray-100"
-          onClick={handleChooseSavedAddressClick}
-        >
-          Choose from saved address
-        </button>
-
-        {userInfo && (
-          <div>
-            {user && user.addresses.map((item, index) => (
-              <div className="w-full bg-white rounded-lg shadow mb-5 p-3 relative flex flex-col"
-                key={index}
-                onClick={() => handleSavedAddressClick(index, item)}
-              >
-                <div className="flex items-center mb-2">
-                  <input
-                    type="radio"
-                    value={index}
-                    checked={selectedAddressIndex === index}
-                    onChange={() => handleSavedAddressClick(index, item)}
-                  />
-                  <h5 className="pl-2 font-semibold">{item.userName}</h5>
-                  <p className="pl-2 mt-1 mb-1">{item.phoneNumber}</p>
-                  <p className="ml-2 p-1 pt-0 pb-0 mt-1 mb-1 font-thin bg-slate-200 border rounded-md">{item.addressType}</p>
-                </div>
-                <div className="flex flex-col pl-6">
-                  {/* <p className="mb-1">{item.userName}</p> */}
-                  <p className="mb-1">{item.address1}</p>
-                  <p className="mb-1"> {item.address2}</p>
-                  {/* <p className="mb-1">{item.phoneNumber}</p> */}
-                  {/* <p className="mb-1">{item.altphoneNumber}</p> */}
-                  {/* <p className="mb-1">{item.landmark}</p> */}
-                  <div className="flex">
-                    <p className="mb-1">{item.city}</p>
-                    <p className="mb-1 ml-1"> {item.zipCode}</p>
-                  </div>
-                </div>
-              </div>
-            ))}
-            {user && user.addresses.length === 0 && (
-              <h5 className="text-center pt-8 text-[18px]">
-                You do not have any saved address!
-              </h5>
-            )}
-          </div>
-        )}
-
-        <div className="w-full flex mt-1">
-          <button
-            className="px-4 py-2 mt-3 border border-gray-300 rounded-md shadow-sm hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-            onClick={handleAddNewAddressClick}
-          >
-            Add New Address
-          </button>
-        </div>
-      </div>
     </div>
   );
 };
@@ -486,7 +509,7 @@ const CartData = ({
         <h5 className="text-[16px] font-[400]">₹{shipping.toFixed(2)}</h5>
       </div>
       <div className="flex justify-between border-b pb-3">
-        <h5 className="text-[16px] font-[400]">Discount:</h5>
+        <h5 className="text-[16px] font-[400]">Coupon Discount:</h5>
         <h5 className="text-[16px] font-[400]">
           {discountPercentenge ? "₹" + discountPercentenge.toFixed(2) : null}
         </h5>
