@@ -141,7 +141,7 @@ return (
 
     <div className="border-t w-full text-right">
       <h5 className="pt-3 text-[18px]">
-        Total Price: <strong>{data?.total}</strong>
+        Price: <strong>{data?.shopPrice}</strong>
       </h5>
     </div>
     <br />
@@ -152,9 +152,9 @@ return (
         <h4 className="pt-3 text-[20px]">
           {data?.address.address1 + " " + data?.address.address2}
         </h4>
-        <h4 className="text-[20px]">{data?.address.country}</h4>
+        {/* <h4 className="text-[20px]">{data?.address.country}</h4> */}
         <h4 className="text-[20px]">{data?.address.city}</h4>
-        <h4 className="text-[20px]">{data?.address.phoneNumber}</h4>
+        {/* <h4 className="text-[20px]">{data?.address.phoneNumber}</h4> */}
       </div>
       <div className="w-full 800px:w-[40%]">
         <h4 className="pt-3 text-[20px]">Payment Info:</h4>
@@ -168,68 +168,6 @@ return (
     <br />
     <br />
 
-    {/* {data?.status !== "Processing" && data?.status !== "Refund Success" && (
-      <select
-        value={status}
-        onChange={(e) => setStatus(e.target.value)}
-        className="w-[200px] mt-2 border h-[35px] rounded-[5px]"
-      >
-        {[
-          "Processing",
-          "Transferred to delivery partner",
-          "Shipping",
-          "Received",
-          "On the way",
-          "Delivered",
-        ]
-          .slice(
-            [
-              "Processing",
-              "Transferred to delivery partner",
-              "Shipping",
-              "Received",
-              "On the way",
-              "Delivered",
-            ].indexOf(data?.status)
-          )
-          .map((option, index) => (
-            <option value={option} key={index}>
-              {option}
-            </option>
-          ))}
-      </select>
-    )}
-    {
-      data?.status === "Processing refund" || data?.status === "Refund Success" ? (
-        <select value={status} 
-     onChange={(e) => setStatus(e.target.value)}
-     className="w-[200px] mt-2 border h-[35px] rounded-[5px]"
-    >
-      {[
-          "Processing refund",
-          "Refund Success",
-        ]
-          .slice(
-            [
-              "Processing refund",
-              "Refund Success",
-            ].indexOf(data?.status)
-          )
-          .map((option, index) => (
-            <option value={option} key={index}>
-              {option}
-            </option>
-          ))}
-    </select>
-      ) : null
-    } */}
-{/* <p className="text-[20px]">{data?.status}</p> */}
-    {/* <div
-      className={`${styles.button} mt-5 !bg-[#FCE1E6] !rounded-[4px] text-[#E94560] font-[600] !h-[45px] text-[18px]`}
-      onClick={data?.status !== "Processing refund" ? orderUpdateHandler : refundOrderUpdateHandler}
-    >
-      Update Status
-    </div> */}
   </div>
 );
 };

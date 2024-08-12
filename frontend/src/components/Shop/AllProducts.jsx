@@ -95,7 +95,7 @@ const AllProducts = () => {
                 key={product._id}
                 className="relative bg-gradient-to-r from-blue-50 to-blue-50 border border-gray-300 rounded-lg shadow-lg transform transition-transform hover:scale-105 hover:shadow-xl p-4"
               >
-                <Link to={`/product/${product._id}`}>
+                {/* <Link to={`/product/${product._id}`}> */}
                   <div className="w-full h-48 relative overflow-hidden rounded-t-lg">
                     <img
                       src={product.images[0]?.url}
@@ -103,15 +103,14 @@ const AllProducts = () => {
                       className="w-full h-full object-contain transition-transform duration-300 ease-in-out hover:scale-110"
                     />
                   </div>
-                </Link>
+                {/* </Link> */}
                 
                 <div className="p-2 flex flex-col h-full">
-                  <Link
-                    to={`/product/${product._id}`}
-                    className="text-md font-semibold text-gray-800 hover:text-blue-600 transition-colors duration-300 block truncate"
+                  <div
+                    className="text-md font-semibold text-gray-800 block truncate"
                   >
                     {product.name}
-                  </Link>
+                  </div>
                   <p className="text-gray-600 text-sm mt-1">Price: ₹{product.ShopPrice}</p>
                   <div className="flex items-center gap-2 mt-2">
                     <select
@@ -155,11 +154,11 @@ const AllProducts = () => {
                     >
                       Update
                     </button>
-                    <Link to={`/product/${product._id}`}>
+                    {/* <Link to={`/product/${product._id}`}>
                       <button className="text-blue-500 text-sm hover:text-blue-700 transition-colors duration-300">
                         <AiOutlineEye size={18} />
                       </button>
-                    </Link>
+                    </Link> */}
                   </div>
                 </div>
               </div>

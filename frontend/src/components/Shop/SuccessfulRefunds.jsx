@@ -28,7 +28,7 @@ const SuccessfulRefunds = () => {
 
   return (
     <div className="w-full p-8">
-      <h3 className="text-[22px] font-Poppins mb-4">Successful Refunds</h3>
+      <h3 className="text-[22px] font-Poppins mb-4">Successful Payments</h3>
       <div className="bg-white shadow rounded p-4">
         {refunds.length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -36,7 +36,7 @@ const SuccessfulRefunds = () => {
               <div key={refund._id} className="p-4 border rounded-lg shadow-sm bg-gray-50">
                 <div className="mb-2">
                   <p className="font-semibold text-lg text-gray-800">
-                    Amount: <span className="font-normal">Rs{refund.amount}</span>
+                    Amount: <span className="font-normal">₹{refund.amount}</span>
                   </p>
                 </div>
                 <div className="mb-2">

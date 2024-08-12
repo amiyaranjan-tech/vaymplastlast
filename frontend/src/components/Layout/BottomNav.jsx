@@ -10,6 +10,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
 import Cart from '../cart/Cart'; 
 import Wishlist from '../Wishlist/Wishlist'; 
+import { BsShop } from "react-icons/bs";
 
 const BottomNav = () => {
     const { wishlist } = useSelector((state) => state.wishlist);
@@ -66,7 +67,7 @@ const BottomNav = () => {
                         <BiHomeAlt size={30} className="inline-block mb-1" />
                         <span className="tab tab-home block text-xs">Home</span>
                     </Link>
-                    <button onClick={handleWishlistClick} className="w-full focus:text-blue-500 hover:text-blue-500 flex flex-col items-center pt-2 pb-1 relative">
+                    {/* <button onClick={handleWishlistClick} className="w-full focus:text-blue-500 hover:text-blue-500 flex flex-col items-center pt-2 pb-1 relative">
                         <FiHeart size={30} className="inline-block mb-1" />
                         {wishlist && wishlist.length > 0 && (
                             <span className="absolute top-2 right-5 rounded-full bg-[#f44336] w-4 h-4 p-0 m-0 text-white font-mono text-[12px] leading-tight text-center">
@@ -74,7 +75,12 @@ const BottomNav = () => {
                             </span>
                         )}
                         <span className="tab tab-whishlist block text-xs">Wishlist</span>
-                    </button>
+                    </button> */}
+                      <Link to="/shop" className="w-full focus:text-blue-500 hover:text-blue-500 flex flex-col items-center pt-2 pb-1">
+                        <BsShop
+                        size={30} className="inline-block mb-1" />
+                        <span className="tab tab-kategori block text-xs">Shops</span>
+                    </Link>
                     <Link to="/categories" className="w-full focus:text-blue-500 hover:text-blue-500 flex flex-col items-center pt-2 pb-1">
                         <IoLayers size={30} className="inline-block mb-1" />
                         <span className="tab tab-kategori block text-xs">Category</span>

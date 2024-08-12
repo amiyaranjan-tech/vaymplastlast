@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { useInView } from "react-intersection-observer";
 import Header from "../components/Layout/Header";
@@ -49,31 +49,31 @@ const SearchResults = () => {
   const [currentPage, setCurrentPage] = useState(initialPage);
   const [totalPages, setTotalPages] = useState(1);
   const [totalPage, setTotalPage] = useState(1);
-
+  const [sortBy, setSortBy] = useState(queryParams.get("sortBy") || "");
   const [filters, setFilters] = useState({
-    colors: [],
-    sizes: [],
-    brandingDatas: [],
-    neckTypes: [],
-    sleeveTypes: [],
-    fabrics: [],
-    occasions: [],
-    fits: [],
-    subCategorys: [],
-    genders: [],
-    customerRatings: [],
-    priceRanges: [],
-    shoeSize:[],
-    shoeOccasion:[],
-    accessorySubCategorie:[],
-    footwearSubCategorie:[],
+    neckTypes: queryParams.get("neckTypes") ? queryParams.get("neckTypes").split(",") : [],
+    colors: queryParams.get("colors") ? queryParams.get("colors").split(",") : [],
+    sleeveTypes: queryParams.get("sleeveTypes") ? queryParams.get("sleeveTypes").split(",") : [],
+    sizes: queryParams.get("sizes") ? queryParams.get("sizes").split(",") : [],
+    fits: queryParams.get("fits") ? queryParams.get("fits").split(",") : [],
+    genders: queryParams.get("genders") ? queryParams.get("genders").split(",") : [],
+    occasions: queryParams.get("occasions") ? queryParams.get("occasions").split(",") : [],
+    subCategorys: queryParams.get("subCategorys") ? queryParams.get("subCategorys").split(",") : [],
+    fabrics: queryParams.get("fabrics") ? queryParams.get("fabrics").split(",") : [],
+    brandingDatas: queryParams.get("brandingDatas") ? queryParams.get("brandingDatas").split(",") : [],
+    customerRatings: queryParams.get("customerRatings") ? queryParams.get("customerRatings").split(",") : [],
+    priceRanges: queryParams.get("priceRanges") ? queryParams.get("priceRanges").split(",") : [],
+    shoeSize: queryParams.get("shoeSize") ? queryParams.get("shoeSize").split(",") : [],
+    shoeOccasion: queryParams.get("shoeOccasion") ? queryParams.get("shoeOccasion").split(",") : [],
+    accessorySubCategorie: queryParams.get("accessorySubCategorie") ? queryParams.get("accessorySubCategorie").split(",") : [],
+    footwearSubCategorie: queryParams.get("footwearSubCategorie") ? queryParams.get("footwearSubCategorie").split(",") : []
   });
     const [isClothes, setIsClothes] = useState(false);
     const [isFootWear, setIsFootWear] = useState(false);
     const [isValid, setIsValid] = useState(false);
 
   const [sortDrawerOpen, setSortDrawerOpen] = useState(false);
-  const [sortBy, setSortBy] = useState("");
+  // const [sortBy, setSortBy] = useState("");
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [showAllSizes, setShowAllSizes] = useState(false);
   const [showAllShoesSizes, setShowAllShoesSizes] = useState(false);
@@ -103,27 +103,29 @@ const SearchResults = () => {
 
   const isLargeScreen = useMediaQuery({ query: '(min-width: 1024px)' });
   const isSmallOrMediumScreen = useMediaQuery({ query: '(max-width: 1023px)' });
+  
   useEffect(() => {
+    // Update filters, sort, and pagination from URL
     const searchParams = new URLSearchParams(location.search);
 
     const initialFilters = {
-      colors: searchParams.get("colors") ? searchParams.get("colors").split(",") : [],
-      sizes: searchParams.get("sizes") ? searchParams.get("sizes").split(",") : [],
-      brandingDatas: searchParams.get("brandingDatas") ? searchParams.get("brandingDatas").split(",") : [],
       neckTypes: searchParams.get("neckTypes") ? searchParams.get("neckTypes").split(",") : [],
+      colors: searchParams.get("colors") ? searchParams.get("colors").split(",") : [],
       sleeveTypes: searchParams.get("sleeveTypes") ? searchParams.get("sleeveTypes").split(",") : [],
-      fabrics: searchParams.get("fabrics") ? searchParams.get("fabrics").split(",") : [],
-      occasions: searchParams.get("occasions") ? searchParams.get("occasions").split(",") : [],
+      sizes: searchParams.get("sizes") ? searchParams.get("sizes").split(",") : [],
       fits: searchParams.get("fits") ? searchParams.get("fits").split(",") : [],
-      subCategorys: searchParams.get("subCategorys") ? searchParams.get("subCategorys").split(",") : [],
       genders: searchParams.get("genders") ? searchParams.get("genders").split(",") : [],
+      occasions: searchParams.get("occasions") ? searchParams.get("occasions").split(",") : [],
+      subCategorys: searchParams.get("subCategorys") ? searchParams.get("subCategorys").split(",") : [],
+      fabrics: searchParams.get("fabrics") ? searchParams.get("fabrics").split(",") : [],
+      brandingDatas: searchParams.get("brandingDatas") ? searchParams.get("brandingDatas").split(",") : [],
       customerRatings: searchParams.get("customerRatings") ? searchParams.get("customerRatings").split(",") : [],
       priceRanges: searchParams.get("priceRanges") ? searchParams.get("priceRanges").split(",") : [],
       shoeSize: searchParams.get("shoeSize") ? searchParams.get("shoeSize").split(",") : [],
       shoeOccasion: searchParams.get("shoeOccasion") ? searchParams.get("shoeOccasion").split(",") : [],
       accessorySubCategorie: searchParams.get("accessorySubCategorie") ? searchParams.get("accessorySubCategorie").split(",") : [],
-      footwearSubCategorie: searchParams.get("footwearSubCategorie") ? searchParams.get("footwearSubCategorie").split(",") : [],
-    };
+      footwearSubCategorie: searchParams.get("footwearSubCategorie") ? searchParams.get("footwearSubCategorie").split(",") : []
+  };
 
     const initialSortBy = searchParams.get("sortBy") || "";
     const initialPage = parseInt(searchParams.get("page")) || 1;
@@ -131,51 +133,18 @@ const SearchResults = () => {
     setFilters(initialFilters);
     setSortBy(initialSortBy);
     setCurrentPage(initialPage);
-  }, []);
+  }, [location.search]);
 
-  const updateURLParams = (newFilters) => {
-    const searchParams = new URLSearchParams();
-
-    // Add filters to URL parameters
-    Object.keys(newFilters).forEach((key) => {
-      if (newFilters[key].length > 0) {
-        searchParams.append(key, newFilters[key].join(","));
-      }
-    });
-
-    // Add sorting and page number to URL parameters
-    if (sortBy) searchParams.append("sortBy", sortBy);
-    searchParams.append("page", currentPage);
-
-    // Update URL with new parameters
-    navigate(`${location.pathname}?${searchParams.toString()}`);
-  };
-
-  useEffect(() => {
-    updateURLParams(filters);
-  }, [filters, sortBy,query]);
-// }, [filters, sortBy,currentPage,query]);
-
-useEffect(() => {
-  console.log("kskskskkskskkskskskskskk",location.search,filters,query)
-  
-}, [location.search]);
-
-
-
-
-
-
-
-  const fetchProducts = async (page=1) => {
+  const fetchFilteredProducts = async (currentPage=1) => {
     try {
       setIsLoading(true);
       const response = await axios.get(`${server}/product/get-all-searched-products`, {
         params: {
           query,
-          page,
+          page: currentPage,
           color: filters.colors.join(","),
           neckType: filters.neckTypes.join(","),
+          size: filters.sizes.join(","),
           sleeveType: filters.sleeveTypes.join(","),
           size: filters.sizes.join(","),
           fit: filters.fits.join(","),
@@ -189,34 +158,102 @@ useEffect(() => {
           shoeSizes:  filters.shoeSize.join(","),
           shoeOccasions:  filters.shoeOccasion.join(","),
           accessorySubCategories:  filters.accessorySubCategorie.join(","),
-          footwearSubCategories:  filters.footwearSubCategorie.join(","),
+          footwearSubCategories:  filters.footwearSubCategorie.join(","),          
           sortBy,
         },
       });
 
       const data = response.data;
-      console.log("Dataaaaaaaaaaa",data)
       if (data.success) {
         setFilteredData((prevData) => ({
           ...prevData,
-          [page]: data.products,
+          [currentPage]: data.products,
         }));
-        setFilteredDatas(data.products);
-        setTotalPage(data.l3)
+        // setFilteredDatas(data.products);
         setTotalPages(data.totalPages);
       } else {
         setError("Failed to fetch products");
       }
     } catch (error) {
-      console.error("Error fetching products:", error);
       setError(error.message);
     } finally {
       setIsLoading(false);
     }
   };
+  useEffect(() => {
 
-// console.log("filteredDatafilteredDatafilteredData",filteredData)
-// console.log("filteredDatasxvvfdddddddddd",filteredDatas)
+    fetchFilteredProducts();
+     //window.location.reload()
+   console.log("ghghghghghghghg",location.search)
+  }, [filters, sortBy, currentPage, query]);
+
+
+
+
+
+  
+  const fetchFilteredProduct = async () => {
+    try {
+      setIsLoading(true);
+      const response = await axios.get(`${server}/product/get-all-searched-products`, {
+        params: {
+          query,
+          page: currentPage,
+          color: filters.colors.join(","),
+          neckType: filters.neckTypes.join(","),
+          size: filters.sizes.join(","),
+          sleeveType: filters.sleeveTypes.join(","),
+          size: filters.sizes.join(","),
+          fit: filters.fits.join(","),
+          gender: filters.genders.join(","),
+          occasion: filters.occasions.join(","),
+          subCategory: filters.subCategorys.join(","),
+          fabric: filters.fabrics.join(","),
+          brandingData: filters.brandingDatas.join(","),
+          customerRating: filters.customerRatings.join(","),
+          priceRange: filters.priceRanges.join(","),
+          shoeSizes:  filters.shoeSize.join(","),
+          shoeOccasions:  filters.shoeOccasion.join(","),
+          accessorySubCategories:  filters.accessorySubCategorie.join(","),
+          footwearSubCategories:  filters.footwearSubCategorie.join(","),          
+          sortBy,
+        },
+      });
+
+      const data = response.data;
+      if (data.success) {
+        setFilteredDatas(data.products);
+        setTotalPages(data.totalPages);
+      } else {
+        setError("Failed to fetch products");
+      }
+    } catch (error) {
+      setError(error.message);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+useEffect(() => {
+
+  fetchFilteredProduct();
+}, [filters, sortBy, currentPage, query]); 
+
+
+useEffect(() => {
+  const fetchData = async () => {
+    if (isSmallOrMediumScreen) {
+      const pagesToFetch = Array.from({ length: currentPage }, (_, i) => i + 1);
+      await Promise.all(pagesToFetch.map((page) => fetchFilteredProducts(page)));
+    } else {
+      await fetchFilteredProduct();
+    }
+  };
+
+  fetchData();
+}, [filters, sortBy, currentPage, query, isSmallOrMediumScreen]);
+
+
+
 
   useEffect(() => {
     const clothesKeywords = [
@@ -267,85 +304,48 @@ console.log("hfejshmehgmfe,")
       setIsValid(true);
     }
 
-
-    // fetchProducts();
-    // const pagesToFetch = Array.from({ length: currentPage }, (_, i) => i + 1);
-    // pagesToFetch.forEach((page) => {
-    //   if (!filteredData[page]) {
-    //     fetchProducts(page);
-    //   }
-    // });
-    // Fetch data for all pages up to the current page
-    // const pagesToFetch = Array.from({ length: currentPage }, (_, i) => i + 1);
-    // pagesToFetch.forEach((page) => {
-    //   if (!filteredData[page]) {
-    //     fetchProducts(page);
-    //   }
-    // });
   }, [query,filters]);
 
   console.log("bchktfhmc")
-  // console.log("queryquery",filters)
-  useEffect(() => {
-    if (isLargeScreen) {
-      fetchProducts(currentPage);
-    }
-  }, [isLargeScreen, currentPage,query, filters, sortBy]); // Fetch only once on mount
-
-  useEffect(() => {
-    if (isSmallOrMediumScreen) {
-      const pagesToFetch = Array.from({ length: currentPage }, (_, i) => i + 1);
-      pagesToFetch.forEach((page) => {
-        if (!filteredData[page]) {
-          fetchProducts(page);
-        }
-      });
-    }
-  }, [isSmallOrMediumScreen, currentPage, filteredData,query, filters, sortBy]); 
-  // const handlePageChange = (page) => {
-  //   setCurrentPage(page);
-  //   navigate(`?page=${page}`); // Update the URL with the new page number
-  // };
-
-  useEffect(() => {
-    fetchProducts(currentPage);
-  }, [query, currentPage, filters, sortBy]);
-
-  useEffect(() => {
-    if (isSmallOrMediumScreen) {
-      fetchProducts(currentPage);
-    }
-  }, [filters, currentPage, isSmallOrMediumScreen]);
 
   const handleCheckboxChange = (filterType, value) => {
-    setCurrentPage(1)
-    setFilters(prevFilters => {
-      const updatedFilters = prevFilters[filterType].includes(value)
-        ? prevFilters[filterType].filter(item => item !== value)
-        : [...prevFilters[filterType], value];
-      return { ...prevFilters, [filterType]: updatedFilters };
-    });
-  };
-  // const handleSortChange = (e) => {
-  //   setSortBy(e.target.value);
-  // };
-  const handleSortChange = (event) => {
-    // console.log("Selected Sort Option:", event.target.value);
-    setSortBy(event.target.value);
+    const updatedFilters = filters[filterType].includes(value)
+      ? filters[filterType].filter(item => item !== value)
+      : [...filters[filterType], value];
+
+    setFilters((prevFilters) => ({
+      ...prevFilters,
+      [filterType]: updatedFilters,
+    }));
+
+    // Update URL with selected filters
+    const params = new URLSearchParams(location.search);
+    params.set(filterType, updatedFilters.join(","));
+    params.delete('page');  // Reset to page 1 on filter change
+    navigate(`${location.pathname}?${params.toString()}`);
+    // window.location.reload()
   };
 
-  useEffect(() => {
-    // console.log("Current SortBy:", sortBy);
-    if (sortBy) {
-      fetchProducts(currentPage);
-    }
-  }, [sortBy]);
+  const handlePageChange = (newPage) => {
+    setCurrentPage(newPage);
+    const params = new URLSearchParams(location.search);
+    params.set("page", newPage);
+    navigate(`${location.pathname}?${params.toString()}`);
+  };
 
+
+  const handleSortOption = (sortOption) => {
+    setSortBy(sortOption);
+    const params = new URLSearchParams(location.search);
+    params.set("sortBy", sortOption);
+    navigate(`${location.pathname}?${params.toString()}`);
+  };
+
+ 
 
   const handleFilterSubmit = (e) => {
     e.preventDefault();
     // setCurrentPage(1);
-    // fetchProducts(1);
   };
 
   const toggleDrawer = () => {
@@ -363,35 +363,10 @@ console.log("hfejshmehgmfe,")
     setSortDrawerOpen(!sortDrawerOpen);
   };
 
-  const handleSortOption = (sortByOption) => {
-    setSortBy(sortByOption);
-    // setSortDrawerOpen(false); // Close the sort drawer after selecting an option
-  };
-
   // navigate(`${location.pathname}?${searchParams.toString()}`);
   // console.log("zzzzzzzzz",filters);
 
-  const handlePageChange = (newPage) => {
-    setCurrentPage(newPage);
-    // console.log("zzzzzzzzz",searchParams.toString());
-    
-        console.log("zzzzzzzzz",location.pathname);
-        console.log("yyyyyyyy",location.search);
-        let p=location.search.split('&')
-        console.log("kkkkkkkk",`${location.pathname}${p[0]}&page=${newPage}`)
-        if(!p[0].includes("page")){
-          navigate(`${location.pathname}${p[0]}&page=${newPage}`);
-        }
-        else{
-          navigate(`${location.pathname}?page=${newPage}`);
-        }
-          
-    // navigate(`${location.pathname}?page=${newPage}`);
-  };
-  useEffect(() => {
-    const page = parseInt(queryParams.get('page')) || 1;
-    setCurrentPage(page);
-  }, [location.search]);
+
   const toggleShowAll = (type) => {
 
     switch (type) {
@@ -465,6 +440,29 @@ console.log("hfejshmehgmfe,")
       accessorySubCategorie: false,
       footwearSubCategorie: false,
     });
+    const params = new URLSearchParams(location.search);
+  params.delete("neckTypes");
+  params.delete("colors");
+  params.delete("sleeveTypes");
+  params.delete("sizes");
+  params.delete("fits");
+  params.delete("genders");
+  params.delete("occasions");
+  params.delete("subCategorys");
+  params.delete("fabrics");
+  params.delete("brandingDatas");
+  params.delete("customerRatings");
+  params.delete("priceRanges");
+  params.delete("shoeSize");
+  params.delete("shoeOccasion");
+  params.delete("accessorySubCategorie");
+  params.delete("footwearSubCategorie");
+  params.delete("sortBy");
+  params.delete("page");
+
+  // Update the URL
+  navigate(`${location.pathname}?${params.toString()}`);
+
   };
 
 
@@ -486,17 +484,12 @@ console.log("hfejshmehgmfe,")
   // console.log("currentPagecurrentPage",currentPage)
   // console.log("currentPagecurrentPage",initialPage)
 
-  useEffect(() => {
-    setCurrentPage(initialPage);
-
-    // dispatch(getAllProducts(currentPage));
-  }, [initialPage]);
 
   useEffect(() => {
     if (inView && !isLoading&& currentPage < totalPages) {
       handlePageChange(currentPage + 1);
     }
-  }, [inView, currentPage, totalPages,isLoading,filters]);
+  }, [inView, currentPage, totalPages,isLoading]);
 
 
   const getAllProducts = () => {
@@ -775,12 +768,14 @@ console.log("hfejshmehgmfe,")
                     </button>
                   )}
                 </div>}
+
+                
                 {/* Neck Type Filter */}
                 {isClothes===true&&<div className="mb-4">
                   <h3
                     className="cursor-pointer flex items-center justify-between border-t-1 border-b-2 border-gray-300 text-gray-700 p-3 rounded-lg mb-2 hover:border-gray-500 transition duration-300 ease-in-out"
-                    onClick={() => toggleDropdown("neckTypes")}
-                  >
+                    onClick={() => setDropdowns(prev => ({ ...prev, neckTypes: !prev.neckTypes }))}
+                    >
                     Neck Type
                     {dropdowns.neckTypes ? <AiOutlineCaretUp /> : <AiOutlineCaretDown />}
                   </h3>
@@ -799,7 +794,7 @@ console.log("hfejshmehgmfe,")
                   {dropdowns.neckTypes && neckType.length > 6 && (
                     <button
                       className="ml-2 text-blue-500"
-                      onClick={() => toggleShowAll("neckTypes")}
+                      onClick={() => setShowAllNeckTypes(!showAllNeckTypes)}
                     >
                       {showAllNeckTypes ? "See Less" : "See More"}
                     </button>
@@ -1160,7 +1155,8 @@ console.log("hfejshmehgmfe,")
          {/* <Footer /> */}
         </div>
       )}
-    </>
+      </>
+      
   );
 };
 

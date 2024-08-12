@@ -27,6 +27,7 @@ const DashboardHero = () => {
   const [row, setRows] = useState([]);
   const [loading, setLoading] = useState(true);
   const [open, setOpen] = useState(false);
+  const [opn, setOpn] = useState(false);
   const navigate = useNavigate();
 
   // const seller=id;
@@ -108,9 +109,9 @@ const DashboardHero = () => {
       const newStockValue = !showNewStock; // Toggle the new stock value
       setShowNewStock(newStockValue); // Update the local state if the backend update is successful
       window.location.reload();
+
       // Make a request to update the new stock notification in the backend
       const response = await dispatch(updateNewStockNotification(seller._id, newStockValue));
-
     } catch (error) {
       console.error(`Error updating new stock notification:`, error);
     }
@@ -123,8 +124,8 @@ const DashboardHero = () => {
       const newShopStatus = !showShopStatus; // Toggle the new stock value
       setShowShopStatus(newShopStatus); // Update the local state if the backend update is successful
       // Make a request to update the new stock notification in the backend
-      const response = await dispatch(updateShopStatus(seller._id, newShopStatus));
       window.location.reload();
+      const response = await dispatch(updateShopStatus(seller._id, newShopStatus));
 
 
     } catch (error) {
@@ -239,10 +240,39 @@ const DashboardHero = () => {
         className={`py-2 px-4 rounded ${
           showNewStock ? "bg-red-500 text-white" : "bg-blue-500 text-white"
         }`}
-        onClick={handleStockNotification}
+        onClick={() =>setOpn(true)}
       >
         {showNewStock ? "No New Stock" : "New Stock Available"}
       </button>
+      {opn && (
+            <div className="w-full fixed top-0 left-0 z-[999] bg-[#00000039] flex items-center justify-center h-screen">
+              <div className="w-[95%] 800px:w-[40%] min-h-[20vh] bg-white rounded shadow p-5">
+                <div className="w-full flex justify-end cursor-pointer">
+                  <RxCross1 size={25} onClick={() => setOpn(false)} />
+                </div>
+                <h3 className="text-[25px] text-center py-5 font-Poppins text-[#000000cb]">
+                  {showNewStock ? "Shop has No New Stock?" : "Any New Stock Available?"}
+                </h3>
+                <div className="w-full flex items-center justify-center">
+                  <div
+                    className={`${styles.button} !bg-red-500 text-white text-[18px] !h-[42px] mr-4`}
+                    onClick={() => setOpn(false)}
+                  >
+                    No
+                  </div>
+                  <div
+                    className={`${styles.button} !bg-red-500 text-white text-[18px] !h-[42px] ml-4`}
+                    onClick={() => {
+                      setOpn(false);
+                      handleStockNotification();
+                    }}
+                  >
+                    Yes
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
       <button
         className={`py-2 px-4 rounded ${
           showShopStatus ? "bg-blue-500 text-white" : "bg-red-500 text-white"
@@ -258,7 +288,7 @@ const DashboardHero = () => {
                   <RxCross1 size={25} onClick={() => setOpen(false)} />
                 </div>
                 <h3 className="text-[25px] text-center py-5 font-Poppins text-[#000000cb]">
-                  {showShopStatus ? "Are you sure you want to close your shop?" : "Are you sure you want to open your shop?"}
+                  {showShopStatus ? "Are you sure you want to open your shop?" : "Are you sure you want to close your shop?"}
                 </h3>
                 <div className="w-full flex items-center justify-center">
                   <div
