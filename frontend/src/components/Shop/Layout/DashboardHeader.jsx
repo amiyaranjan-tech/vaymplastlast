@@ -33,7 +33,11 @@ const DashboardHeader = () => {
     <div className="w-full h-[80px] bg-white shadow sticky top-0 left-0 z-30 flex items-center justify-between px-4">
       <div>
         <Link to="/dashboard">
-          <h1 style={{ color: '#142337', fontSize: '44px', fontWeight: 'bold' }}>vaymp</h1>
+        <img
+            src={`${process.env.PUBLIC_URL}/vaymplogo.png`}
+            alt="Vaymp"
+            className="h-14 my-1"
+          />
         </Link>
       </div>
       <div className="flex items-center">

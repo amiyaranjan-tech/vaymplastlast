@@ -10,6 +10,7 @@ import { CiMoneyBill, CiSettings } from "react-icons/ci";
 import { Link } from "react-router-dom";
 import { BiMessageSquareDetail } from "react-icons/bi";
 import { HiOutlineReceiptRefund } from "react-icons/hi";
+import { MdOutlinePayments } from "react-icons/md";
 
 const DashboardSideBar = ({ active }) => {
   return (
@@ -179,7 +180,7 @@ const DashboardSideBar = ({ active }) => {
 
       <div className="w-full flex items-center p-4">
         <Link to="/dashboard-Processing-refunds" className="w-full flex items-center">
-          <HiOutlineReceiptRefund
+        <MdOutlinePayments
             size={30}
             color={`${active === 13 ? "crimson" : "#555"}`}
           />

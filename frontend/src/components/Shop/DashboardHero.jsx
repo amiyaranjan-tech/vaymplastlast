@@ -108,10 +108,11 @@ const DashboardHero = () => {
     try {
       const newStockValue = !showNewStock; // Toggle the new stock value
       setShowNewStock(newStockValue); // Update the local state if the backend update is successful
-      window.location.reload();
+     
 
       // Make a request to update the new stock notification in the backend
       const response = await dispatch(updateNewStockNotification(seller._id, newStockValue));
+      window.location.reload();
     } catch (error) {
       console.error(`Error updating new stock notification:`, error);
     }
@@ -124,10 +125,10 @@ const DashboardHero = () => {
       const newShopStatus = !showShopStatus; // Toggle the new stock value
       setShowShopStatus(newShopStatus); // Update the local state if the backend update is successful
       // Make a request to update the new stock notification in the backend
-      window.location.reload();
+    
       const response = await dispatch(updateShopStatus(seller._id, newShopStatus));
 
-
+      window.location.reload();
     } catch (error) {
       console.error(`Error updating new stock notification:`, error);
     }

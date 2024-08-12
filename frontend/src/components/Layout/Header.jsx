@@ -241,16 +241,12 @@ const Header = ({ activeHeading }) => {
         <div className={`${styles.section}`}>
           <div className="hidden 800px:h-[40px] 800px:my-[10px] 800px:flex items-center justify-between">
             <div>
-              <Link to="/">
-                <h1
-                  style={{
-                    color: "#142337",
-                    fontSize: "36px",
-                    fontWeight: "bold",
-                  }}
-                >
-                  vaymp
-                </h1>{" "}
+            <Link to="/">
+                <img
+                  src={`${process.env.PUBLIC_URL}/vaymplogo.png`}
+                  alt="Vaymp"
+                  className="h-12 ml-2"
+                />
               </Link>
             </div>
             {/* search box */}
@@ -469,17 +465,13 @@ const Header = ({ activeHeading }) => {
             />
           </div>
           <div>
-            <Link to="/">
-              <h1
-                style={{
-                  color: "#142337",
-                  fontSize: "44px",
-                  fontWeight: "bold",
-                }}
-              >
-                vaymp
-              </h1>
-            </Link>
+          <Link to="/">
+                <img
+                  src={`${process.env.PUBLIC_URL}/vaymplogo.png`}
+                  alt="Vaymp"
+                  className="h-11 my-1"
+                />
+              </Link>
           </div>
           <div>
             <div className="flex items-center justify-start space-x-6">
