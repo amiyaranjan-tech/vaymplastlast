@@ -214,7 +214,7 @@ const Faq = () => {
             <div className="mt-4">
               <p className="text-base text-gray-500">
                 You can contact our customer support team by emailing us at
-                ranjan2001amiya@gmail.com, or by calling us at +917277244691
+                vaympforyou@gmail.com, or by calling us at +917986524704
                 between the hours of 9am and 7pm IST, Monday through Saturday,
                 feel free to reach out to us on WhatsApp as well.
               </p>

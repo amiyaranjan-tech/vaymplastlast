@@ -12,6 +12,7 @@ import { categoriesData, sleeveType, neckType, color, fabric, occasion, fit, gen
 import { AiOutlineCaretDown, AiOutlineCaretUp, AiOutlineClose, AiFillFilter, AiOutlineSwap } from "react-icons/ai";
 import { useInView } from "react-intersection-observer";
 import ClipLoader from "react-spinners/ClipLoader";
+import { Oval } from 'react-loader-spinner';
 import BasicPagination from "./BasicPagination";
 
 const ProductsPage = () => {
@@ -348,9 +349,9 @@ const ProductsPage = () => {
               ))}
               </div>
               {data.length === 0 ? (
-                <div className="flex justify-center items-center">
-                  <img src={`${process.env.PUBLIC_URL}/noproductshd.png`} alt="No Products Found" className="max-w-4/5 max-h-4/5" />
-                </div>
+                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+                <Oval color="#00BFFF" height={80} width={80} />
+              </div>
               ) : null}
               {/* <div className="pt-0 md:hidden"> */}
                 {/* Auto-load more products on scroll for mobile */}

@@ -22,7 +22,7 @@ const Footer = () => {
           {/* events and offers */}
         </h1>
         <div>
-          <a href="https://wa.me/917277244691" target="_blank">
+          <a href="https://wa.me/917986524704" target="_blank">
             <img src="whatsappmsg.png" width="300px" alt="WhatsApp Message" />
           </a>
         </div>
@@ -100,7 +100,7 @@ const Footer = () => {
         className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5
      text-center pt-2 text-gray-400 text-sm pb-8"
       >
-        <span>© Vaymp. All rights reserved.</span>
+        <span>© vaymp. All rights reserved.</span>
         <span>Terms · Privacy Policy</span>
         <div className="flex items-center justify-center">
           <span>UPI payments coming soon</span>

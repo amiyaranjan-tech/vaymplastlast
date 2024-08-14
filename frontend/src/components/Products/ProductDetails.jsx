@@ -762,7 +762,7 @@ const ProductDetailsInfo = ({
                   {data.shop?.createdAt?.slice(0, 10)}
                 </span>
               </h5> */}
-              <h5 className="font-[600] pt-3">
+              {/* <h5 className="font-[600] pt-3">
                 Total Products:{" "}
                 <span className="font-[500]">
                   {products && products.length}
@@ -771,7 +771,7 @@ const ProductDetailsInfo = ({
               <h5 className="font-[600] pt-3">
                 Total Reviews:{" "}
                 <span className="font-[500]">{totalReviewsLength}</span>
-              </h5>
+              </h5> */}
               <Link to={`/shop/preview/${data.shopId}`}>
                 <div
                   className={`${styles.button} !bg-flipkart-blue !rounded-[4px] !h-[39.5px] mt-3`}
