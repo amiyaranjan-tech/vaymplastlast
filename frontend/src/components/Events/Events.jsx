@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styles from '../../styles/styles';
 import EventCard from './EventCard';
@@ -24,10 +24,10 @@ const Events = () => {
           carouselRef.current.scrollLeft = 0; // Reset to the start if at the end
         }
       }
-    }, 2000); // Scroll every 2 seconds
+    }, 5000); // Scroll every 2 seconds
 
     return () => clearInterval(scrollInterval); // Cleanup interval on component unmount
-  }, [data]);
+  }, [allEvents]);
 
 
   return (

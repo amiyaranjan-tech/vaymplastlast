@@ -8,6 +8,8 @@ const FeaturedProduct = () => {
   const carouselRef = useRef(null);
   // Filter products where listing is not equal to "Event"
   const filteredProducts = allProducts.filter((product) => product.listing !== "Event");
+  
+  const visibleProducts = filteredProducts.slice(0, 10);
   useEffect(() => {
     const scrollInterval = setInterval(() => {
       if (carouselRef.current) {
@@ -22,9 +24,7 @@ const FeaturedProduct = () => {
     }, 2000); // Scroll every 2 seconds
 
     return () => clearInterval(scrollInterval); // Cleanup interval on component unmount
-  }, [data]);
-  const visibleProducts = filteredProducts.slice(0, 10);
-
+  }, [visibleProducts]);
   return (  
     <div className="relative">
       <div className={`${styles.section}`}>

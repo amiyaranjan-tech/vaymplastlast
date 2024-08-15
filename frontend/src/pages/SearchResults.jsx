@@ -924,7 +924,7 @@ if (Joota) {
 
                 
                 {/* Neck Type Filter */}
-                {isClothes===true&&isJeans!=true&&<div className="mb-4">
+                {isClothes===true&&isBra!=true&&isJeans!=true&&<div className="mb-4">
                   <h3
                     className="cursor-pointer flex items-center justify-between border-t-1 border-b-2 border-gray-300 text-gray-700 p-3 rounded-lg mb-2 hover:border-gray-500 transition duration-300 ease-in-out"
                     onClick={() => setDropdowns(prev => ({ ...prev, neckTypes: !prev.neckTypes }))}
@@ -1041,7 +1041,7 @@ if (Joota) {
                     ))}
                 </div>}
                 {/* Sleeve Type Filter */}
-                {isClothes===true&&isJeans!=true&&<div className="mb-4">
+                {isClothes===true&&isBra!=true&&isJeans!=true&&<div className="mb-4">
                   <h3
                     className="cursor-pointer flex items-center justify-between border-t-1 border-b-2 border-gray-300 text-gray-700 p-3 rounded-lg mb-2 hover:border-gray-500 transition duration-300 ease-in-out"
                     onClick={() => toggleDropdown("sleeveTypes")}
