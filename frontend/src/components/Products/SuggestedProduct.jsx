@@ -24,7 +24,7 @@ const SuggestedProduct = ({ data }) => {
       );
     }
 
-    setProductData(filteredData.slice(0, 10));
+    setProductData(filteredData.slice(1, 11));
   }, [allProducts, data.subCategory, data.footwearSubCategories]);
 
   console.log("11111111", data);

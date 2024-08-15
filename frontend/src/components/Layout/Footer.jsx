@@ -11,6 +11,7 @@ import {
   footerProductLinks,
   footerSupportLinks,
 } from "../../static/data";
+import { FaLinkedin, FaXTwitter } from "react-icons/fa6";
 
 const Footer = () => {
   return (
@@ -33,19 +34,35 @@ const Footer = () => {
           <br />
           <p>All your city stores at your fingertips.</p>
           <div className="flex items-center mt-[15px]">
-            <AiFillFacebook size={25} className="cursor-pointer" />
-            <AiOutlineTwitter
+          <div>
+          <a href="https://www.linkedin.com/company/vaymp/posts/?feedView=all" target="_blank">
+          <FaLinkedin size={25} className="cursor-pointer" />
+          </a>
+          </div>
+            <div>
+            <a href="https://x.com/vaympbharat" target="_blank">
+            <FaXTwitter
               size={25}
               style={{ marginLeft: "15px", cursor: "pointer" }}
             />
+               </a>
+               </div>
+               <div>
+             <a href="https://www.instagram.com/vaympbharat?igsh=MWp3N3Z6cjJmZWVjag%3D%3D&utm_source=qr " target="_blank">
             <AiFillInstagram
               size={25}
               style={{ marginLeft: "15px", cursor: "pointer" }}
             />
+            </a>
+            </div>
+            <div>
+            <a href="" target="_blank">
             <AiFillYoutube
               size={25}
               style={{ marginLeft: "15px", cursor: "pointer" }}
             />
+            </a>
+            </div>
           </div>
         </ul>
 

@@ -1,21 +1,34 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import styles from "../../../styles/styles";
 import ProductCard from "../ProductCard/ProductCard";
 
 const BestDeals = () => {
   const [data, setData] = useState([]);
-  const { allProducts } = useSelector((state) => state.products);
-
+  const { allProducts } = useSelector((state) => state.products);const carouselRef = useRef(null);
   useEffect(() => {
     if (allProducts) {
       const filteredData = allProducts.filter((product) => product.listing !== "Event");
       const sortedData = filteredData.sort((a, b) => b.sold_out - a.sold_out);
-      const firstFive = sortedData.slice(0, 10);
+      const firstFive = sortedData.slice(11, 21);
       setData(firstFive);
     }
   }, [allProducts]);
+  useEffect(() => {
+    const scrollInterval = setInterval(() => {
+      if (carouselRef.current) {
+        carouselRef.current.scrollLeft += carouselRef.current.offsetWidth;
+        if (
+          carouselRef.current.scrollLeft + carouselRef.current.offsetWidth >=
+          carouselRef.current.scrollWidth
+        ) {
+          carouselRef.current.scrollLeft = 0; // Reset to the start if at the end
+        }
+      }
+    }, 2000); // Scroll every 2 seconds
 
+    return () => clearInterval(scrollInterval); // Cleanup interval on component unmount
+  }, [data]);
   return (
     <div>
       <div className={`${styles.section}`}>
@@ -23,6 +36,7 @@ const BestDeals = () => {
           <h1 className="text-center mb-2">Best Deals</h1>
         </div>
         <div
+        ref={carouselRef}
           className="flex overflow-x-auto scroll-snap-x snap-mandatory gap-5 mb-12 border-0"
           style={{ scrollbarWidth: "none", msOverflowStyle: "none" }} // Hide scrollbar for Firefox and IE
         >

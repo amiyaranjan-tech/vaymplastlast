@@ -90,7 +90,29 @@ const productSchema = new mongoose.Schema({
   occasion: {
     type: String,
   },
-  
+  color: {
+    type: [String],
+  },
+  pattern: {
+    type: String,
+  },
+trending:{
+  type:Boolean,
+  default:false
+},
+bestSeller:{
+  type:Boolean,
+  default:false
+},
+sponsored:{
+  type:Boolean,
+  default:false
+},
+recentVisited:{
+  type:Boolean,
+  default:false
+},
+
   fit: {
     type: String,
   },

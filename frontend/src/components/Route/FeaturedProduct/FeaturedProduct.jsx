@@ -1,14 +1,28 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
 import styles from "../../../styles/styles";
 import ProductCard from "../ProductCard/ProductCard";
 
 const FeaturedProduct = () => {
   const { allProducts } = useSelector((state) => state.products);
-
+  const carouselRef = useRef(null);
   // Filter products where listing is not equal to "Event"
   const filteredProducts = allProducts.filter((product) => product.listing !== "Event");
+  useEffect(() => {
+    const scrollInterval = setInterval(() => {
+      if (carouselRef.current) {
+        carouselRef.current.scrollLeft += carouselRef.current.offsetWidth;
+        if (
+          carouselRef.current.scrollLeft + carouselRef.current.offsetWidth >=
+          carouselRef.current.scrollWidth
+        ) {
+          carouselRef.current.scrollLeft = 0; // Reset to the start if at the end
+        }
+      }
+    }, 2000); // Scroll every 2 seconds
 
+    return () => clearInterval(scrollInterval); // Cleanup interval on component unmount
+  }, [data]);
   const visibleProducts = filteredProducts.slice(0, 10);
 
   return (  
@@ -18,6 +32,7 @@ const FeaturedProduct = () => {
         <h1 className="text-center mb-2">Featured Products</h1>
         </div>
         <div
+        ref={carouselRef}
             className="flex overflow-x-auto overflow-y-hidden scroll-snap-x snap-mandatory gap-5 mb-12 border-0"
             style={{
               scrollbarWidth: 'none',   /* Firefox */

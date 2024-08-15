@@ -18,6 +18,7 @@ import {
   neckType,
   color,
   fabric,
+  pattern,
   occasion,
   fit,
   gender,
@@ -25,6 +26,8 @@ import {
   subCategory,
   brandingData,
   shoeSizes,
+  braSizes,
+  jeansSizes,
   shoeOccasions,
   accessorySubCategories,
   footwearSubCategories
@@ -34,10 +37,8 @@ import BasicPagination from "./BasicPagination";
 
 const SearchResults = () => {
   const { query } = useParams();
-  console.log( "harsh", query)
   const navigate = useNavigate();
   const location = useLocation();
- 
   const queryParams = new URLSearchParams(location.search);
   const initialPage = parseInt(queryParams.get('page')) || 1;
   console.log("khvbvmmvmvumv")
@@ -64,6 +65,9 @@ const SearchResults = () => {
     customerRatings: queryParams.get("customerRatings") ? queryParams.get("customerRatings").split(",") : [],
     priceRanges: queryParams.get("priceRanges") ? queryParams.get("priceRanges").split(",") : [],
     shoeSize: queryParams.get("shoeSize") ? queryParams.get("shoeSize").split(",") : [],
+    braSize: queryParams.get("braSize") ? queryParams.get("braSize").split(",") : [],
+    patterns: queryParams.get("patterns") ? queryParams.get("patterns").split(",") : [],
+    jeansSize: queryParams.get("jeansSize") ? queryParams.get("jeansSize").split(",") : [],
     shoeOccasion: queryParams.get("shoeOccasion") ? queryParams.get("shoeOccasion").split(",") : [],
     accessorySubCategorie: queryParams.get("accessorySubCategorie") ? queryParams.get("accessorySubCategorie").split(",") : [],
     footwearSubCategorie: queryParams.get("footwearSubCategorie") ? queryParams.get("footwearSubCategorie").split(",") : []
@@ -77,6 +81,12 @@ const SearchResults = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [showAllSizes, setShowAllSizes] = useState(false);
   const [showAllShoesSizes, setShowAllShoesSizes] = useState(false);
+  const [isJeans, setIsJeans] = useState(false);
+  const [isBra, setIsBra] = useState(false);
+  const [isKapra, setIsKapra] = useState(false);
+  const [isJoota, setIsJoota] = useState(false);
+  const [showAllBraSizes, setShowAllBraSizes] = useState(false);
+  const [showAllJeansSizes, setShowAllJeansSizes] = useState(false);
   const [showAllSubCategories, setShowAllSubCategories] = useState(false);
   const [showAllShoeSubCategories, setShowAllShoesSubCategories] = useState(false);
 
@@ -96,6 +106,9 @@ const SearchResults = () => {
     customerRatings: false,
     priceRanges: false,
     shoeSize: false,
+    patterns: false,
+    braSize: false,
+    jeansSize: false,
     shoeOccasion: false,
     accessorySubCategorie: false,
     footwearSubCategorie: false,
@@ -118,10 +131,13 @@ const SearchResults = () => {
       occasions: searchParams.get("occasions") ? searchParams.get("occasions").split(",") : [],
       subCategorys: searchParams.get("subCategorys") ? searchParams.get("subCategorys").split(",") : [],
       fabrics: searchParams.get("fabrics") ? searchParams.get("fabrics").split(",") : [],
+      patterns: searchParams.get("patterns") ? searchParams.get("patterns").split(",") : [],
       brandingDatas: searchParams.get("brandingDatas") ? searchParams.get("brandingDatas").split(",") : [],
       customerRatings: searchParams.get("customerRatings") ? searchParams.get("customerRatings").split(",") : [],
       priceRanges: searchParams.get("priceRanges") ? searchParams.get("priceRanges").split(",") : [],
       shoeSize: searchParams.get("shoeSize") ? searchParams.get("shoeSize").split(",") : [],
+      braSize: searchParams.get("braSize") ? searchParams.get("braSize").split(",") : [],
+      jeansSize: searchParams.get("jeansSize") ? searchParams.get("jeansSize").split(",") : [],
       shoeOccasion: searchParams.get("shoeOccasion") ? searchParams.get("shoeOccasion").split(",") : [],
       accessorySubCategorie: searchParams.get("accessorySubCategorie") ? searchParams.get("accessorySubCategorie").split(",") : [],
       footwearSubCategorie: searchParams.get("footwearSubCategorie") ? searchParams.get("footwearSubCategorie").split(",") : []
@@ -152,10 +168,13 @@ const SearchResults = () => {
           occasion: filters.occasions.join(","),
           subCategory: filters.subCategorys.join(","),
           fabric: filters.fabrics.join(","),
+          pattern: filters.patterns.join(","),
           brandingData: filters.brandingDatas.join(","),
           customerRating: filters.customerRatings.join(","),
           priceRange: filters.priceRanges.join(","),
           shoeSizes:  filters.shoeSize.join(","),
+          braSizes:  filters.braSize.join(","),
+          jeansSizes:  filters.jeansSize.join(","),
           shoeOccasions:  filters.shoeOccasion.join(","),
           accessorySubCategories:  filters.accessorySubCategorie.join(","),
           footwearSubCategories:  filters.footwearSubCategorie.join(","),          
@@ -209,10 +228,13 @@ const SearchResults = () => {
           occasion: filters.occasions.join(","),
           subCategory: filters.subCategorys.join(","),
           fabric: filters.fabrics.join(","),
+          pattern: filters.patterns.join(","),
           brandingData: filters.brandingDatas.join(","),
           customerRating: filters.customerRatings.join(","),
           priceRange: filters.priceRanges.join(","),
           shoeSizes:  filters.shoeSize.join(","),
+          braSizes:  filters.braSize.join(","),
+          jeansSizes:  filters.jeansSize.join(","),
           shoeOccasions:  filters.shoeOccasion.join(","),
           accessorySubCategories:  filters.accessorySubCategorie.join(","),
           footwearSubCategories:  filters.footwearSubCategorie.join(","),          
@@ -265,7 +287,11 @@ useEffect(() => {
       "modal", "linen blend", "wool blend", "poly cotton", "nylon", "viscose rayon", "cotton blend", "elastane",
       "organic cotton", "polyester", "pure cotton", "2xs", "xs", "s", "m", "l", "xl", "2xl", "3xl", "4xl", "5xl", "6xl",
       "7xl", "8xl", "beach wear", "casual", "formal", "lounge wear", "party", "sports", "boxy", "compression", "loose",
-      "oversized", "regular", "slim", "clothes", "shirt", "dresses", "cloths", "cloth", "kapra", "dress"
+      "oversized", "regular", "slim", "clothes", "shirt", "dresses", "cloths", "cloth", "kapra", "dress","underwears",
+      "salwar suits","skirt","bra","jeans","undergarments","kurtis","shocks","tops","Animal Print",
+      "Checkered","Color Block","Dyed/Ombre","Embellished","Embroidered","Ethnic Motifs","Floral Print","Geometric Print",
+      "Graphic Print","Military Camouflage","Polka Print","Printed","Self Design","Solid","Striped","Washed","Woven Design"
+    
     ];
 
     const shoesKeywords = [
@@ -275,7 +301,7 @@ useEffect(() => {
       "flat sandals", "sneakers", "running shoes", "loafers", "oxfords", "brogues", "boots", "heels", "flats",
       "moccasins", "derbies", "espadrilles", "shoes", "crocs", "3", "3.5", "4", "4.5", "5", "5.5", "6", "6.5", "7",
       "7.5", "8", "8.5", "9", "9.5", "10", "10.5", "11", "11.5", "12", "12.5", "13", "13.5", "14", "14.5", "15", "15.5",
-      "16", "joota", "juta", "jhoota", "jutta", "sliper", "slipers"
+      "16", "joota", "juta", "jhoota", "jutta", "sliper", "slipers","shoes"
     ];
 
     const stopWords = [
@@ -287,13 +313,36 @@ useEffect(() => {
     ];
 
     const queryWords = query.toLowerCase().split(" ").filter(word => !stopWords.includes(word));
+    const Bra = queryWords.some(word => ["bra", "bras", "bra's"].includes(word));
 
-    const isClothesQuery = queryWords.some(word => clothesKeywords.includes(word));
-    const isShoesQuery = queryWords.some(word => shoesKeywords.includes(word));
-console.log("hfejshmehgmfe,")
+    if (Bra) {
+      setIsBra(true)
+      console.log("The query includes a term related to 'bra'.");
+    }
+    const Jeans = queryWords.some(word => ["jeans", "jean", "jean's"].includes(word));
+
+if (Jeans) {
+  setIsJeans(true)
+  console.log("The query includes a term related to 'Jeans'.");
+}
+const kapra = queryWords.some(word => ["kapra", "cloths", "cloth's","clothes"].includes(word));
+
+if (kapra) {
+  setIsKapra(true)
+  console.log("The query includes a term related to 'Jeans'.");
+}
+const Joota = queryWords.some(word => ["joota", "juta", "Footwear's","footwear","footwears","footwears'","footwear'"].includes(word));
+
+if (Joota) {
+  setIsJoota(true)
+  console.log("The query includes a term related to 'Jeans'.");
+}
+    const isClothesQuery = queryWords.some(word => clothesKeywords.some(keyword => keyword.includes(word)));
+    const isShoesQuery = queryWords.some(word => shoesKeywords.some(keyword => keyword.includes(word)));
+  console.log("hfejshmehgmfe,")
     if (isClothesQuery) {
       setIsClothes(true);
-      console.log("setIsClothes",isClothes)
+      console.log("setIsClotheszzzzzzzzzzzzzzzzz",isClothesQuery)
     }
     if (isShoesQuery) {
       setIsFootWear(true);
@@ -376,6 +425,12 @@ console.log("hfejshmehgmfe,")
         case "shoeSize":
         setShowAllShoesSizes(!showAllShoesSizes);
         break;
+        case "braSize":
+        setShowAllBraSizes(!showAllBraSizes);
+        break;
+        case "jeansSize":
+        setShowAllJeansSizes(!showAllJeansSizes);
+        break;
       case "subCategorys":
         setShowAllSubCategories(!showAllSubCategories);
         break;
@@ -402,6 +457,7 @@ console.log("hfejshmehgmfe,")
       neckTypes: [],
       sleeveTypes: [],
       fabrics: [],
+      patterns:[],
       occasions: [],
       fits: [],
       subCategorys: [],
@@ -409,6 +465,8 @@ console.log("hfejshmehgmfe,")
       customerRatings: [],
       priceRanges: [],
       shoeSize: [],
+      braSize: [],
+      jeansSize: [],
       shoeOccasion: [],
       accessorySubCategorie: [],
       footwearSubCategorie: [],
@@ -416,8 +474,12 @@ console.log("hfejshmehgmfe,")
     setCurrentPage(1);
     setIsFootWear(false);
     setIsClothes(false);
+    setIsJeans(false);
+    setIsBra(false);
     setShowAllSizes(false);
     setShowAllShoesSizes(false);
+    setShowAllJeansSizes(false);
+    setShowAllBraSizes(false);
     setShowAllSubCategories(false);
     setShowAllShoesSubCategories(false);
     setShowAllColors(false);
@@ -428,6 +490,7 @@ console.log("hfejshmehgmfe,")
       subCategorys: false,
       neckTypes: false,
       fabrics: false,
+      patterns: false,
       occasions: false,
       fits: false,
       sleeveTypes: false,
@@ -436,6 +499,8 @@ console.log("hfejshmehgmfe,")
       customerRatings: false,
       priceRanges: false,
       shoeSize: false,
+      braSize: false,
+      jeansSize: false,
       shoeOccasion: false,
       accessorySubCategorie: false,
       footwearSubCategorie: false,
@@ -450,10 +515,13 @@ console.log("hfejshmehgmfe,")
   params.delete("occasions");
   params.delete("subCategorys");
   params.delete("fabrics");
+  params.delete("patterns");
   params.delete("brandingDatas");
   params.delete("customerRatings");
   params.delete("priceRanges");
   params.delete("shoeSize");
+  params.delete("braSize");
+  params.delete("jeansSize");
   params.delete("shoeOccasion");
   params.delete("accessorySubCategorie");
   params.delete("footwearSubCategorie");
@@ -471,6 +539,9 @@ console.log("hfejshmehgmfe,")
 
   const visibleSizes = showAllSizes ? size : size.slice(0, 6);
   const visibleShoesSizes = showAllShoesSizes ? shoeSizes : shoeSizes.slice(0, 6);
+  const visibleBraSizes = showAllBraSizes ? braSizes : braSizes.slice(0, 6);
+  const visibleJeansSizes = showAllJeansSizes ? jeansSizes : jeansSizes.slice(0, 6);
+
   const visibleSubCategories = showAllSubCategories ? subCategory : subCategory.slice(0, 6);
   const visibleShoeSubCategories = showAllShoeSubCategories ? footwearSubCategories : footwearSubCategories.slice(0, 6);
 
@@ -680,7 +751,68 @@ console.log("hfejshmehgmfe,")
                     </button>
                   )}
                 </div>}
-                {isClothes===true&&<div className="mb-4">
+                {isClothes===true&&isBra===true&&<div className="mb-4">
+                  <h3
+                    className="cursor-pointer flex items-center justify-between border-t-1 border-b-2 border-gray-300 text-gray-700 p-3 rounded-lg mb-2 hover:border-gray-500 transition duration-300 ease-in-out"
+                    onClick={() => toggleDropdown("braSize")}
+                  >
+                    Size
+                    {dropdowns.braSize ? <AiOutlineCaretUp /> : <AiOutlineCaretDown />}
+                  </h3>
+                  {dropdowns.braSize &&
+                    visibleBraSizes.map((s) => (
+                      <label key={s.id} className="block ml-2 my-2">
+                        <input
+                          type="checkbox"
+                          value={s.type}
+                          checked={filters.braSize.includes(s.type)}
+                          onChange={() => handleCheckboxChange("braSize", s.type)}
+                        />
+                        {s.type}
+                      </label>
+                    ))}
+                  {dropdowns.braSize && braSizes.length > 6 && (
+                    <button
+                      className="ml-2 text-blue-500"
+                      onClick={() => toggleShowAll("braSize")}
+                    >
+                      {showAllBraSizes ? "See Less" : "See More"}
+                    </button>
+                  )}
+                </div>}
+
+
+
+                {isClothes===true&&isJeans==true&&<div className="mb-4">
+                  <h3
+                    className="cursor-pointer flex items-center justify-between border-t-1 border-b-2 border-gray-300 text-gray-700 p-3 rounded-lg mb-2 hover:border-gray-500 transition duration-300 ease-in-out"
+                    onClick={() => toggleDropdown("jeansSize")}
+                  >
+                    Size
+                    {dropdowns.jeansSize ? <AiOutlineCaretUp /> : <AiOutlineCaretDown />}
+                  </h3>
+                  {dropdowns.jeansSize &&
+                    visibleJeansSizes.map((s) => (
+                      <label key={s.id} className="block ml-2 my-2">
+                        <input
+                          type="checkbox"
+                          value={s.type}
+                          checked={filters.jeansSize.includes(s.type)}
+                          onChange={() => handleCheckboxChange("jeansSize", s.type)}
+                        />
+                        {s.type}
+                      </label>
+                    ))}
+                  {dropdowns.jeansSize && jeansSizes.length > 6 && (
+                    <button
+                      className="ml-2 text-blue-500"
+                      onClick={() => toggleShowAll("jeansSize")}
+                    >
+                      {showAllJeansSizes ? "See Less" : "See More"}
+                    </button>
+                  )}
+                </div>}
+                {isClothes===true&&isBra!=true&&isJeans!=true&&<div className="mb-4">
                   <h3
                     className="cursor-pointer flex items-center justify-between border-t-1 border-b-2 border-gray-300 text-gray-700 p-3 rounded-lg mb-2 hover:border-gray-500 transition duration-300 ease-in-out"
                     onClick={() => toggleDropdown("sizes")}
@@ -710,7 +842,7 @@ console.log("hfejshmehgmfe,")
                   )}
                 </div>}
                 {/* SubCategory Filter */}
-                {isClothes===true&&<div className="mb-4">
+                {isClothes===true&&isKapra===true&&<div className="mb-4">
                   <h3
                     className="cursor-pointer flex items-center justify-between border-t-1 border-b-2 border-gray-300 text-gray-700 p-3 rounded-lg mb-2 hover:border-gray-500 transition duration-300 ease-in-out"
                     onClick={() => toggleDropdown("subCategorys")}
@@ -739,7 +871,28 @@ console.log("hfejshmehgmfe,")
                     </button>
                   )}
                 </div>}
-                {isFootWear===true&&<div className="mb-4">
+                {isClothes===true&&isJeans!=true&&<div className="mb-4">
+                  <h3
+                    className="cursor-pointer flex items-center justify-between border-t-1 border-b-2 border-gray-300 text-gray-700 p-3 rounded-lg mb-2 hover:border-gray-500 transition duration-300 ease-in-out"
+                    onClick={() => toggleDropdown("patterns")}
+                  >
+                    Pattern
+                    {dropdowns.patterns ? <AiOutlineCaretUp /> : <AiOutlineCaretDown />}
+                  </h3>
+                  {dropdowns.patterns &&
+                    pattern.map((f) => (
+                      <label key={f.id} className="block ml-2 my-2">
+                        <input
+                          type="checkbox"
+                          value={f.type}
+                          checked={filters.patterns.includes(f.type)}
+                          onChange={() => handleCheckboxChange("patterns", f.type)}
+                        />
+                        {f.type}
+                      </label>
+                    ))}
+                </div>}
+                {isFootWear===true&&isJoota===true&&<div className="mb-4">
                   <h3
                     className="cursor-pointer flex items-center justify-between border-t-1 border-b-2 border-gray-300 text-gray-700 p-3 rounded-lg mb-2 hover:border-gray-500 transition duration-300 ease-in-out"
                     onClick={() => toggleDropdown("footwearSubCategorie")}
@@ -771,7 +924,7 @@ console.log("hfejshmehgmfe,")
 
                 
                 {/* Neck Type Filter */}
-                {isClothes===true&&<div className="mb-4">
+                {isClothes===true&&isJeans!=true&&<div className="mb-4">
                   <h3
                     className="cursor-pointer flex items-center justify-between border-t-1 border-b-2 border-gray-300 text-gray-700 p-3 rounded-lg mb-2 hover:border-gray-500 transition duration-300 ease-in-out"
                     onClick={() => setDropdowns(prev => ({ ...prev, neckTypes: !prev.neckTypes }))}
@@ -888,7 +1041,7 @@ console.log("hfejshmehgmfe,")
                     ))}
                 </div>}
                 {/* Sleeve Type Filter */}
-                {isClothes===true&&<div className="mb-4">
+                {isClothes===true&&isJeans!=true&&<div className="mb-4">
                   <h3
                     className="cursor-pointer flex items-center justify-between border-t-1 border-b-2 border-gray-300 text-gray-700 p-3 rounded-lg mb-2 hover:border-gray-500 transition duration-300 ease-in-out"
                     onClick={() => toggleDropdown("sleeveTypes")}

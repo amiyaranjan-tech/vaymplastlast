@@ -14,15 +14,14 @@ const OrderCard = ({ order }) => {
     discountPrice,
     kuchviId
   } = order;
-console.log("zzzz",order)
   return (
     <Link to={`/user/order/${kuchviId}`} >
-    <div className="bg-white ml-2 p-4 rounded shadow flex items-start gap-4">
-    <div className="flex items-start flex-grow">
+      <div className="bg-white ml-2 p-4 rounded shadow flex items-start gap-4">
+        <div className="flex items-start flex-grow">
           {image && (
             <div className="flex-none w-34">
-              <img src={image} alt={productName} className="w-[70px] h-[90px] object-contain rounded" />
-            </div>
+            <img src={image} alt={productName} className="w-[70px] h-[90px] object-contain rounded" />
+          </div>
           )}
           <div className="flex flex-col justify-between flex-grow ml-4">
           <div className="mb-2 md:hidden">
@@ -35,9 +34,9 @@ console.log("zzzz",order)
              {productName}
               </Link>
             </div>
-            <div className="text-sm text-gray-600">Status: {status==="cancel Request"?"Cancelled":status}</div>
-            <div className="text-sm text-gray-600">Price: {discountPrice}</div>
-            <div className="text-sm text-gray-600">Size: {size}</div>
+            <div className="text-sm text-gray-600 mb-1">Status: <span className={`font-medium ${status === "cancel Request" ? "text-red-500" : "text-green-500"}`}>{status === "cancel Request" ? "Cancelled" : status}</span></div>
+            <div className="text-sm text-gray-600 mb-1">Price: <span className="font-medium text-black">₹{discountPrice}</span></div>
+            <div className="text-sm text-gray-600">Size: <span className="font-medium text-black">{size}</span></div>
           </div>
         </div>
         <div className="flex flex-col sm:flex-row-reverse items-center mt-6">

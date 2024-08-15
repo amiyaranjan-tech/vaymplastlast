@@ -15,6 +15,7 @@ import {
   accessorySubCategories,
   shoeOccasions,
   fit,
+  pattern,
   gender,  
   listing,
   eventType
@@ -56,8 +57,9 @@ const CreateEvent = () => {
   const [selectedSleeveType, setSelectedSleeveType] = useState("");
   const [selectedNeckType, setSelectedNeckType] = useState("");
   const [selectedBrand, setSelectedBrand] = useState("");
-  const [selectedColor, setSelectedColor] = useState("");
+  const [selectedColor, setSelectedColor] = useState([]);
   const [selectedFabric, setSelectedFabric] = useState("");
+  const [selectedPattern, setSelectedPattern] = useState("");
   const [selectedOccasion, setSelectedOccasion] = useState("");
   const [selectedFit, setSelectedFit] = useState("");
   const [selectedListing, setSelectedListing] = useState("");
@@ -68,8 +70,23 @@ const CreateEvent = () => {
   const [endDate, setEndDate] = useState(null);
   const sizes = [
     'Free Size', '2XS', 'XS', 'S', 'M', 'L', 'XL', '2XL', '3XL', '4XL', '5XL', '6XL', '7XL', '8XL',
-  '3', '3.5', '4', '4.5', '5', '5.5', '6', '6.5', '7', '7.5', '8', '8.5', '9', '9.5', '10', '10.5', '11', '11.5', '12', '12.5', '13', '13.5', '14', '14.5', '15', '15.5', '16'
-  ];  
+  '3', '3.5', '4', '4.5', '5', '5.5', '6', '6.5', '7', '7.5', '8', '8.5', '9', '9.5', '10', '10.5', '11', '11.5', '12', '12.5', '13', '13.5', '14', '14.5', '15', '15.5', '16','3XS', 'XS', 'S', 'M', 'L', 'XL', '3XL', '4XL', '5XL', '6XL','22', '24', '26', '28', '30', '32', '34', '36', '38', '40', '42', '44', '46', '48', '50', '52',
+  '54', '56', '58', '60',
+  '28', '30', '32', '34', '36', '38', '40', '42', '44', '46',
+  'Free', '32B', '34B', '36B', '38B', '30B', '40B',
+  '34C', '32C', '36C', '38C', '40C',
+  '32A', '30A', '34A', '28A', '28B',
+  '32D', '36D', '34D', '30C', '42C', '38D', '44C', '42B', '40D', '44B',
+  '36A', '42D', '44D', '30D', '38A', 'XXL', '40A',
+  '28C', '34E', '36E', '32E', 'XXS', '38E', '40E', '34DD', '46C', '32DD', '42E', '28D',
+  '36F', '38DD', '46B', '40F', '36DD', '34F', '32F', '44E', '42A', '38F', '48C', '46D', '44A',
+  '40DD', '48D', '50C', '50B', '42F', '42DD', '44F', '44DD', '38G', '40G', '30DD', '46E', '36G',
+  '34G', '40H', '32H', '30E', '32G', '46F', '34H', '50D', '34Z', '36H', '30Z', '52C', '52B',
+  '40I', '38I', '36I', '42G', '38Z', '38H', '36Z', '34I', '32Z', '32I', '30G', '44H', '42Z',
+  '14D', '14C', '8E', '46H', '40Z', '28E', '14B', '46I', '46G', '40FF', '38FF', '30F', '14E',
+  '14A', '8D', '50E', '48E', '44Z', '44I', '42I', '42H', '28DD', '18B', '16E', '16C', '12C', '12B',
+  '10E', '10D', '10A',
+  ];   
 
     const handleStartDateChange = (e) => {
     const startDate = new Date(e.target.value);
@@ -89,7 +106,7 @@ const CreateEvent = () => {
     const endDate = new Date(e.target.value);
     setEndDate(endDate);
   };
-
+  
   const today = new Date().toISOString().slice(0, 10);
 
   const minEndDate = startDate
@@ -113,7 +130,19 @@ const CreateEvent = () => {
       window.location.reload();
     }
   }, [dispatch, error, success]);
-
+  const handleColorChange = (e) => {
+    const { value, checked } = e.target;
+  
+    if (checked) {
+      // Add the color to the selectedColors array
+      setSelectedColor((prevColors) => [...prevColors, value]);
+    } else {
+      // Remove the color from the selectedColors array
+      setSelectedColor((prevColors) =>
+        prevColors.filter((color) => color !== value)
+      );
+    }
+  };
   const handleImageChange = (e) => {
     const files = Array.from(e.target.files);
 
@@ -170,8 +199,9 @@ const CreateEvent = () => {
     newForm.append("neckType", selectedNeckType);
     newForm.append("sleeveType", selectedSleeveType);
     newForm.append("brand", selectedBrand);
-    newForm.append("color", selectedColor);
+    newForm.append("color", selectedColor.join(","));
     newForm.append("fabric", selectedFabric);
+    newForm.append("pattern", selectedPattern);
     newForm.append("occasion", selectedOccasion);
     newForm.append("fit", selectedFit);
     newForm.append("startDate", startDate);
@@ -201,6 +231,7 @@ const CreateEvent = () => {
           brand: selectedBrand,
           color: selectedColor,
           fabric: selectedFabric,
+          pattern: selectedPattern,
           eventType:selectedEventType,
           eventDescription,
           occasion: selectedOccasion,
@@ -372,7 +403,7 @@ console.log("category",category)
             ))}
           </select>
         </div>
-        {category==="Cloths" && <div>
+        {category==="Clothes" && <div>
           <label className="pb-2">
             subCategory <span className="text-red-500">*</span>
           </label>
@@ -390,7 +421,7 @@ console.log("category",category)
           </select>
         </div>}
 
-        {category==="Shoes" && <div>
+        {category==="Footwear" && <div>
           <label className="pb-2">
             subCategory <span className="text-red-500">*</span>
           </label>
@@ -521,18 +552,20 @@ console.log("category",category)
         <br />
         <div>
           <label className="pb-2">Color</label>
-          <select
-            className="w-full mt-2 border h-[35px] rounded-[5px]"
-            value={selectedColor}
-            onChange={(e) => setSelectedColor(e.target.value)}
-          >
-            <option value="">Choose Color</option>
+          <div className="mt-2">
             {color.map((type) => (
-              <option value={type.name} key={type.name}>
-                {type.name}
-              </option>
+              <div key={type.name}>
+                <input
+                  type="checkbox"
+                  id={type.name}
+                  value={type.name}
+                  onChange={handleColorChange}
+                  checked={selectedColor.includes(type.name)}
+                />
+                <label htmlFor={type.name} className="ml-2">{type.name}</label>
+              </div>
             ))}
-          </select>
+          </div>
         </div>
         <br />
         <div>
@@ -551,7 +584,23 @@ console.log("category",category)
           </select>
         </div>
         <br />
-        {category==="Shoes" && <div>
+        <div>
+          <label className="pb-2">Pattern</label>
+          <select
+            className="w-full mt-2 border h-[35px] rounded-[5px]"
+            value={selectedPattern}
+            onChange={(e) => setSelectedPattern(e.target.value)}
+          >
+            <option value="">Choose Pattern type</option>
+            {pattern.map((i) => (
+              <option value={i.type} key={i.type}>
+                {i.type}
+              </option>
+            ))}
+          </select>
+        </div>
+        <br />
+        {category==="Footwear" && <div>
           <label className="pb-2">Occasion</label>
           <select
             className="w-full mt-2 border h-[35px] rounded-[5px]"
@@ -566,7 +615,7 @@ console.log("category",category)
             ))}
           </select>
         </div>}
-        {category==="Cloths" && <div>
+        {category==="Clothes" && <div>
           <label className="pb-2">Occasion</label>
           <select
             className="w-full mt-2 border h-[35px] rounded-[5px]"
