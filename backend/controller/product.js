@@ -309,8 +309,12 @@ router.get(
        let avail=query.toLowerCase().includes("t shirt")|| query.toLowerCase().includes("t-shirt")|| query.toLowerCase().includes("tshirt")|| query.toLowerCase().includes("t shirts")|| query.toLowerCase().includes("tshirts")|| query.toLowerCase().includes("t-shirtes")|| query.toLowerCase().includes("t shirtes")|| query.toLowerCase().includes("tshirtes")|| query.toLowerCase().includes("tshirt's")|| query.toLowerCase().includes("t-shirt's")|| query.toLowerCase().includes("t-shirt'")|| query.toLowerCase().includes("t-shirts'")|| query.toLowerCase().includes("tshirt'")|| query.toLowerCase().includes("tshirts'")|| query.toLowerCase().includes("tshirtes'")|| query.toLowerCase().includes("t-shirte's")|| query.toLowerCase().includes("t shirt's")|| query.toLowerCase().includes("t shirt'")|| query.toLowerCase().includes("t shirt's")|| query.toLowerCase().includes("t shirtes")|| query.toLowerCase().includes("t shirt")|| query.toLowerCase().includes("t shirts");
        let avail2 = words.some(word => ["shirt", "shirts", "Shirt", "Shirts", "Shirt's", "Shirts'", "Shirt'"].some(validWord => word.toLowerCase() === validWord.toLowerCase()));
        let avail3 = words.some(word => ["shoes", "shoe", "shoe's", "shoe'", "shoes'", "joota", "juta", "jhoota", "jutta", ].some(validWord => word.toLowerCase() === validWord.toLowerCase()));
-       console.log("query22222",query,avail2)
-      //  console.log("query22222",avail2,query)
+       
+       console.log("query11111",avail2)
+       console.log("query22222",color)
+       console.log("query33333",query)
+
+       console.log("query22222",avail3)
 
        const stopWords = [
         "for", "in", "the", "and", "a", "of", "to", "is", "on", "at", "by", "with",
@@ -356,6 +360,7 @@ words = words.filter(keyword => {
     filteredProducts = filteredProducts.filter(val => 
       val.gender?.toLowerCase() === "women"||
       val.gender?.toLowerCase() === "unisex"
+      
     );
     console.log("aaaaaaaaaaaaaaaaaaaa", filteredProducts.length);
     return false; // Remove the keyword from words array after filtering
@@ -416,8 +421,8 @@ words = words.filter(keyword => {
       const shoesKeywords = [
         "flip flops", "slide sandals", "house slippers", "thong slippers", "gladiator sandals", "sport sandals", "wedge sandals", "heeled sandals",
         "flat sandals", "sneakers", "running shoes", "loafers", "oxfords", "brogues", "boots", "heels", "flats",
-        "moccasins", "derbies", "espadrilles", "crocs","shoes"
-      ];
+        "moccasins", "derbies", "espadrilles", "crocs"
+      ];
       
       // Filter products based on clothesKeywords
       words = words.filter(keyword => {
@@ -437,11 +442,13 @@ words = words.filter(keyword => {
         return true; // Keep the keyword if it does not match
       });
       
-      console.log("Filtered Products after keyword check:", filteredProducts.length);
+      console.log("Filtered Products after keyword check:", filteredProducts);
       console.log("Remaining words after filtering:", words);
+      console.log("Remaining words after filtering:", shoesKeywords);
       
       // Apply keyword filtering with remaining words
       const filterByWord = (product, word) => {
+        console.log("word",word)
         const productProperties = [
           product?.subCategory,
           product?.category,
@@ -461,6 +468,7 @@ words = words.filter(keyword => {
           product?.shoeSizes,
           product?.braSizes,
           product?.jeansSizes,
+
         ];
         return productProperties.some(prop => {
           if (Array.isArray(prop)) {
@@ -469,21 +477,28 @@ words = words.filter(keyword => {
           } else {
             // Otherwise, check the property directly
             return prop && prop.toLowerCase().includes(word.toLowerCase());
-          }
-        });
+          }
+        });
       };
       
-      console.log("Filtered Products length before filtering by remaining words:", filteredProducts.length);
+      console.log("Filtered Products length before filtering by remaining words:", filteredProducts);
       
-      words.forEach((word, index) => {
-        console.log(`Filtering with word (${index}): ${word}`);
+      console.log("Filtered Products length before filtering by remaining words:", filteredProducts.length);
+console.log("Words to filter:", words);
+
+words.forEach((word, index) => {
+  console.log(`Processing word (${index}): ${word}`);
+  
+        // console.log(`Filtering with word (${index}): ${word}`);
         const filtered = filteredProducts.filter(product => filterByWord(product, word));
-        console.log(`Filtered length after word (${index}): ${filtered.length}`);
+        // console.log(`Filtered length after word (${index}): ${filtered.length}`);
         
         if (filtered.length > 0) {
           filteredProducts = filtered;
           console.log(`Updated filteredProducts after word (${index}): ${filteredProducts.length}`);
         }
+
+      
          else if (!avail && !avail2 && !avail3 && filtered.length == 0) {
           // Only update filteredProducts to an empty array if neither avail nor avail2 is true
           filteredProducts = filtered;
@@ -500,10 +515,10 @@ words = words.filter(keyword => {
       if(avail){
         // console.log("lllkjl23",filteredProducts[0])
         const a1=filteredProducts.filter((val)=>{
-          console.log("lllll67",val.subCategory,val)
+          // console.log("lllll67",val.subCategory,val)
           return val?.subCategory?.includes("T-shirts")
         })
-        console.log("lllkjl899",a1.length)
+        // console.log("lllkjl899",a1.length)
         filteredProducts=a1;
       }
 
@@ -513,18 +528,18 @@ words = words.filter(keyword => {
           // console.log("lllll67",val.subCategory,val)
           return val?.subCategory?.includes("Shirts")
         })
-        console.log("lllkjl899",a2.length)
+        // console.log("lllkjl899",a2.length)
         filteredProducts=a2;
       }
       if(avail3){
         // console.log("lllkjl23",filteredProducts[0])
         const a3=filteredProducts.filter((val)=>{
           // console.log("lllll67",val.subCategory,val)
-          return val?.footwearSubCategories?.includes("Shoes")
+          return val?.tags?.includes("Shoes")
         })
-        console.log("lllkjl899",a2.length)
-        filteredProducts=a2;
-      }
+        console.log("lllkjl899",a3.length)
+        filteredProducts=a3;
+      }
       let l2 = filteredProducts.length;
       let l3 = (l1 === l2) ? 0 : l2;
 
@@ -536,8 +551,8 @@ words = words.filter(keyword => {
           product.color?.some(productColor =>
             colorsArray.includes(productColor.toLowerCase())
           )
-        );
-      }
+        );
+      }
 
       console.log("Filtered Products Count after color filter:", filteredProducts.length);
   
@@ -835,6 +850,12 @@ if (pattern) {
 
 
 
+
+
+
+
+
+
 // review for a product
 router.put(
   "/create-new-review",
@@ -1026,8 +1047,10 @@ router.put(
 
       const myCloud = await cloudinary.v2.uploader.upload(avatar, {
         folder: "avatars",
-        width: 150,
+        quality: "auto:best",
       });
+      
+      
 
       existsSeller.avatar = {
         public_id: myCloud.public_id,
@@ -1056,7 +1079,6 @@ router.put(
     }
   })
 );
-
 
 
 module.exports = router;
