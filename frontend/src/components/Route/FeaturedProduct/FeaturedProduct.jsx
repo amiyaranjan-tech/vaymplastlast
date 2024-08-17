@@ -21,7 +21,7 @@ const FeaturedProduct = () => {
           carouselRef.current.scrollLeft = 0; // Reset to the start if at the end
         }
       }
-    }, 2000); // Scroll every 2 seconds
+    }, 6000); // Scroll every 2 seconds
 
     return () => clearInterval(scrollInterval); // Cleanup interval on component unmount
   }, [visibleProducts]);

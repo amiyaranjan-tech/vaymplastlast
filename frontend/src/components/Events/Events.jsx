@@ -24,7 +24,7 @@ const Events = () => {
           carouselRef.current.scrollLeft = 0; // Reset to the start if at the end
         }
       }
-    }, 5000); // Scroll every 2 seconds
+    }, 7000); // Scroll every 2 seconds
 
     return () => clearInterval(scrollInterval); // Cleanup interval on component unmount
   }, [allEvents]);

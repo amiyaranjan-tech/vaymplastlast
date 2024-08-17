@@ -889,14 +889,6 @@ export const navItems = [
     },
     {
       id: 3,
-      type: "Boys",
-    },
-    {
-      id: 4,
-      type: "Girls",
-    },
-    {
-      id: 5,
       type: "Unisex",
     }
   ];
