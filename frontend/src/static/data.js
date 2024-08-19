@@ -306,7 +306,56 @@ export const navItems = [
     { id: 40, title: "Blouses" },
     { id: 41, title: "Undergarments" },
     { id: 42, title: "Kurtis" },
-    { id: 37, title: "Salwar Suits" }
+    { id: 43, title: "Salwar Suits" },
+    { id: 44, title: "Sherwani" },
+    { id: 45, title: "Night Suit" },
+    { id: 46, title: "Half pant" },
+    { id: 47, title: "Full Pant" },
+    { id: 48, title: "Churidar" },
+    { id: 49, title: "Co-ords" },
+    { id: 50, title: "Coords" },
+    { id: 51, title: "Palazzos" },
+    { id: 52, title: "Capris" },
+    { id: 53, title: "Tucker" },
+    { id: 54, title: "Three quater" },
+    { id: 55, title: "Jeggings" },
+    { id: 56, title: "Lingerie" },
+    { id: 57, title: "Lehenga choli" },
+    { id: 58, title: "Night dress" },
+    { id: 59, title: "Long Kurti" },
+    { id: 60, title: "Short Kurti" },
+    { id: 61, title: "Bandi" },
+    { id: 62, title: "Nehru Jacket" },
+    { id: 63, title: "Saree" },
+    { id: 64, title: "Shawl" },
+    { id: 65, title: "Boxer" },
+    { id: 66, title: "Track suit" },
+    { id: 67, title: "Dhotis" },
+    { id: 68, title: "Dupatta" },
+    { id: 69, title: "Lungi" },
+    { id: 70, title: "Sweatshirts" },
+    { id: 71, title: "Thermals" },
+    { id: 72, title: "Thermal tops" },
+    { id: 73, title: "Thermal bottom" },
+    { id: 74, title: "Thermal set" },
+    { id: 75, title: "Inner" },
+    { id: 76, title: "Dungarees" },
+    { id: 77, title: "Harem pants" },
+    { id: 78, title: "patiala" },
+    { id: 79, title: "stockings" },
+    { id: 80, title: "tights" },
+    { id: 81, title: "Cargo" },
+    { id: 82, title: "Body Suits" },
+    { id: 83, title: "Shrug" },
+    { id: 84, title: "Long coats" },
+    { id: 85, title: "Frocks" },
+    { id: 86, title: "one piece" },
+    { id: 87, title: "body cons" },
+    { id: 88, title: "Crop tops" },
+    { id: 89, title: "Gowns" },
+    { id: 90, title: "Hot pants" },
+    { id: 91, title: "Stoles" },
+    { id: 92, title: "Mufflers" },
   ];
   export const pattern= [
     { "id": 1, "type": "Animal Print" },
@@ -326,7 +375,13 @@ export const navItems = [
     { "id": 15, "type": "Solid" },
     { "id": 16, "type": "Striped" },
     { "id": 17, "type": "Washed" },
-    { "id": 18, "type": "Woven Design" }
+    { "id": 18, "type": "Woven Design" },
+    { "id": 19, "type": "Faded" },
+    { "id": 20, "type": "No Fade" },
+    { "id": 21, "type": "light Fade" },
+    { "id": 22, "type": "Heavy Fade" },
+
+
 ];
   export const sleeveType = [
     {
@@ -341,7 +396,6 @@ export const navItems = [
       id: 3,
       title: "Sleeveless",
     }
-
   ];
   export const neckType = [
     {
@@ -423,6 +477,26 @@ export const navItems = [
     {
       id: 20,
       title: "Henley Neck",
+    },
+    {
+      id: 21,
+      title: "Polo collar",
+    },
+    {
+      id: 22,
+      title: "Collar less",
+    },
+    {
+      id: 23,
+      title: "Sweetheart neck",
+    },
+    {
+      id: 24,
+      title: "plunge neck",
+    },
+    {
+      id: 25,
+      title: "strapless",
     }
   ];
   export const color = [
@@ -517,6 +591,22 @@ export const navItems = [
     {
       id: 23,
       name: "Khaki",
+    },
+    {
+      id: 24,
+      name: "Olive",
+    },
+    {
+      id: 25,
+      name: "teal",
+    },
+    {
+      id: 26,
+      name: "Magenta",
+    },
+    {
+      id: 27,
+      name: "peach",
     }
   ];
   export const fabric = [
@@ -569,8 +659,37 @@ export const navItems = [
       type: "Modal",
     },
     {
-      id: 12,
+      id: 13,
       type: "Elastane", 
+    }
+    ,
+    {
+      id: 14,
+      type: "Cotton", 
+    },
+    {
+      id: 15,
+      type: "Synthetic", 
+    },
+    {
+      id: 16,
+      type: "Silk", 
+    },
+    {
+      id: 17,
+      type: "Satin", 
+    },
+    {
+      id: 18,
+      type: "Canvas", 
+    },
+    {
+      id: 19,
+      type: "Leather", 
+    },
+    {
+      id: 20,
+      type: "Khaki",
     }
   ];
   export const occasion = [
@@ -834,7 +953,7 @@ export const navItems = [
       title: "Juti"
     },
     {
-      id: 24,
+      id: 25,
       title: "Shoes"
     }
   ];
@@ -1348,12 +1467,8 @@ export const navItems = [
   
   export const listing = 
   [
-    {
-    id: 1,
-    type: "Product",
-  },
   {
-    id: 2,
+    id: 1,
     type: "Event",
   }
 ];

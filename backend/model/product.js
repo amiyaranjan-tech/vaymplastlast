@@ -68,7 +68,7 @@ const productSchema = new mongoose.Schema({
     required: [true, "Please enter your product category!"],
   },
   subCategory: {
-    type: String,
+    type: [String],
   },
   visited:{
     type:Boolean,
@@ -79,42 +79,38 @@ const productSchema = new mongoose.Schema({
     default: Date.now,
   },
   neckType: {
-    type: String,
-    default:"",
+    type: [String],
+
   },
   shoeOccasions: {
-    type: String,
-    default:"",
+    type: [String],
+
   },
   accessorySubCategories: {
-    type: String,
-    default:"",
+    type: [String],
   },
   footwearSubCategories: {
-    type: String,
-    default:"",
+    type: [String],
   },
   sleeveType: {
-    type: String,
+    type: [String],
   },
   
   brand: {
     type: String,
   },
-  color: {
-    type: String,
-  },
+  
   fabric: {
-    type: String,
+    type: [String],
   },
   occasion: {
-    type: String,
+    type: [String],
   },
   color: {
     type: [String],
   },
   pattern: {
-    type: String,
+    type: [String],
   },
 trending:{
   type:Boolean,
@@ -134,7 +130,7 @@ recentVisited:{
 },
 
   fit: {
-    type: String,
+    type: [String],
   },
   currentCity:{
     type: String,

@@ -383,7 +383,7 @@ const shoesCategoryKeywords = [
 const accessoriesCategoryKeywords = [
   "accessories", "sunglasses", "jhumka", "jumka", "caps", "earrings", "watches", "belts",
   "bracelets", "bags", "purse", "wallets", "trolley", "hat", "scarfs", "stoles",
-  "leatherbelts", "smartwatches", "digitalwatches", "analogwatches", "hairbands", "gloves", "drivinggloves"
+   "smartwatches", "digitalwatches", "analogwatches", "hairbands", "gloves", "drivinggloves"
 ];
 
 const clothesCategoryKeywords = [
@@ -413,7 +413,7 @@ words = words.filter(keyword => {
         "skirts", "leggings", "jackets", "coats", "blazers", "vests", "raincoats",
         "maxi", "cocktail", "sundresses", "sports bras", "gym tops", "yoga pants", "track pants",
         "running shorts", "pajamas", "robes", "sweatpants", "lounge tops", "half pants", "bras", "panties", "boxers",
-        "briefs", "undershirts", "suits", "tuxedos","undergarment","kurti","salwar","shocks","Checkered",
+        "briefs", "undershirts", "suits", "tuxedos","undergarment","kurti","salwar","socks","Checkered",
         "Color Block","Dyed/Ombre","Embellished","Embroidered","Ethnic Motifs","Floral Print","Geometric Print","Graphic Print","Military Camouflage",
         "Polka Print","Printed","Self Design","Solid","Striped","Washed","Woven Design"
       ];
@@ -535,7 +535,7 @@ words.forEach((word, index) => {
         // console.log("lllkjl23",filteredProducts[0])
         const a3=filteredProducts.filter((val)=>{
           // console.log("lllll67",val.subCategory,val)
-          return val?.tags?.includes("Shoes")
+          return val?.footwearSubCategories?.includes("Shoes")
         })
         console.log("lllkjl899",a3.length)
         filteredProducts=a3;
@@ -557,13 +557,102 @@ words.forEach((word, index) => {
       console.log("Filtered Products Count after color filter:", filteredProducts.length);
   
       if (subCategory) {
-        const subCategoryArray = subCategory.split(',').map(c => c.trim());
+        // const subCategoryArray = subCategory.split(',').map(c => c.trim());
+        const subCategoryArray = subCategory.split(',').map(c => c.trim().toLowerCase());
+
         filteredProducts = filteredProducts.filter(product =>
-          subCategoryArray.some(selectedSubCategory =>
-            product.subCategory?.toLowerCase() === selectedSubCategory.toLowerCase()
+          product.subCategory?.some(productSubCategory =>
+            subCategoryArray.includes(productSubCategory.toLowerCase())
+          // subCategoryArray.some(selectedSubCategory =>
+          //   product.subCategory?.toLowerCase() === selectedSubCategory.toLowerCase()
           )
         );
       }
+
+
+      // Apply additional filters
+if (fabric) {
+  const fabricsArray = fabric.split(',').map(c => c.trim().toLowerCase());
+  filteredProducts = filteredProducts.filter(product =>
+    fabricsArray.some(selectedFabric =>
+      product.fabric?.some(fabricItem => fabricItem.toLowerCase() === selectedFabric)
+    )
+  );
+}
+
+if (pattern) {
+  const patternsArray = pattern.split(',').map(c => c.trim().toLowerCase());
+  filteredProducts = filteredProducts.filter(product =>
+    patternsArray.some(selectedPattern =>
+      product.pattern?.some(patternItem => patternItem.toLowerCase() === selectedPattern)
+    )
+  );
+}
+
+if (occasion) {
+  const occasionsArray = occasion.split(',').map(c => c.trim().toLowerCase());
+  filteredProducts = filteredProducts.filter(product =>
+    occasionsArray.some(selectedOccasion =>
+      product.occasion?.some(occasionItem => occasionItem.toLowerCase() === selectedOccasion)
+    )
+  );
+}
+
+if (fit) {
+  const fitsArray = fit.split(',').map(c => c.trim().toLowerCase());
+  filteredProducts = filteredProducts.filter(product =>
+    fitsArray.some(selectedFit =>
+      product.fit?.some(fitItem => fitItem.toLowerCase() === selectedFit)
+    )
+  );
+}
+
+if (sleeveType) {
+  const sleeveTypeArray = sleeveType.split(',').map(c => c.trim().toLowerCase());
+  filteredProducts = filteredProducts.filter(product =>
+    sleeveTypeArray.some(selectedSleeveType =>
+      product.sleeveType?.some(sleeveTypeItem => sleeveTypeItem.toLowerCase() === selectedSleeveType)
+    )
+  );
+}
+
+if (neckType) {
+  const neckTypeArray = neckType.split(',').map(c => c.trim().toLowerCase());
+  filteredProducts = filteredProducts.filter(product =>
+    neckTypeArray.some(selectedNeckType =>
+      product.neckType?.some(neckTypeItem => neckTypeItem.toLowerCase() === selectedNeckType)
+    )
+  );
+}
+
+if (shoeOccasions) {
+  const shoeOccasionsArray = shoeOccasions.split(',').map(c => c.trim().toLowerCase());
+  filteredProducts = filteredProducts.filter(product =>
+    shoeOccasionsArray.some(selectedShoeOccasion =>
+      product.shoeOccasions?.some(shoeOccasionItem => shoeOccasionItem.toLowerCase() === selectedShoeOccasion)
+    )
+  );
+}
+
+if (accessorySubCategories) {
+  const accessorySubCategoriesArray = accessorySubCategories.split(',').map(c => c.trim().toLowerCase());
+  filteredProducts = filteredProducts.filter(product =>
+    accessorySubCategoriesArray.some(selectedAccessorySubCategory =>
+      product.accessorySubCategories?.some(accessorySubCategoryItem => accessorySubCategoryItem.toLowerCase() === selectedAccessorySubCategory)
+    )
+  );
+}
+
+if (footwearSubCategories) {
+  const footwearSubCategoriesArray = footwearSubCategories.split(',').map(c => c.trim().toLowerCase());
+  filteredProducts = filteredProducts.filter(product =>
+    footwearSubCategoriesArray.some(selectedFootwearSubCategory =>
+      product.footwearSubCategories?.some(footwearSubCategoryItem => footwearSubCategoryItem.toLowerCase() === selectedFootwearSubCategory)
+    )
+  );
+}
+
+
       if (braSizes) {
         const sizesArray = braSizes.split(',').map(s => s.trim());
         filteredProducts = filteredProducts.filter(product =>
@@ -580,35 +669,35 @@ words.forEach((word, index) => {
           )
         );
       }
-if (pattern) {
-  const patternsArray = pattern.split(',').map(c => c.trim());
-  filteredProducts = filteredProducts.filter(product =>
-    patternsArray.some(selectedPattern =>
-      product.pattern?.toLowerCase() === selectedPattern.toLowerCase()
-    )
-      );
-      }
+// if (pattern) {
+//   const patternsArray = pattern.split(',').map(c => c.trim());
+//   filteredProducts = filteredProducts.filter(product =>
+//     patternsArray.some(selectedPattern =>
+//       product.pattern?.toLowerCase() === selectedPattern.toLowerCase()
+//     )
+//       );
+//       }
       console.log("Filtered Products Count after subCategory filter:", filteredProducts.length);
 
-      if (neckType) {
-        const neckTypeArray = neckType.split(',').map(c => c.trim());
-        filteredProducts = filteredProducts.filter(product =>
-          neckTypeArray.some(selectedNeckType =>
-            product.neckType?.toLowerCase() === selectedNeckType.toLowerCase()
-          )
-        );
-      }
+      // if (neckType) {
+      //   const neckTypeArray = neckType.split(',').map(c => c.trim());
+      //   filteredProducts = filteredProducts.filter(product =>
+      //     neckTypeArray.some(selectedNeckType =>
+      //       product.neckType?.toLowerCase() === selectedNeckType.toLowerCase()
+      //     )
+      //   );
+      // }
 
       console.log("Filtered Products Count after neckType filter:", filteredProducts.length);
 
-      if (sleeveType) {
-        const sleeveTypeArray = sleeveType.split(',').map(c => c.trim());
-        filteredProducts = filteredProducts.filter(product =>
-          sleeveTypeArray.some(selectedSleeveType =>
-            product.sleeveType?.toLowerCase() === selectedSleeveType.toLowerCase()
-          )
-        );
-      }
+      // if (sleeveType) {
+      //   const sleeveTypeArray = sleeveType.split(',').map(c => c.trim());
+      //   filteredProducts = filteredProducts.filter(product =>
+      //     sleeveTypeArray.some(selectedSleeveType =>
+      //       product.sleeveType?.toLowerCase() === selectedSleeveType.toLowerCase()
+      //     )
+      //   );
+      // }
 
       console.log("Filtered Products Count after sleeveType filter:", filteredProducts.length);
 
@@ -643,69 +732,69 @@ if (pattern) {
 
       console.log("Filtered Products Count after brand filter:", filteredProducts.length);
 
-      if (fit) {
-        const fitsArray = fit.split(',').map(c => c.trim());
-        filteredProducts = filteredProducts.filter(product =>
-          fitsArray.some(selectedFit =>
-            product.fit?.toLowerCase() === selectedFit.toLowerCase()
-          )
-        );
-      }
+      // if (fit) {
+      //   const fitsArray = fit.split(',').map(c => c.trim());
+      //   filteredProducts = filteredProducts.filter(product =>
+      //     fitsArray.some(selectedFit =>
+      //       product.fit?.toLowerCase() === selectedFit.toLowerCase()
+      //     )
+      //   );
+      // }
 
       console.log("Filtered Products Count after fit filter:", filteredProducts.length);
 
-      if (occasion) {
-        const occasionsArray = occasion.split(',').map(c => c.trim());
-        filteredProducts = filteredProducts.filter(product =>
-          occasionsArray.some(selectedOccasion =>
-            product.occasion?.toLowerCase() === selectedOccasion.toLowerCase()
-          )
-        );
-      }
+      // if (occasion) {
+      //   const occasionsArray = occasion.split(',').map(c => c.trim());
+      //   filteredProducts = filteredProducts.filter(product =>
+      //     occasionsArray.some(selectedOccasion =>
+      //       product.occasion?.toLowerCase() === selectedOccasion.toLowerCase()
+      //     )
+      //   );
+      // }
 
       console.log("Filtered Products Count after occasion filter:", filteredProducts.length);
 
-      if (shoeOccasions) {
-        const shoeOccasionsArray = shoeOccasions.split(',').map(c => c.trim());
-        filteredProducts = filteredProducts.filter(product =>
-          shoeOccasionsArray.some(selectedShoeOccasion =>
-            product.shoeOccasions?.toLowerCase() === selectedShoeOccasion.toLowerCase()
-          )
-        );
-      }
+      // if (shoeOccasions) {
+      //   const shoeOccasionsArray = shoeOccasions.split(',').map(c => c.trim());
+      //   filteredProducts = filteredProducts.filter(product =>
+      //     shoeOccasionsArray.some(selectedShoeOccasion =>
+      //       product.shoeOccasions?.toLowerCase() === selectedShoeOccasion.toLowerCase()
+      //     )
+      //   );
+      // }
 
       console.log("Filtered Products Count after shoeOccasions filter:", filteredProducts.length);
 
-      if (accessorySubCategories) {
-        const accessorySubCategoriesArray = accessorySubCategories.split(',').map(c => c.trim());
-        filteredProducts = filteredProducts.filter(product =>
-          accessorySubCategoriesArray.some(selectedAccessorySubCategory =>
-            product.accessorySubCategories?.toLowerCase() === selectedAccessorySubCategory.toLowerCase()
-          )
-        );
-      }
+      // if (accessorySubCategories) {
+      //   const accessorySubCategoriesArray = accessorySubCategories.split(',').map(c => c.trim());
+      //   filteredProducts = filteredProducts.filter(product =>
+      //     accessorySubCategoriesArray.some(selectedAccessorySubCategory =>
+      //       product.accessorySubCategories?.toLowerCase() === selectedAccessorySubCategory.toLowerCase()
+      //     )
+      //   );
+      // }
 
       console.log("Filtered Products Count after accessorySubCategories filter:", filteredProducts.length);
 
-      if (footwearSubCategories) {
-        const footwearSubCategoriesArray = footwearSubCategories.split(',').map(c => c.trim());
-        filteredProducts = filteredProducts.filter(product =>
-          footwearSubCategoriesArray.some(selectedFootwearSubCategory =>
-            product.footwearSubCategories?.toLowerCase() === selectedFootwearSubCategory.toLowerCase()
-          )
-        );
-      }
+      // if (footwearSubCategories) {
+      //   const footwearSubCategoriesArray = footwearSubCategories.split(',').map(c => c.trim());
+      //   filteredProducts = filteredProducts.filter(product =>
+      //     footwearSubCategoriesArray.some(selectedFootwearSubCategory =>
+      //       product.footwearSubCategories?.toLowerCase() === selectedFootwearSubCategory.toLowerCase()
+      //     )
+      //   );
+      // }
 
       console.log("Filtered Products Count after footwearSubCategories filter:", filteredProducts.length);
 
-      if (fabric) {
-        const fabricsArray = fabric.split(',').map(c => c.trim());
-        filteredProducts = filteredProducts.filter(product =>
-          fabricsArray.some(selectedFabric =>
-            product.fabric?.toLowerCase() === selectedFabric.toLowerCase()
-          )
-        );
-      }
+      // if (fabric) {
+      //   const fabricsArray = fabric.split(',').map(c => c.trim());
+      //   filteredProducts = filteredProducts.filter(product =>
+      //     fabricsArray.some(selectedFabric =>
+      //       product.fabric?.toLowerCase() === selectedFabric.toLowerCase()
+      //     )
+      //   );
+      // }
 
       console.log("Filtered Products Count after fabric filter:", filteredProducts.length);
 

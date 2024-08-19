@@ -288,9 +288,9 @@ useEffect(() => {
       "organic cotton", "polyester", "pure cotton", "2xs", "xs", "s", "m", "l", "xl", "2xl", "3xl", "4xl", "5xl", "6xl",
       "7xl", "8xl", "beach wear", "casual", "formal", "lounge wear", "party", "sports", "boxy", "compression", "loose",
       "oversized", "regular", "slim", "clothes", "shirt", "dresses", "cloths", "cloth", "kapra", "dress","underwears",
-      "salwar suits","skirt","bra","jeans","undergarments","kurtis","shocks","tops","Animal Print",
+      "salwar suits","skirt","bra","jeans","undergarments","kurtis","socks","tops","Animal Print",
       "Checkered","Color Block","Dyed/Ombre","Embellished","Embroidered","Ethnic Motifs","Floral Print","Geometric Print",
-      "Graphic Print","Military Camouflage","Polka Print","Printed","Self Design","Solid","Striped","Washed","Woven Design"
+      "Graphic Print","Military Camouflage","Polka Print","Printed","Self Design","Solid","Striped","Washed","Woven Design","Sherwan","Night Suit","Half pant","Full Pant","Churidar","Co-ords","Coords","Palazzos","Capris","Tucker","Three quater","Jeggings","Lingerie","Lehenga choli","Night dress","Long Kurti","Short Kurti","Bandi","Nehru Jacket","Saree","Shawl","Boxer","Track suit","Dhotis","Dupatta","Lungi","Sweatshirts","Thermals","Thermal tops","Thermal bottom","Thermal set","Inner","Dungarees","Harem pants","patiala","stockings","tights","Cargo","Body Suits","Shrug","Long coats","Frocks","one piece","body cons","Crop tops","Gowns","Hot pants","Stoles","Mufflers","Faded","No Fade","light Fade","Heavy Fade","Collar Neck" , "Round Neck", "V Neck", "Turtle Neck", "Zip Neck", "High Neck", "Hooded Neck", "Key Hole Neck", "Mandarin Collar", "Peter Pan Collar", "Boat Neck", "RacerBack", "Cowl Neck", "Scoop Neck", "Shawl Neck", "Square Neck", "Stylished Neck", "Halter Neck", "Crew Neck", "Henley Neck", "Polo collar", "Collar less", "Sweetheart neck", "plunge neck", "strapless", "Lycra", "Linen Blend", "Wool Blend", "Poly Cotton", "Nylon", "Viscose Rayon", "Cotton Blend", "Denim", "Organic Cotton", "Polyester", "Pure Cotton", "Modal", "Elastane", "Cotton", "Synthetic", "Silk", "Satin", "Canvas", "Leather", "Khaki"
     
     ];
 
@@ -301,7 +301,7 @@ useEffect(() => {
       "flat sandals", "sneakers", "running shoes", "loafers", "oxfords", "brogues", "boots", "heels", "flats",
       "moccasins", "derbies", "espadrilles", "shoes", "crocs", "3", "3.5", "4", "4.5", "5", "5.5", "6", "6.5", "7",
       "7.5", "8", "8.5", "9", "9.5", "10", "10.5", "11", "11.5", "12", "12.5", "13", "13.5", "14", "14.5", "15", "15.5",
-      "16", "joota", "juta", "jhoota", "jutta", "sliper", "slipers","shoes"
+      "16", "joota", "juta", "jhoota", "jutta", "sliper", "slipers","shoes","footwear","leathershoes"
     ];
 
     const stopWords = [
