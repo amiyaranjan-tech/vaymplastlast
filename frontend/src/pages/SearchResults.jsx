@@ -44,7 +44,7 @@ const SearchResults = () => {
   console.log("khvbvmmvmvumv")
   const [filteredData, setFilteredData] = useState({});
   const [filteredDatas, setFilteredDatas] = useState([]);
-
+  const isFetching = useRef(false); // To track if a fetch is ongoing
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const [currentPage, setCurrentPage] = useState(initialPage);
@@ -557,10 +557,25 @@ if (Joota) {
 
 
   useEffect(() => {
-    if (inView && !isLoading&& currentPage < totalPages) {
-      handlePageChange(currentPage + 1);
+    if (inView && !isFetching.current && currentPage < totalPages) {
+      isFetching.current = true; // Set fetching to true to prevent multiple fetches
+      
+      const fetchNextPage = async () => {
+        const nextPage = currentPage + 1;
+
+        // Fetch data for the next page
+        await fetchFilteredProducts(nextPage);
+        
+        // Only update the state after the fetch is complete
+        setCurrentPage(nextPage);
+        handlePageChange(nextPage); // Update the URL with the new page number
+
+        isFetching.current = false; // Set fetching to false after completion
+      };
+
+      fetchNextPage();
     }
-  }, [inView, currentPage, totalPages,isLoading]);
+  }, [inView, currentPage, totalPages]);
 
 
   const getAllProducts = () => {

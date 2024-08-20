@@ -699,7 +699,7 @@ const ProductDetailsInfo = ({
       {active === 1 ? (
         <>
           <p className="py-2 text-[16px] pb-10 whitespace-pre-line overflow-hidden break-words">
-            {data.description}
+          {data.description.replace(/\\n/g, ' ')}
           </p>
         </>
       ) : null}

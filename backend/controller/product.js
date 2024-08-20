@@ -454,59 +454,46 @@ words = words.filter(keyword => {
       // Apply keyword filtering with remaining words
       const filterByWord = (product, word) => {
         const productProperties = [
-            product?.subCategory,
-            product?.category,
-            product?.size,
-            product?.color,
-            product?.fabric,
-            product?.pattern,
-            product?.occasion,
-            product?.fit,
-            product?.sleeveType,
-            product?.neckType,
-            product?.tags,
-            product?.brand,
-            product?.shoeOccasions,
-            product?.accessorySubCategories,
-            product?.footwearSubCategories,
-            product?.shoeSizes,
-            product?.braSizes,
-            product?.jeansSizes,
+          product?.subCategory?.join(' '),
+          product?.category,
+          product?.size,
+          product?.color?.join(' '), // Join color array into a string
+          product?.fabric?.join(' '),
+          product?.pattern?.join(' '),
+          product?.occasion?.join(' '),
+          product?.fit?.join(' '),
+          product?.sleeveType?.join(' '),
+          product?.neckType?.join(' '),
+          product?.tags,
+          product?.brand,
+          product?.shoeOccasions?.join(' '), // Join shoeOccasions array into a string
+          product?.accessorySubCategories?.join(' '), // Join accessorySubCategories array into a string
+          product?.footwearSubCategories?.join(' '), // Join footwearSubCategories array into a string
+          product?.shoeSizes,
+          product?.braSizes,
+          product?.jeansSizes,
         ];
         
         return productProperties.some(prop => {
-            if (Array.isArray(prop)) {
-                // If the property is an array, check if any item matches the word
-                return prop.some(item => item.toLowerCase().includes(word.toLowerCase()));
-            } else {
-                // Otherwise, check the property directly
-                return prop && prop.toLowerCase().includes(word.toLowerCase());
-            }
+          if (Array.isArray(prop)) {
+            // If the property is an array, check if any item matches the word
+            return prop.some(item => item.toLowerCase().includes(word.toLowerCase()));
+          } else {
+            // Otherwise, check the property directly
+            return prop && prop.toLowerCase().includes(word.toLowerCase());
+          }
         });
-    };
-    
+      };
       
-      console.log("Filtered Products length before filtering by remaining words:", filteredProducts);
-      
-      console.log("Filtered Products length before filtering by remaining words:", filteredProducts.length);
-console.log("Words to filter:", words);
-
-words.forEach((word, index) => {
-  console.log(`Processing word (${index}): ${word}`);
-  
-        // console.log(Filtering with word (${index}): ${word});
+      words.forEach((word, index) => {
+        // console.log(Processing word (${index}): ${word});
         const filtered = filteredProducts.filter(product => filterByWord(product, word));
-        // console.log(Filtered length after word (${index}): ${filtered.length});
         
         if (filtered.length > 0) {
           filteredProducts = filtered;
-          console.log(`Updated filteredProducts after word (${index}): ${filteredProducts.length}`);
-        }
-
-      
-         else if (!avail && !avail2 && !avail3 && filtered.length == 0) {
-          // Only update filteredProducts to an empty array if neither avail nor avail2 is true
-          filteredProducts = filtered;
+          // console.log(Updated filteredProducts after word (${index}): ${filteredProducts.length});
+        } else if (filtered.length === 0) {
+          filteredProducts = [];
         }
       });
       
