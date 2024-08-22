@@ -208,8 +208,8 @@ router.get(
         products: paginatedProducts,
         product: filteredProduct,
         currentPage: page,
-        totalPages: Math.ceil(filteredProducts.length / limit)
-
+        totalPages: Math.ceil(filteredProducts.length / limit),
+        totalPage: filteredProducts.length
       });
     } catch (error) {
       return next(new ErrorHandler(error, 400));
@@ -265,21 +265,6 @@ router.get(
     try {
       const page = parseInt(req.query.page) || 1;
       const perPage = parseInt(req.query.perPage) || 40; // Adjust as needed
-
-      let sortBy = "";
-      let sortOrder = -1;
-
-      if (req.query.sortBy === "priceHighToLow") {
-        sortBy = "discountPrice";
-      } else if (req.query.sortBy === "priceLowToHigh") {
-        sortBy = "discountPrice";
-        sortOrder = 1;
-      } else if (req.query.sortBy === "latest") {
-        sortBy = "-createdAt";
-      } else {
-        sortBy = "originalPrice";
-      }
-
       const filters = {
         'shop.shopIsActive': false,
         'listing': "Product"
@@ -344,27 +329,32 @@ router.get(
         filters.discountPrice = { $gte: minPrice, $lte: maxPrice };
       }
       const allProducts = await Product.find(filters)
-      const proi = allProducts.filter((p) => p.listing != "Event")
-      // Filter out products with zero quantity in all sizes
-      const pros = proi.filter(product => {
-        return product.stock.some(stockItem => stockItem.quantity > 0);
-      });
+      const proi = allProducts.filter((p) => p.listing !== 'Event');
 
+      const pros = proi.filter(product => 
+        product.stock.some(stockItem => stockItem.quantity > 0)
+      );
+
+      // Sort pros by creation date in descending order
+      const sortedPros = pros.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
+      // Count the total number of products after filtering
       const totalProducts = await Product.countDocuments(filters);
+
+      // Fetch paginated and sorted products
       const paginatedProducts = await Product.find(filters)
-        .sort({ [sortBy]: sortOrder })
+        .sort({ createdAt: -1 }) // Sort products by creation date
         .skip((page - 1) * perPage)
         .limit(perPage);
 
       res.status(200).json({
         success: true,
-        pro: pros,
+        pro: sortedPros, // Send sorted pros
         products: paginatedProducts,
         totalProducts: totalProducts,
         currentPage: page,
         totalPages: Math.ceil(totalProducts / perPage),
       });
-      console.log("prroooo", pros.length)
 
     } catch (error) {
       console.error('Error:', error);

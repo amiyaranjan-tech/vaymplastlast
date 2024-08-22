@@ -108,7 +108,8 @@ export const getAllProductsShop = (id, page = 1, sortBy = '',categories='',gende
         product: data.product,
         currentPage: data.currentPage,
         totalPages: data.totalPages,
-        
+        totalPage: data.totalPage,
+
       }
     });
   } catch (error) {

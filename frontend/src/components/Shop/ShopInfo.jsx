@@ -11,7 +11,7 @@ import { AiFillStar } from "react-icons/ai";
 
 const ShopInfo = ({ isOwner }) => {
   const [data, setData] = useState({});
-  const { products } = useSelector((state) => state.products || { products: [] });
+  const { products,totalPage } = useSelector((state) => state.products || { products: [] });
   const [isLoading, setIsLoading] = useState(false);
   const { id } = useParams();
   const dispatch = useDispatch();
@@ -91,7 +91,7 @@ const ShopInfo = ({ isOwner }) => {
               <div className="flex flex-col items-center">
                 <h5 className="font-semibold">Total Products</h5>
                 <h4 className="text-[#000] font-Roboto">
-                  {filteredProducts && filteredProducts.length}
+                  {totalPage}
                 </h4>
               </div>
               <div className="flex flex-col items-center">
@@ -157,7 +157,7 @@ const ShopInfo = ({ isOwner }) => {
           </div> */}
           <div className="p-3">
             <h5 className="font-[600]">Total Products</h5>
-            <h4 className="text-[#000000a6]">{filteredProducts && filteredProducts.length}</h4>
+            <h4 className="text-[#000000a6]">{totalPage}</h4>
           </div>
           <div className="p-3">
             <h5 className="font-[600]">Shop Ratings</h5>
