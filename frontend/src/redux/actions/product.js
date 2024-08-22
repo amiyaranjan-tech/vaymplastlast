@@ -91,19 +91,25 @@ export const createProduct =
   };
 
 // get All Products of a shop
-export const getAllProductsShop = (id) => async (dispatch) => {
+
+export const getAllProductsShop = (id, page = 1, sortBy = '',categories='',gender = '') => async (dispatch) => {
   try {
     dispatch({
       type: "getAllProductsShopRequest"
     });
 
     const { data } = await axios.get(
-      `${server}/product/get-all-products-shop/${id}`,
-      
+      `${server}/product/get-all-products-shop/${id}?categories=${categories}&sortBy=${sortBy}&page=${page}&gender=${gender}`
     );
     dispatch({
       type: "getAllProductsShopSuccess",
-      payload: data.products
+      payload: {
+        products: data.products,
+        product: data.product,
+        currentPage: data.currentPage,
+        totalPages: data.totalPages,
+        
+      }
     });
   } catch (error) {
     dispatch({

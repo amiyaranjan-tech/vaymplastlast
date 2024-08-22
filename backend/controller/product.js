@@ -111,19 +111,105 @@ router.patch("/update-status/:id", async (req, res) => {
 // get all products of a shop
 router.get(
   "/get-all-products-shop/:id",
-
   catchAsyncErrors(async (req, res, next) => {
     try {
-      const products = await Product.find({ shopId: req.params.id });
-      const pro = products.filter((p) => p.listing != "Event" && p.shop.shopIsActive === false)
+      const shopId = req.params.id;
+      const { page = 1, limit = 20, categories, sortBy,gender } = req.query;
 
-      const filteredProducts = pro.filter(product =>
+      console.log("categories", categories);
+      console.log("sortBy", sortBy);
+      console.log("page", page);
+      console.log("req.query", req.query);
+
+      // Base query object
+      let query = { shopId, listing: { $ne: "Event" }, "shop.shopIsActive": false };
+
+      // Fetch products based on the query
+      let products = await Product.find(query);
+      const product = await Product.find({ shopId: shopId });
+
+      console.log("query", query);
+
+      // Filter products to include only those with stock
+      let filteredProducts = products.filter(product =>
         product.stock.some(stockItem => stockItem.quantity > 0)
       );
+      const filteredProduct = product.filter(product =>
+        product.stock.some(stockItem => stockItem.quantity > 0)
+      );
+      // Apply category filters if provided
+      if (categories) {
+        const categoryArray = categories.split(',').map(c => c.trim().toLowerCase());
 
-      res.status(201).json({
+        filteredProducts = filteredProducts.filter(product => {
+          const subCategoryMatch = product.subCategory?.some(subCategory =>
+            categoryArray.includes(subCategory.toLowerCase())
+          );
+
+          const footwearSubCategoriesMatch = product.footwearSubCategories?.some(subCategory =>
+            categoryArray.includes(subCategory.toLowerCase())
+          );
+
+          const accessorySubCategoriesMatch = product.accessorySubCategories?.some(subCategory =>
+            categoryArray.includes(subCategory.toLowerCase())
+          );
+
+          // Return true if any of the category fields match
+          return subCategoryMatch || footwearSubCategoriesMatch || accessorySubCategoriesMatch;
+        });
+      }
+      if (gender) {
+        const genderArray = gender.split(',').map(c => c.trim().toLowerCase());
+      
+        filteredProducts = filteredProducts.filter(product => {
+          const productGender = product.gender?.toLowerCase();
+      
+          if (genderArray.includes('unisex')) {
+            return productGender === 'men' || productGender === 'women' || productGender === 'unisex';
+          }
+      
+          // Check for both 'men' and 'women' if 'unisex' is not selected
+          return genderArray.includes(productGender) || (productGender === 'unisex' && (genderArray.includes('men') || genderArray.includes('women')));
+        });
+      }
+      
+      
+
+      // Sort the products based on the sortBy parameter
+      if (sortBy) {
+        const sortFields = {
+          'price-asc': { discountPrice: 1 },
+          'price-desc': { discountPrice: -1 },
+          'rating-asc': { ratings: 1 },
+          'rating-desc': { ratings: -1 },
+          'date-asc': { createdAt: 1 },
+          'date-desc': { createdAt: -1 }
+        };
+        const sortOrder = sortFields[sortBy] || { createdAt: -1 };
+        filteredProducts = filteredProducts.sort((a, b) => {
+          for (let field in sortOrder) {
+            if (a[field] < b[field]) return sortOrder[field] === 1 ? -1 : 1;
+            if (a[field] > b[field]) return sortOrder[field] === 1 ? 1 : -1;
+          }
+          return 0;
+        });
+      }
+
+      console.log("Final Filtered Products Count:", filteredProducts.length);
+
+      // Apply pagination
+      const startIndex = (page - 1) * limit;
+      const endIndex = page * limit;
+      const paginatedProducts = filteredProducts.slice(startIndex, endIndex);
+      console.log("Paginated Products Count:", paginatedProducts.length);
+
+      res.status(200).json({
         success: true,
-        products: filteredProducts,
+        products: paginatedProducts,
+        product: filteredProduct,
+        currentPage: page,
+        totalPages: Math.ceil(filteredProducts.length / limit)
+
       });
     } catch (error) {
       return next(new ErrorHandler(error, 400));

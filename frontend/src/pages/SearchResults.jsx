@@ -659,27 +659,23 @@ if (Joota) {
             {/* for larger screen */}
 
     
-            {isValid===true&&filteredDatas.length !== 0&&<div className=" bg-gray-100  rounded-full flex mb-1 mt-1 sticky top-28 justify-between items-center"
+            {isValid===true&&filteredDatas.length !== 0&&
+            <div>
+            <div
+              className="hidden lg:flex fixed right-5 bottom-24 mb-2 p-4 bg-red-500 rounded-full text-white cursor-pointer"
               style={{ zIndex: 1 }}
+              onClick={toggleDrawer}
             >
-              <h4 className="text-4xl font-semibold text-gray-700 hidden lg:block">New Arrivals</h4>
-              <button
-                className="w-1/6 font-bold text-lg bg-white text-gray-800 px-4 py-2 tracking-wider rounded-full border border-gray-300 shadow-sm mr-11 ml-auto hidden lg:flex items-center justify-center space-x-2 hover:bg-blue-100 transition duration-300 ease-in-out"
-                onClick={toggleDrawer}
-              >
-                  <AiFillFilter className="text-xl text-gray-800" />
-                  <span className="text-center">Filter</span>
-              </button>
-
-
-              <button
-                className="w-1/6 font-bold text-lg bg-white text-gray-800 px-4 py-2 tracking-wider rounded-full border border-gray-300 shadow-sm hidden lg:flex items-center justify-center space-x-2 hover:bg-blue-100 transition duration-300 ease-in-out"
-                onClick={toggleSortDrawer}
-              >
-                   <AiOutlineSwap className="text-xl text-gray-800" />
-                   <span className="text-center">Sort</span>
-              </button>
-            </div>}
+              <FaFilter size={25} />
+            </div>
+            <div
+              className="hidden lg:flex fixed right-5 bottom-10 p-4 bg-red-500 rounded-full text-white cursor-pointer"
+              style={{ zIndex: 1 }}
+              onClick={toggleSortDrawer}
+            >
+              <BiSortAlt2 size={25} />
+            </div>
+          </div>}
 
 
 
@@ -1235,91 +1231,103 @@ if (Joota) {
       </div>
     </div>
           {/* Sort Drawer */}
-          {sortDrawerOpen && (
-            <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex justify-center items-end">
-              <div className="bg-white w-full lg:w-full p-4 overflow-y-auto rounded-t-lg">
-                <div className="flex justify-between items-center mb-4">
-                  <h2 className="text-lg font-bold">Sort Options</h2>
-                  <AiOutlineClose className="cursor-pointer" onClick={toggleSortDrawer} />
-                </div>
-                {/* Sorting options */}
-                <div className="flex flex-col">
-                  <div className="flex items-center mb-1">
-                    <input
-                      type="radio"
-                      id="sortByPriceLowToHigh"
-                      name="sortBy"
-                      className="mr-2 my-2"
-                      value="Price: Low to High"
-                      onClick={() => handleSortOption("price-asc")}
-                      onChange={toggleSortDrawer}
-                    />
-                    <label htmlFor="sortByPriceLowToHigh">Price (Low to High)</label>
-                  </div>
-                  <div className="flex items-center mb-1">
-                    <input
-                      type="radio"
-                      id="sortByPriceHighToLow"
-                      name="sortBy"
-                      className="mr-2 my-2"
-                      value="Price: High to Low"
-                      onClick={() => handleSortOption("price-desc")}
-                      onChange={toggleSortDrawer}
-                    />
-                    <label htmlFor="sortByPriceHighToLow">Price (High to Low)</label>
-                  </div>
-                  <div className="flex items-center mb-1">
-                    <input
-                      type="radio"
-                      id="sortByRatingLowToHigh"
-                      name="sortBy"
-                      className="mr-2 my-2"
-                      value="Rating: Low to High"
-                      onClick={() => handleSortOption("rating-asc")}
-                      onChange={toggleSortDrawer}
-                    />
-                    <label htmlFor="sortByRatingLowToHigh">Rating (Low to High)</label>
-                  </div>
-                  <div className="flex items-center mb-1">
-                    <input
-                      type="radio"
-                      id="sortByRatingHighToLow"
-                      name="sortBy"
-                      className="mr-2 my-2"
-                      value="Rating: High to Low"
-                      onClick={() => handleSortOption("rating-desc")}
-                      onChange={toggleSortDrawer}
-                    />
-                    <label htmlFor="sortByRatingHighToLow">Rating (high to Low)</label>
-                  </div>
-                  <div className="flex items-center mb-1">
-                    <input
-                      type="radio"
-                      id="sortByDateOldToNew"
-                      name="sortBy"
-                      className="mr-2 my-2"
-                      value="Date: Old to New"
-                      onClick={() => handleSortOption("date-asc")}
-                      onChange={toggleSortDrawer}
-                    />
-                    <label htmlFor="sortByDateOldToNew">Date (Old to New)</label>
-                  </div>
-                  <div className="flex items-center mb-1">
-                    <input
-                      type="radio"
-                      id="sortByDateNewToOld"
-                      name="sortBy"
-                      className="mr-2 my-2"
-                      value="Date: New to Old"
-                      onClick={() => handleSortOption("date-desc")}
-                      onChange={toggleSortDrawer}
-                    />
-                    <label htmlFor="sortByDateNewToOld">Date (New to Old)</label>
-                  </div>
-                </div>
-              </div>
-            </div>
-          )}
+          <div
+              className={`fixed inset-0 bg-gray-900 bg-opacity-50 z-40 transition-opacity ${sortDrawerOpen ? "opacity-100" : "opacity-0 pointer-events-none"
+                }`}
+              onClick={toggleSortDrawer}
+            ></div>
+      <div className="grid grid-cols-2 gap-[20px] md:grid-cols-2 md:gap-[25px] lg:grid-cols-3 lg:gap-[25px] xl:grid-cols-4 xl:gap-[20px] mb-4 border-0">
+
+
+      <div className={`fixed left-0 bottom-0 w-full bg-white shadow-lg transition-transform transform ${sortDrawerOpen ? 'translate-y-0' : 'translate-y-full'} z-50`}>
+  <div className="flex items-center justify-between p-4">
+    <h2 className="text-xl font-semibold">Sort By</h2>
+    <button onClick={toggleSortDrawer} className="text-2xl">
+      <AiOutlineClose />
+    </button>
+  </div>
+  <div className="flex flex-col p-4">
+    <div className="flex items-center mb-1">
+      <input
+        type="radio"
+        id="sortByPriceLowToHigh"
+        name="sortBy"
+        className="mr-2 my-2"
+        value="Price: Low to High"
+        onClick={() => handleSortOption("price-asc")}
+        checked={sortBy === "price-asc"}
+        onChange={toggleSortDrawer}
+      />
+      <label htmlFor="sortByPriceLowToHigh">Price (Low to High)</label>
+    </div>
+    <div className="flex items-center mb-1">
+      <input
+        type="radio"
+        id="sortByPriceHighToLow"
+        name="sortBy"
+        className="mr-2 my-2"
+        value="Price: High to Low"
+        onClick={() => handleSortOption("price-desc")}
+        checked={sortBy === "price-desc"}
+        onChange={toggleSortDrawer}
+      />
+      <label htmlFor="sortByPriceHighToLow">Price (High to Low)</label>
+    </div>
+    <div className="flex items-center mb-1">
+      <input
+        type="radio"
+        id="sortByRatingLowToHigh"
+        name="sortBy"
+        className="mr-2 my-2"
+        value="Rating: Low to High"
+        onClick={() => handleSortOption("rating-asc")}
+        checked={sortBy === "rating-asc"}
+        onChange={toggleSortDrawer}
+      />
+      <label htmlFor="sortByRatingLowToHigh">Rating (Low to High)</label>
+    </div>
+    <div className="flex items-center mb-1">
+      <input
+        type="radio"
+        id="sortByRatingHighToLow"
+        name="sortBy"
+        className="mr-2 my-2"
+        value="Rating: High to Low"
+        onClick={() => handleSortOption("rating-desc")}
+        checked={sortBy === "rating-desc"}
+        onChange={toggleSortDrawer}
+      />
+      <label htmlFor="sortByRatingHighToLow">Rating (High to Low)</label>
+    </div>
+    <div className="flex items-center mb-1">
+      <input
+        type="radio"
+        id="sortByDateOldToNew"
+        name="sortBy"
+        className="mr-2 my-2"
+        value="Date: Old to New"
+        onClick={() => handleSortOption("date-asc")}
+        checked={sortBy === "date-asc"}
+        onChange={toggleSortDrawer}
+      />
+      <label htmlFor="sortByDateOldToNew">Date (Old to New)</label>
+    </div>
+    <div className="flex items-center mb-1">
+      <input
+        type="radio"
+        id="sortByDateNewToOld"
+        name="sortBy"
+        className="mr-2 my-2"
+        value="Date: New to Old"
+        onClick={() => handleSortOption("date-desc")}
+        checked={sortBy === "date-desc"}
+        onChange={toggleSortDrawer}
+      />
+      <label htmlFor="sortByDateNewToOld">Date (New to Old)</label>
+    </div>
+  </div>
+</div>
+</div>
          {/* <Footer /> */}
         </div>
       )}

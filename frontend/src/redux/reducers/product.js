@@ -8,7 +8,9 @@ const initialState = {
   isLoading: false,
   error: null,
   totalPages: 0,
-  currentPage: 1
+  currentPage: 1,
+  products: [],
+  product: [],
 };
 
 export const productReducer = createReducer(initialState, {
@@ -31,7 +33,11 @@ export const productReducer = createReducer(initialState, {
   },
   getAllProductsShopSuccess: (state, action) => {
     state.isLoading = false;
-    state.products = action.payload;
+    state.products = action.payload.products;
+    state.product = action.payload.product;
+    state.currentPage= action.payload.currentPage;
+    state.totalPages= action.payload.totalPages;
+
   },
   getAllProductsShopFailed: (state, action) => {
     state.isLoading = false;
