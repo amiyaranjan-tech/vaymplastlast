@@ -1225,9 +1225,13 @@ if (Joota) {
           {/* Pagination for Large Screens */}
             <div className="flex flex-col flex-1 p-4">
         
-            {filteredDatas.length !== 0 &&<div className="mt-4 justify-center hidden lg:flex">
-          <BasicPagination count={totalPages} page={currentPage} onChange={handlePageChange} />
-        </div>}
+            {filteredDatas.length !== 0 && (
+  <div className="mt-4 justify-center hidden lg:flex">
+    {typeof window !== "undefined" && window.innerWidth >= 1024 && (
+      <BasicPagination count={totalPages} page={currentPage} onChange={handlePageChange} />
+    )}
+  </div>
+)}
       </div>
     </div>
           {/* Sort Drawer */}
