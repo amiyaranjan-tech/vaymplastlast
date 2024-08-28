@@ -33,7 +33,7 @@ const EventsPage = () => {
             </div>
             <h1 className="text-4xl sm:text-5xl font-extrabold text-gray-800 mb-4">No Events Found</h1>
             <p className="text-lg sm:text-xl text-gray-600 mb-6">
-              We couldn't find any events that match your criteria. Please check back later or adjust your search.
+              We couldn't find any events as of now.
             </p>
             <div className="flex justify-center space-x-4 text-blue-600">
               <FaExclamationCircle size={32} />

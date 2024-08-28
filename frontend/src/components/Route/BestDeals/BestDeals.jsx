@@ -32,12 +32,12 @@ const BestDeals = () => {
   return (
     <div>
       <div className={`${styles.section}`}>
-        <div className={`${styles.heading}`}>
-          <h1 className="text-center mb-2">Best Deals</h1>
+      <div className="text-[20px] text-center md:text-start font-[600] font-Roboto">  
+          <h1 className="text-center mt-3 mb-1">Best Deals</h1>
         </div>
         <div
         ref={carouselRef}
-          className="flex overflow-x-auto scroll-snap-x snap-mandatory gap-5 mb-12 border-0"
+          className="flex overflow-x-auto scroll-snap-x snap-mandatory gap-5 mb-4 border-0"
           style={{ scrollbarWidth: "none", msOverflowStyle: "none" }} // Hide scrollbar for Firefox and IE
         >
           <style>

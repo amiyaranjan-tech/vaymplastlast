@@ -140,7 +140,7 @@ return (
     )}
 
     <div className="border-t w-full text-right">
-      <h5 className="pt-3 text-[18px]">
+      <h5 className="pt-3 text-[18px] mr-2">
         Price: <strong>{data?.shopPrice}</strong>
       </h5>
     </div>

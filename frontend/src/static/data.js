@@ -208,24 +208,24 @@ export const navItems = [
     //     "https://indian-retailer.s3.ap-south-1.amazonaws.com/s3fs-public/2021-07/kosme1.png",
     // },
     {
-      id: 3,
-      title: "Accessories",
-      subTitle: "",
-      image_Url: "/accessories.jpeg",
-    },
-    {
-      id: 4,
+      id: 1,
       title: "Clothes",
       subTitle: "",
       image_Url:
         "/cloths.jpeg",
     },
     {
-      id: 5,
+      id: 2,
       title: "Footwear",
       subTitle: "",
       image_Url:
         "/shoes.jpeg",
+    },
+    {
+      id: 3,
+      title: "Accessories",
+      subTitle: "",
+      image_Url: "/accessories.jpeg",
     },
     // {
     //   id: 6,

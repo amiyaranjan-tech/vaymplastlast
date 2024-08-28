@@ -20,6 +20,7 @@ import ShopCreatePage from "../pages/ShopCreate";
 import SellerActivationPage from "../pages/SellerActivationPage";
 import ShopLoginPage from "../pages/ShopLoginPage";
 import OrderDetailsPage from "../pages/OrderDetailsPage";
+import AdminOrderDetailsPage from "../pages/AdminOrderDetailsPage.jsx";
 import TrackOrderPage from "../pages/TrackOrderPage";
 import UserInbox from "../pages/UserInbox.jsx";
 import AllOrders from "../pages/AllOrders.jsx";
@@ -33,6 +34,7 @@ import SuccessfulRefunds from "../components/Shop/SuccessfulRefunds.jsx";
 import ProcessingRefunds from "../components/Shop/ProcessingRefunds.jsx";
 import Wishlist from "../components/Wishlist/Wishlist.jsx";
 import Categories from "../components/Route/Categories/Categories.jsx";
+import ShopAllCoupons from "../components/Shop/ShopAllCoupons.jsx";
 export { 
     LoginPage,
     ForgotPassword,
@@ -61,6 +63,7 @@ export {
     OrderDetailsPage,
     TrackOrderPage,
     ShopsPage,
+    AdminOrderDetailsPage,
     UserInbox,
     AllOrders,
     AllCoupons,
@@ -69,4 +72,5 @@ export {
     Cart,
     Wishlist,
     Categories,
+    ShopAllCoupons,
 };

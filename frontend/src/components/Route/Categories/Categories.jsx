@@ -29,7 +29,7 @@ const Categories = () => {
     </div>
   </div>
 
-  <div className={`${styles.section} bg-white p-6 rounded-lg mb-12`} id="categories">
+  <div className={`${styles.section} bg-white p-6 rounded-lg mb-4`} id="categories">
     <div className="flex flex-wrap justify-between gap-5 md:gap-10 lg:gap-20 xl:gap-30">
       {categoriesData &&
         categoriesData.map((i) => {
@@ -83,7 +83,7 @@ const Categories = () => {
           </div>
         </div>
 
-        <div className={`${styles.section} bg-white pt-0 pb-6 rounded-lg mb-12`} id="categories">
+        <div className={`${styles.section} bg-white pt-0 pb-6 rounded-lg mb-4`} id="categories">
           <div className="flex flex-wrap justify-between gap-5 md:gap-10 lg:gap-20 xl:gap-30">
             {categoriesData &&
               categoriesData.map((item) => (

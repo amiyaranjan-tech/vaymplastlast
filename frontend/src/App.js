@@ -21,6 +21,7 @@ import {
   SellerActivationPage,
   ShopLoginPage,
   OrderDetailsPage,
+  AdminOrderDetailsPage,
   TrackOrderPage,
   UserInbox,
   AllOrders,
@@ -58,6 +59,7 @@ import {
   AdminDashboardProducts,
   AdminDashboardEvents,
   AdminDashboardWithdraw,
+  AdminDashboardCoupon,
   AdminDashboardAllOrders,
   AdminDashboardRefund,
   AdminDashboardAllReturn,
@@ -237,6 +239,14 @@ const App = () => {
           element={
             <ProtectedRoute>
               <OrderDetailsPage />
+            </ProtectedRoute>
+          }
+        />
+         <Route
+          path="/user/AdminOrder/:id"
+          element={
+            <ProtectedRoute>
+              <AdminOrderDetailsPage />
             </ProtectedRoute>
           }
         />
@@ -488,6 +498,14 @@ const App = () => {
             </ProtectedAdminRoute>
           }
         />
+        <Route
+          path="/admin-all-coupon"
+          element={
+            <ProtectedAdminRoute>
+              <AdminDashboardCoupon />
+            </ProtectedAdminRoute>
+          }
+        />
         <Route
           path="/admin-all-orders"
           element={

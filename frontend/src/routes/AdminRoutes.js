@@ -11,6 +11,7 @@ import AdminDashboardRefund from "../pages/AdminDashboardRefund";
 import AdminDashboardAllReturn from "../pages/AdminDashboardAllReturn";
 import AdminDashboardUndeliveredItems from "../pages/AdminDashboardUndeliveredItems";
 import AdminDashboardShopIsActive from "../pages/AdminDashboardShopIsActive";
+import AdminDashboardCoupon from "../pages/AdminDashboardCoupon";
 
 export {
   AdminDashboardPage,
@@ -26,4 +27,5 @@ export {
   AdminDashboardShopIsActive,
   AdminDashboardStockNotification,
   AdminDashboardUndeliveredItems,
+  AdminDashboardCoupon,
 };
