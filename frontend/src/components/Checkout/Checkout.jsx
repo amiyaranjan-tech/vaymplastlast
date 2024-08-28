@@ -9,6 +9,7 @@ import { toast } from "react-toastify";
 import { updatUserAddress } from "../../redux/actions/user"; // Import your action
 import axios from "axios";
 import { server } from "../../server";
+import { FaPlus } from "react-icons/fa";
 import { getAllSellers } from "../../redux/actions/sellers";
 
 const Checkout = () => {
@@ -34,6 +35,7 @@ const Checkout = () => {
   const [couponId, setCouponId] = useState("");
   const [discount, setDiscount] = useState("");
   const [discountPrice2, setDiscountPrice2] = useState(null);
+
 
 
   useEffect(() => {
@@ -63,7 +65,7 @@ const Checkout = () => {
     if (
       username === "" ||
       address1 === "" ||
-      address2 === "" ||
+      address2 ===""||
       zipCode === null ||
       phoneNumber === "" ||
       city === ""
@@ -144,187 +146,72 @@ const Checkout = () => {
 
   const shipping = subTotalPrice * 0;
 
-//   const handleSubmit = async (e) => {
-//     e.preventDefault();
-//     const name = couponCode;
-// console.log("222222",name)
-// console.log("3333333",couponCode)
+  const { sellers } = useSelector((state) => state.seller);
 
-//     await axios.get(`${server}/coupon/get-coupon-value/${name}`).then((res) => {
-//       const shopId = res.data.couponCode?.shopId;
-//       console.log("44444444",shopId)
-
-//       const couponCodeValue = res.data.couponCode?.percentage;
-//       console.log("555555",couponCodeValue)
-
-//       if (res.data.couponCode !== null) {
-//         const isCouponValid = cart && cart.filter((item) => item.shopId === shopId);
-//         console.log("666666666",isCouponValid)
-
-//         if (isCouponValid.length === 0) {
-//           toast.error("Coupon code is not valid for this shop",{
-//             autoClose:2000, // Duration in milliseconds
-//             });
-//           setCouponCode("");
-//         } else {
-//           const eligiblePrice = isCouponValid.reduce(
-//             (acc, item) => acc + (1 * item.discountPrice),
-//             0
-//           );
-//           console.log("zzzzzzzzzzz",eligiblePrice)
-
-//           const discountPrice = (eligiblePrice * couponCodeValue) / 100;
-//           console.log("777777777",discountPrice)
-//           setDiscountPrice(discountPrice);
-//           console.log("8888888888",res.data.couponCode)
-//           setCouponCodeData(res.data.couponCode);
-//           setCouponCode("");
-//         }
-//       }
-//       if (res.data.couponCode === null) {
-//         toast.error("Coupon code doesn't exist!",{
-//           autoClose:2000, // Duration in milliseconds
-//           });
-//         setCouponCode("");
-//       }
-//     });
-//   };
-
-
-// const handleSubmit = async (e) => {
-//   e.preventDefault();
-//   const name = couponCode;
-
-//   try {
-//     const res = await axios.get(`${server}/coupon/get-coupon-value/${name}`);
-//     const coupon = res.data.couponCode;
-
-//     if (coupon) {
-//       const shopId = coupon.shopId;
-//       const couponValue = coupon.value;
-//       const minAmount = coupon.minAmount;
-//       const maxAmount = coupon.maxAmount;
-
-//       // Filter items from the cart that belong to the same shop as the coupon
-//       const isCouponValid = cart.filter((item) => item.shopId === shopId);
-
-//       if (isCouponValid.length === 0) {
-//         toast.error("Coupon code is not valid for this shop", {
-//           autoClose: 2000,
-//         });
-//         setCouponCode("");
-//       } else {
-//         // Calculate the total eligible price for items from this shop
-//         const eligiblePrice = isCouponValid.reduce(
-//           (acc, item) => acc + item.discountPrice,
-//           0
-//         );
-
-//         if (eligiblePrice < minAmount) {
-//           toast.error(
-//             `Minimum order amount of ${minAmount} is required to use this coupon`,
-//             {
-//               autoClose: 2000,
-//             }
-//           );
-//         } else if (eligiblePrice > maxAmount) {
-//           toast.error(
-//             `Maximum order amount to use this coupon is ${maxAmount}`,
-//             {
-//               autoClose: 2000,
-//             }
-//           );
-//         } else {
-//           const discountPrice = (eligiblePrice * couponValue) / 100;
-//           setDiscountPrice(discountPrice);
-//           setCouponCodeData(coupon);
-//           setCouponCode("");
-//         }
-//       }
-//     } else {
-//       toast.error("Coupon code doesn't exist!", {
-//         autoClose: 2000,
-//       });
-//       setCouponCode("");
-//     }
-//   } catch (error) {
-//     toast.error("An error occurred while applying the coupon", {
-//       autoClose: 2000,
-//     });
-//   }
-// };
-const { sellers } = useSelector((state) => state.seller);
-
-useEffect(() => {
-  dispatch(getAllSellers());
-}, [dispatch]);
-
-const handleSubmit = async (e) => {
-  e.preventDefault();
-  const name = couponCode;
-  console.log("Coupon Code:", name);
-
-  try {
-    const res = await axios.get(`${server}/coupon/get-coupon-value/${name}`);
-    const couponCodeValue = res.data.couponCode?.percentage;
-    const shopid = res.data.couponCode?.shopId;
-    const couponid = res.data.couponCode?._id;
-    setShopId(shopid);
-    setCouponId(couponid);
-
-    const maxAmount = res.data.couponCode?.maxAmount;
-    console.log("Coupon Value:", couponCodeValue);
-    console.log("shopid shopid:", shopid);
-
-    if (res.data.couponCode !== null) {
-      let discountPrice = (subTotalPrice * couponCodeValue) / 100;
-      let discountPrice2 = (subTotalPrice * 2) / 100;
-
-      console.log("Calculated Discount Price:", discountPrice);
-
-      if (discountPrice2 > maxAmount) {
-        discountPrice2 = maxAmount;
+  useEffect(() => {
+    dispatch(getAllSellers());
+  }, [dispatch]);
+  
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const name = couponCode;
+    console.log("Coupon Code:", name);
+  
+    try {
+      const res = await axios.get(`${server}/coupon/get-coupon-value/${name}`);
+      const couponCodeValue = res.data.couponCode?.percentage;
+      const shopid = res.data.couponCode?.shopId;
+      const couponid = res.data.couponCode?._id;
+      setShopId(shopid);
+      setCouponId(couponid);
+  
+      const maxAmount = res.data.couponCode?.maxAmount;
+      console.log("Coupon Value:", couponCodeValue);
+      console.log("shopid shopid:", shopid);
+  
+      if (res.data.couponCode !== null) {
+        let discountPrice = (subTotalPrice * couponCodeValue) / 100;
+        let discountPrice2 = (subTotalPrice * 2) / 100;
+  
+        console.log("Calculated Discount Price:", discountPrice);
+  
+        if (discountPrice2 > maxAmount) {
+          discountPrice2 = maxAmount;
+        }
+        
+  
+        setDiscountPrice(discountPrice);
+        setDiscountPrice2(discountPrice2)
+        console.log("Final Discount Price:", discountPrice);
+        setCouponCodeData(res.data.couponCode);
+        setCouponCode("");
+      } else {
+        toast.error("Coupon code doesn't exist!", {
+          autoClose: 2000, // Duration in milliseconds
+        });
+        setCouponCode("");
       }
-      
-
-      setDiscountPrice(discountPrice);
-      setDiscountPrice2(discountPrice2)
-      console.log("Final Discount Price:", discountPrice);
-      setCouponCodeData(res.data.couponCode);
-      setCouponCode("");
-    } else {
-      toast.error("Coupon code doesn't exist!", {
+    } catch (error) {
+      toast.error("An error occurred while applying the coupon", {
         autoClose: 2000, // Duration in milliseconds
       });
-      setCouponCode("");
     }
-  } catch (error) {
-    toast.error("An error occurred while applying the coupon", {
-      autoClose: 2000, // Duration in milliseconds
-    });
-  }
-};
-
-useEffect(() => {
-  if (discountPrice2 !== null) {
-    setDiscount(discountPrice2);
-  }
-}, [discountPrice2]);
-
-
+  };
+  
+  useEffect(() => {
+    if (discountPrice2 !== null) {
+      setDiscount(discountPrice2);
+    }
+  }, [discountPrice2]);
+  
+  
 
   const discountPercentenge = couponCodeData ? discountPrice : "";
-  // setDiscount(discountPercentenge);
-  console.log("99999999999999",discountPercentenge);
-  console.log("aaaaaaaaaaaaaa",couponCodeData);
-  console.log("bbbbbbbbbbbbbbbbbb",subTotalPrice);
-  console.log("ccccccccccccccccccc",discountPrice);
   const totalPrice = couponCodeData
     ? (subTotalPrice + shipping - discountPercentenge).toFixed(2)
     : (subTotalPrice + shipping).toFixed(2);
 
-  console.log("11111111111111",totalPrice);
-  
+  console.log(discountPercentenge);
 
   return (
     <div className="w-full flex flex-col items-center py-8">
@@ -434,6 +321,9 @@ const ShippingInfo = ({
     setUserInfo(!userInfo);
   };
 
+  const [isDisabledd, setIsDisabledd] = useState(false);
+  const [error, setError] = useState('');
+
   const handleAddNewAddressClick = () => {
     setSelectedAddressIndex(null);
     setUsername("");
@@ -450,106 +340,27 @@ const ShippingInfo = ({
 
   const isDisabled = selectedAddressIndex !== null || lastUsedAddress !== null;
 
+  const nameRegex = /^[a-zA-Z\s]*$/;
+
+  const handleChangename = (e) => {
+    const value = e.target.value;
+
+    // Check if the value matches the regex
+    if (nameRegex.test(value)) {
+      setUsername(value);
+      setError('');
+    } else {
+      setError('Oops! only letters ans spaces allowed');
+    }
+  };
+
+  const handleFocus = () => {
+    setError('');
+  };
+
   return (
     <div className="w-full 800px:w-[95%] bg-white rounded-md p-5 pb-8">
-
-      <h5 className="text-[18px] font-[500]">Shipping Address</h5>
-      <br />
-      <form>
-        <div className="w-full flex pb-3">
-          <div className="w-[50%]">
-            <label className="block pb-2">Full Name</label>
-            <input
-              type="text"
-              value={username}
-              disabled={isDisabled}
-              onChange={(e) => setUsername(e.target.value)}
-              className={`${styles.input} !w-[95%]`}
-            />
-          </div>
-          <div className="w-[50%]">
-            <label className="block pb-2">Phone number</label>
-            <input
-              type="number"
-              value={phoneNumber}
-              disabled={isDisabled}
-              onChange={(e) => setPhoneNumber(e.target.value)}
-              className={`${styles.input} !w-[95%]`}
-            />
-          </div>
-        </div>
-
-
-        <div className="w-full flex pb-3">
-          <div className="w-[50%]">
-            <label className="block pb-2">House No.,Building Name</label>
-            <input
-              type="address"
-              value={address1}
-              disabled={isDisabled}
-              onChange={(e) => setAddress1(e.target.value)}
-              className={`${styles.input} !w-[95%]`}
-            />
-          </div>
-          <div className="w-[50%]">
-            <label className="block pb-2">Road name, Area, Colony</label>
-            <input
-              type="address"
-              value={address2}
-              disabled={isDisabled}
-              onChange={(e) => setAddress2(e.target.value)}
-              className={`${styles.input} !w-[95%]`}
-            />
-          </div>
-        </div>
-
-        <div className="w-full flex pb-3">
-          <div className="w-[50%]">
-            <label className="block pb-2">Add Newarby LandMark</label>
-            <input
-              type="address"
-              value={landmark}
-              disabled={isDisabled}
-              onChange={(e) => setLandMark(e.target.value)}
-              className={`${styles.input} !w-[95%]`}
-            />
-          </div>
-          <div className="w-[50%]">
-            <label className="block pb-2">Alternate Phone number</label>
-            <input
-              type="number"
-              value={altphoneNumber}
-              disabled={isDisabled}
-              onChange={(e) => setAltPhoneNumber(e.target.value)}
-              className={`${styles.input} !w-[95%]`}
-            />
-          </div>
-        </div>
-
-        <div className="w-full flex pb-3">
-          <div className="w-[50%]">
-            <label className="block pb-2">City</label>
-            <input
-              type="text"
-              value={city}
-              disabled={isDisabled}
-              onChange={(e) => setCity(e.target.value)}
-              className={`${styles.input} !w-[95%]`}
-            />
-          </div>
-          <div className="w-[50%]">
-            <label className="block pb-2">Pincode</label>
-            <input
-              type="number"
-              value={zipCode}
-              disabled={isDisabled}
-              onChange={(e) => setZipCode(e.target.value)}
-              className={`${styles.input} !w-[95%]`}
-            />
-          </div>
-        </div>
-      </form>
-      <div>
+   <div>
         <button
           className="px-4 py-2 mt-3 border border-gray-300 rounded-md shadow-sm hover:bg-gray-100"
           onClick={handleChooseSavedAddressClick}
@@ -602,10 +413,108 @@ const ShippingInfo = ({
             className="px-4 py-2 mt-3 border border-gray-300 rounded-md shadow-sm hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
             onClick={handleAddNewAddressClick}
           >
-            Add New Address
+           <span className="flex"> <span className="mt-1 mr-1"><FaPlus /></span> Add a New Address </span>
           </button>
         </div>
       </div>
+      <h5 className="text-[18px] font-[500] mt-3 text-center">Shipping Address</h5>
+      <br />
+      <form>
+        <div className="w-full flex pb-3">
+          <div className="w-[50%]">
+            <label className="block pb-2">Full Name <span className="text-red-500">*</span></label>
+            <input
+              type="text"
+              value={username}
+              disabled={isDisabledd}
+              onChange={handleChangename}
+              onFocus={handleFocus}
+              className={`${styles.input} !w-[95%]`}
+            />
+                { error && <p className="text-red-500">{error}</p>}
+          </div>
+          <div className="w-[50%]">
+            <label className="block pb-2">Phone number <span className="text-red-500">*</span></label>
+            <input
+              type="number"
+              value={phoneNumber}
+              disabled={isDisabled}
+              onChange={(e) => setPhoneNumber(e.target.value)}
+              className={`${styles.input} !w-[95%]`}
+            />
+          </div>
+        </div>
+
+
+        <div className="w-full flex pb-3">
+          <div className="w-[50%]">
+            <label className="block pb-2">House No, Building Name <span className="text-red-500">*</span></label>
+            <input
+              type="address"
+              value={address1}
+              disabled={isDisabled}
+              onChange={(e) => setAddress1(e.target.value)}
+              className={`${styles.input} !w-[95%]`}
+            />
+          </div>
+          <div className="w-[50%]">
+            <label className="block pb-2">Road name, Area, Colony <span className="text-red-500">*</span></label>
+            <input
+              type="address"
+              value={address2}
+              disabled={isDisabled}
+              onChange={(e) => setAddress2(e.target.value)}
+              className={`${styles.input} !w-[95%]`}
+            />
+          </div>
+        </div>
+
+        <div className="w-full flex pb-3">
+          <div className="w-[50%]">
+            <label className="block pb-2">Add Newarby LandMark</label>
+            <input
+              type="address"
+              value={landmark}
+              disabled={isDisabled}
+              onChange={(e) => setLandMark(e.target.value)}
+              className={`${styles.input} !w-[95%]`}
+            />
+          </div>
+          <div className="w-[50%]">
+            <label className="block pb-2">Alternate Phone number</label>
+            <input
+              type="number"
+              value={altphoneNumber}
+              disabled={isDisabled}
+              onChange={(e) => setAltPhoneNumber(e.target.value)}
+              className={`${styles.input} !w-[95%]`}
+            />
+          </div>
+        </div>
+
+        <div className="w-full flex pb-3">
+          <div className="w-[50%]">
+            <label className="block pb-2">City<span className="text-red-500">*</span></label>
+            <input
+              type="text"
+              value={city}
+              disabled={isDisabled}
+              onChange={(e) => setCity(e.target.value)}
+              className={`${styles.input} !w-[95%]`}
+            />
+          </div>
+          <div className="w-[50%]">
+            <label className="block pb-2">Pincode<span className="text-red-500">*</span></label>
+            <input
+              type="number"
+              value={zipCode}
+              disabled={isDisabled}
+              onChange={(e) => setZipCode(e.target.value)}
+              className={`${styles.input} !w-[95%]`}
+            />
+          </div>
+        </div>
+      </form>
     </div>
   );
 };
@@ -634,7 +543,7 @@ const CartData = ({
         <h5 className="text-[16px] font-[400]">₹{shipping.toFixed(2)}</h5>
       </div>
       <div className="flex justify-between border-b pb-3">
-        <h5 className="text-[16px] font-[400]">Discount:</h5>
+        <h5 className="text-[16px] font-[400]">Coupon Discount:</h5>
         <h5 className="text-[16px] font-[400]">
           {discountPercentenge ? "₹" + discountPercentenge.toFixed(2) : null}
         </h5>

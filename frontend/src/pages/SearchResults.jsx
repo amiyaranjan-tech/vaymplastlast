@@ -39,12 +39,13 @@ const SearchResults = () => {
   const { query } = useParams();
   const navigate = useNavigate();
   const location = useLocation();
+  const isFetching = useRef(false); // To track if a fetch is ongoing
   const queryParams = new URLSearchParams(location.search);
   const initialPage = parseInt(queryParams.get('page')) || 1;
   console.log("khvbvmmvmvumv")
   const [filteredData, setFilteredData] = useState({});
   const [filteredDatas, setFilteredDatas] = useState([]);
-  const isFetching = useRef(false); // To track if a fetch is ongoing
+  const [initialLoading, setInitialLoading] = useState(true); // New state for initial loading
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const [currentPage, setCurrentPage] = useState(initialPage);
@@ -162,7 +163,6 @@ const SearchResults = () => {
           neckType: filters.neckTypes.join(","),
           size: filters.sizes.join(","),
           sleeveType: filters.sleeveTypes.join(","),
-          size: filters.sizes.join(","),
           fit: filters.fits.join(","),
           gender: filters.genders.join(","),
           occasion: filters.occasions.join(","),
@@ -208,8 +208,7 @@ const SearchResults = () => {
 
 
 
-
-
+ 
   
   const fetchFilteredProduct = async () => {
     try {
@@ -222,7 +221,6 @@ const SearchResults = () => {
           neckType: filters.neckTypes.join(","),
           size: filters.sizes.join(","),
           sleeveType: filters.sleeveTypes.join(","),
-          size: filters.sizes.join(","),
           fit: filters.fits.join(","),
           gender: filters.genders.join(","),
           occasion: filters.occasions.join(","),
@@ -253,6 +251,8 @@ const SearchResults = () => {
       setError(error.message);
     } finally {
       setIsLoading(false);
+      setInitialLoading(false); // Update initial loading state
+
     }
   };
 useEffect(() => {
@@ -260,6 +260,11 @@ useEffect(() => {
   fetchFilteredProduct();
 }, [filters, sortBy, currentPage, query]); 
 
+// useEffect(() => {
+//   if (isSmallOrMediumScreen) {
+//     fetchFilteredProducts(currentPage);
+//   }
+// }, [filters, currentPage, isSmallOrMediumScreen]);
 
 useEffect(() => {
   const fetchData = async () => {
@@ -277,65 +282,65 @@ useEffect(() => {
 
 
 
-  useEffect(() => {
-    const clothesKeywords = [
-      "tshirts", "tshirt", "blouses", "shirts", "tank tops", "sweaters", "hoodies", "jeans", "trousers", "shorts",
-      "skirts", "leggings", "jackets", "coats", "blazers", "vests", "raincoats", "casual dresses", "formal dresses",
-      "maxi dresses", "cocktail dresses", "sundresses", "sports bras", "gym tops", "yoga pants", "track pants",
-      "running shorts", "pajamas", "robes", "sweatpants", "lounge tops", "half pants", "bras", "panties", "boxers",
-      "briefs", "undershirts", "suits", "tuxedos", "full sleeve", "half sleeve", "short sleeve", "sleeveless",
-      "modal", "linen blend", "wool blend", "poly cotton", "nylon", "viscose rayon", "cotton blend", "elastane",
-      "organic cotton", "polyester", "pure cotton", "2xs", "xs", "s", "m", "l", "xl", "2xl", "3xl", "4xl", "5xl", "6xl",
-      "7xl", "8xl", "beach wear", "casual", "formal", "lounge wear", "party", "sports", "boxy", "compression", "loose",
-      "oversized", "regular", "slim", "clothes", "shirt", "dresses", "cloths", "cloth", "kapra", "dress","underwears",
-      "salwar suits","skirt","bra","jeans","undergarments","kurtis","socks","tops","Animal Print",
-      "Checkered","Color Block","Dyed/Ombre","Embellished","Embroidered","Ethnic Motifs","Floral Print","Geometric Print",
-      "Graphic Print","Military Camouflage","Polka Print","Printed","Self Design","Solid","Striped","Washed","Woven Design","Sherwan","Night Suit","Half pant","Full Pant","Churidar","Co-ords","Coords","Palazzos","Capris","Tucker","Three quater","Jeggings","Lingerie","Lehenga choli","Night dress","Long Kurti","Short Kurti","Bandi","Nehru Jacket","Saree","Shawl","Boxer","Track suit","Dhotis","Dupatta","Lungi","Sweatshirts","Thermals","Thermal tops","Thermal bottom","Thermal set","Inner","Dungarees","Harem pants","patiala","stockings","tights","Cargo","Body Suits","Shrug","Long coats","Frocks","one piece","body cons","Crop tops","Gowns","Hot pants","Stoles","Mufflers","Faded","No Fade","light Fade","Heavy Fade","Collar Neck" , "Round Neck", "V Neck", "Turtle Neck", "Zip Neck", "High Neck", "Hooded Neck", "Key Hole Neck", "Mandarin Collar", "Peter Pan Collar", "Boat Neck", "RacerBack", "Cowl Neck", "Scoop Neck", "Shawl Neck", "Square Neck", "Stylished Neck", "Halter Neck", "Crew Neck", "Henley Neck", "Polo collar", "Collar less", "Sweetheart neck", "plunge neck", "strapless", "Lycra", "Linen Blend", "Wool Blend", "Poly Cotton", "Nylon", "Viscose Rayon", "Cotton Blend", "Denim", "Organic Cotton", "Polyester", "Pure Cotton", "Modal", "Elastane", "Cotton", "Synthetic", "Silk", "Satin", "Canvas", "Leather", "Khaki"
-    
-    ];
+useEffect(() => {
+  const clothesKeywords = [
+    "tshirts", "tshirt", "blouses", "shirts", "tank tops", "sweaters", "hoodies", "jeans", "trousers", "shorts",
+    "skirts", "leggings", "jackets", "coats", "blazers", "vests", "raincoats", "casual dresses", "formal dresses",
+    "maxi dresses", "cocktail dresses", "sundresses", "sports bras", "gym tops", "yoga pants", "track pants",
+    "running shorts", "pajamas", "robes", "sweatpants", "lounge tops", "half pants", "bras", "panties", "boxers",
+    "briefs", "undershirts", "suits", "tuxedos", "full sleeve", "half sleeve", "short sleeve", "sleeveless",
+    "modal", "linen blend", "wool blend", "poly cotton", "nylon", "viscose rayon", "cotton blend", "elastane",
+    "organic cotton", "polyester", "pure cotton", "2xs", "xs", "s", "m", "l", "xl", "2xl", "3xl", "4xl", "5xl", "6xl",
+    "7xl", "8xl", "beach wear", "casual", "formal", "lounge wear", "party", "sports", "boxy", "compression", "loose",
+    "oversized", "regular", "slim", "clothes", "shirt", "dresses", "cloths", "cloth", "kapra", "dress","underwears",
+    "salwar suits","skirt","bra","jeans","undergarments","kurtis","socks","tops","Animal Print",
+    "Checkered","Color Block","Dyed/Ombre","Embellished","Embroidered","Ethnic Motifs","Floral Print","Geometric Print",
+    "Graphic Print","Military Camouflage","Polka Print","Printed","Self Design","Solid","Striped","Washed","Woven Design","Sherwan","Night Suit","Half pant","Full Pant","Churidar","Co-ords","Coords","Palazzos","Capris","Tucker","Three quater","Jeggings","Lingerie","Lehenga choli","Night dress","Long Kurti","Short Kurti","Bandi","Nehru Jacket","Saree","Shawl","Boxer","Track suit","Dhotis","Dupatta","Lungi","Sweatshirts","Thermals","Thermal tops","Thermal bottom","Thermal set","Inner","Dungarees","Harem pants","patiala","stockings","tights","Cargo","Body Suits","Shrug","Long coats","Frocks","one piece","body cons","Crop tops","Gowns","Hot pants","Stoles","Mufflers","Faded","No Fade","light Fade","Heavy Fade","Collar Neck" , "Round Neck", "V Neck", "Turtle Neck", "Zip Neck", "High Neck", "Hooded Neck", "Key Hole Neck", "Mandarin Collar", "Peter Pan Collar", "Boat Neck", "RacerBack", "Cowl Neck", "Scoop Neck", "Shawl Neck", "Square Neck", "Stylished Neck", "Halter Neck", "Crew Neck", "Henley Neck", "Polo collar", "Collar less", "Sweetheart neck", "plunge neck", "strapless", "Lycra", "Linen Blend", "Wool Blend", "Poly Cotton", "Nylon", "Viscose Rayon", "Cotton Blend", "Denim", "Organic Cotton", "Polyester", "Pure Cotton", "Modal", "Elastane", "Cotton", "Synthetic", "Silk", "Satin", "Canvas", "Leather", "Khaki"
+  
+  ];
 
-    const shoesKeywords = [
-      "shoe", "sneaker", "boot", "heel", "sandal", "flip-flop", "loafer", "slipper", "casual", "formal", "sports",
-      "party", "outdoor", "work", "beach", "hiking", "wedding", "everyday", "flip flops", "slide sandals",
-      "house slippers", "thong slippers", "gladiator sandals", "sport sandals", "wedge sandals", "heeled sandals",
-      "flat sandals", "sneakers", "running shoes", "loafers", "oxfords", "brogues", "boots", "heels", "flats",
-      "moccasins", "derbies", "espadrilles", "shoes", "crocs", "3", "3.5", "4", "4.5", "5", "5.5", "6", "6.5", "7",
-      "7.5", "8", "8.5", "9", "9.5", "10", "10.5", "11", "11.5", "12", "12.5", "13", "13.5", "14", "14.5", "15", "15.5",
-      "16", "joota", "juta", "jhoota", "jutta", "sliper", "slipers","shoes","footwear","leathershoes"
-    ];
+  const shoesKeywords = [
+    "shoe", "sneaker", "boot", "heel", "sandal", "flip-flop", "loafer", "slipper", "casual", "formal", "sports",
+    "party", "outdoor", "work", "beach", "hiking", "wedding", "everyday", "flip flops", "slide sandals",
+    "house slippers", "thong slippers", "gladiator sandals", "sport sandals", "wedge sandals", "heeled sandals",
+    "flat sandals", "sneakers", "running shoes", "loafers", "oxfords", "brogues", "boots", "heels", "flats",
+    "moccasins", "derbies", "espadrilles", "shoes", "crocs", "3", "3.5", "4", "4.5", "5", "5.5", "6", "6.5", "7",
+    "7.5", "8", "8.5", "9", "9.5", "10", "10.5", "11", "11.5", "12", "12.5", "13", "13.5", "14", "14.5", "15", "15.5",
+    "16", "joota", "juta", "jhoota", "jutta", "sliper", "slipers","shoes","footwear","leathershoes"
+  ];
 
-    const stopWords = [
-      "for", "in", "the", "and", "a", "of", "to", "is", "on", "at", "by", "with", "from", "as", "about", "into",
-      "through", "during", "before", "after", "over", "between", "under", "above", "below", "up", "down", "out", "off",
-      "over", "under", "again", "further", "then", "once", "here", "there", "when", "where", "why", "how", "all", "any",
-      "both", "each", "few", "more", "other", "some", "such", "no", "nor", "not", "only", "own", "same", "so", "than",
-      "too", "very", "s", "t", "can", "will", "just", "don", "should", "now"
-    ];
+  const stopWords = [
+    "for", "in", "the", "and", "a", "of", "to", "is", "on", "at", "by", "with", "from", "as", "about", "into",
+    "through", "during", "before", "after", "over", "between", "under", "above", "below", "up", "down", "out", "off",
+    "over", "under", "again", "further", "then", "once", "here", "there", "when", "where", "why", "how", "all", "any",
+    "both", "each", "few", "more", "other", "some", "such", "no", "nor", "not", "only", "own", "same", "so", "than",
+    "too", "very", "s", "t", "can", "will", "just", "don", "should", "now"
+  ];
 
-    const queryWords = query.toLowerCase().split(" ").filter(word => !stopWords.includes(word));
-    const Bra = queryWords.some(word => ["bra", "bras", "bra's"].includes(word));
+  const queryWords = query.toLowerCase().split(" ").filter(word => !stopWords.includes(word));
+  const Bra = queryWords.some(word => ["bra", "bras", "bra's"].includes(word));
 
-    if (Bra) {
-      setIsBra(true)
-      console.log("The query includes a term related to 'bra'.");
-    }
-    const Jeans = queryWords.some(word => ["jeans", "jean", "jean's"].includes(word));
+  if (Bra) {
+    setIsBra(true)
+    console.log("The query includes a term related to 'bra'.");
+  }
+  const Jeans = queryWords.some(word => ["jeans", "jean", "jean's"].includes(word));
 
 if (Jeans) {
-  setIsJeans(true)
-  console.log("The query includes a term related to 'Jeans'.");
+setIsJeans(true)
+console.log("The query includes a term related to 'Jeans'.");
 }
 const kapra = queryWords.some(word => ["kapra", "cloths", "cloth's","clothes"].includes(word));
 
 if (kapra) {
-  setIsKapra(true)
-  console.log("The query includes a term related to 'Jeans'.");
+setIsKapra(true)
+console.log("The query includes a term related to 'Jeans'.");
 }
 const Joota = queryWords.some(word => ["joota", "juta", "Footwear's","footwear","footwears","footwears'","footwear'"].includes(word));
 
 if (Joota) {
-  setIsJoota(true)
-  console.log("The query includes a term related to 'Jeans'.");
+setIsJoota(true)
+console.log("The query includes a term related to 'Jeans'.");
 }
     const isClothesQuery = queryWords.some(word => clothesKeywords.some(keyword => keyword.includes(word)));
     const isShoesQuery = queryWords.some(word => shoesKeywords.some(keyword => keyword.includes(word)));
@@ -380,6 +385,8 @@ if (Joota) {
     const params = new URLSearchParams(location.search);
     params.set("page", newPage);
     navigate(`${location.pathname}?${params.toString()}`);
+    // window.scrollTo(0, 0);
+
   };
 
 
@@ -549,13 +556,38 @@ if (Joota) {
   const visibleNeckTypes = showAllNeckTypes ? neckType : neckType.slice(0, 6);
 
 
+  // const { ref: loadMoreRef, inView } = useInView({
+  //   threshold: 1.0,
+  // });
+  // // console.log("currentPagecurrentPage",currentPage)
+  // // console.log("currentPagecurrentPage",initialPage)
+
+
+  // useEffect(() => {
+  //   if (inView && !isLoading&& currentPage < totalPages) {
+  //     handlePageChange(currentPage + 1);
+  //   }
+  // }, [inView, currentPage, totalPages,isLoading]);
+
   const { ref: loadMoreRef, inView } = useInView({
     threshold: 1.0,
   });
-  // console.log("currentPagecurrentPage",currentPage)
-  // console.log("currentPagecurrentPage",initialPage)
+  
+  // useEffect(() => {
+  //   if (inView && !isLoading&& currentPage < totalPages) {
+  //     handlePageChange(currentPage + 1);
+  //   }
+  // }, [inView, currentPage, totalPages,isLoading,filters]);
 
-
+  // useEffect(() => {
+  //   if (inView && !isLoading && currentPage < totalPages) {
+  //     setCurrentPage(prevPage => {
+  //       const nextPage = prevPage + 1;
+  //       fetchFilteredProducts(nextPage);
+  //       return nextPage;
+  //     });
+  //   }
+  // }, [inView, isLoading, totalPages]);
   useEffect(() => {
     if (inView && !isFetching.current && currentPage < totalPages) {
       isFetching.current = true; // Set fetching to true to prevent multiple fetches
@@ -576,8 +608,6 @@ if (Joota) {
       fetchNextPage();
     }
   }, [inView, currentPage, totalPages]);
-
-
   const getAllProducts = () => {
     const allProducts = [];
     Object.values(filteredData).forEach((pageData) => {
@@ -585,10 +615,11 @@ if (Joota) {
     });
     return allProducts;
   };
+
 // console.log("getAllProducts()getAllProducts()",getAllProducts())
   return (
     <>
-      {isLoading && currentPage === 1 ? (
+      {initialLoading  && currentPage === 1 ? (
         <Loader />
       ): (
         <div className="w-full">
@@ -660,22 +691,20 @@ if (Joota) {
 
     
             {isValid===true&&filteredDatas.length !== 0&&
-            <div>
-            <div
-              className="hidden lg:flex fixed right-5 bottom-24 mb-2 p-4 bg-red-500 rounded-full text-white cursor-pointer"
-              style={{ zIndex: 1 }}
-              onClick={toggleDrawer}
-            >
-              <FaFilter size={25} />
-            </div>
-            <div
-              className="hidden lg:flex fixed right-5 bottom-10 p-4 bg-red-500 rounded-full text-white cursor-pointer"
-              style={{ zIndex: 1 }}
-              onClick={toggleSortDrawer}
-            >
-              <BiSortAlt2 size={25} />
-            </div>
-          </div>}
+              <div>
+  <div
+    className="hidden lg:flex fixed right-5 bottom-24 mb-2 p-4 bg-red-500 rounded-full text-white cursor-pointer"style={{ zIndex: 1 }}
+    onClick={toggleDrawer}
+  >
+    <FaFilter size={25} />
+  </div>
+  <div
+    className="hidden lg:flex fixed right-5 bottom-10 p-4 bg-red-500 rounded-full text-white cursor-pointer"style={{ zIndex: 1 }} 
+    onClick={toggleSortDrawer}
+  >
+    <BiSortAlt2 size={25} />
+  </div>
+</div>}
 
 
 
@@ -711,7 +740,7 @@ if (Joota) {
                     Color
                     {dropdowns.colors ? <AiOutlineCaretUp /> : <AiOutlineCaretDown />}
                   </h3>
-                  {dropdowns.colors &&
+                  {dropdowns.colors && 
                     visibleColors.map((c) => (
                       <label key={c.id} className="block ml-2 my-2">
                         <input
@@ -762,6 +791,8 @@ if (Joota) {
                     </button>
                   )}
                 </div>}
+
+
                 {isClothes===true&&isBra===true&&<div className="mb-4">
                   <h3
                     className="cursor-pointer flex items-center justify-between border-t-1 border-b-2 border-gray-300 text-gray-700 p-3 rounded-lg mb-2 hover:border-gray-500 transition duration-300 ease-in-out"
@@ -853,8 +884,7 @@ if (Joota) {
                   )}
                 </div>}
                 {/* SubCategory Filter */}
-                {isClothes===true&&isKapra===true&&<div className="mb-4">
-                  <h3
+                {isClothes===true&&isKapra===true&&<div className="mb-4">                  <h3
                     className="cursor-pointer flex items-center justify-between border-t-1 border-b-2 border-gray-300 text-gray-700 p-3 rounded-lg mb-2 hover:border-gray-500 transition duration-300 ease-in-out"
                     onClick={() => toggleDropdown("subCategorys")}
                   >
@@ -981,6 +1011,27 @@ if (Joota) {
                           value={f.type}
                           checked={filters.fabrics.includes(f.type)}
                           onChange={() => handleCheckboxChange("fabrics", f.type)}
+                        />
+                        {f.type}
+                      </label>
+                    ))}
+                </div>}
+                {isClothes===true&&isJeans===true&&<div className="mb-4">
+                  <h3
+                    className="cursor-pointer flex items-center justify-between border-t-1 border-b-2 border-gray-300 text-gray-700 p-3 rounded-lg mb-2 hover:border-gray-500 transition duration-300 ease-in-out"
+                    onClick={() => toggleDropdown("patterns")}
+                  >
+                    Pattern
+                    {dropdowns.patterns ? <AiOutlineCaretUp /> : <AiOutlineCaretDown />}
+                  </h3>
+                  {dropdowns.patterns &&
+                    pattern.map((f) => (
+                      <label key={f.id} className="block ml-2 my-2">
+                        <input
+                          type="checkbox"
+                          value={f.type}
+                          checked={filters.patterns.includes(f.type)}
+                          onChange={() => handleCheckboxChange("patterns", f.type)}
                         />
                         {f.type}
                       </label>
@@ -1213,7 +1264,7 @@ if (Joota) {
 
             {/* Loader for Medium and Small Screens */}
             <div ref={loadMoreRef} className="mt-4 flex justify-center lg:hidden">
-              {isLoading===true && <ClipLoader
+            {isLoading===true && <ClipLoader
                   color="#2874F0"
                   size={55}
                   // loading={isLoading}
@@ -1232,9 +1283,11 @@ if (Joota) {
     )}
   </div>
 )}
+
       </div>
     </div>
           {/* Sort Drawer */}
+          
           <div
               className={`fixed inset-0 bg-gray-900 bg-opacity-50 z-40 transition-opacity ${sortDrawerOpen ? "opacity-100" : "opacity-0 pointer-events-none"
                 }`}

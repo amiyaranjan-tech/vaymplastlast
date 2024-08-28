@@ -253,7 +253,7 @@ console.log("11111111",totalPages)
           </div>
         </div>
         <div>
-          {isOwner && (
+          {/* {isOwner && (
             <div>
               <Link to="/dashboard">
                 <div className={`${styles.button} !rounded-[4px] h-[42px]`}>
@@ -261,7 +261,7 @@ console.log("11111111",totalPages)
                 </div>
               </Link>
             </div>
-          )}
+          )} */}
         </div>
       </div>
 
@@ -272,6 +272,7 @@ console.log("11111111",totalPages)
           {products &&
           products
             .filter(product => product.shop.shopIsActive === false)
+            .reverse() 
             .map((i, index) => (
               <ProductCard data={i} key={index} isShop={true} />
             ))}
