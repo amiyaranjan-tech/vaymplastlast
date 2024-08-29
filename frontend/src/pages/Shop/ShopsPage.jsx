@@ -6,6 +6,11 @@ import { useSelector } from "react-redux";
 const ShopsPage = () => {
   const { allProducts, isLoading } = useSelector((state) => state.products);
   const [shopList, setShopList] = useState([]);
+  
+  useEffect(() => {
+    window.scrollTo(0,0)
+  }, []);
+
   useEffect(() => {
     if (!isLoading) {
       const uniqueShopIds = new Set();

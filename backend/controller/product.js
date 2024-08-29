@@ -327,7 +327,7 @@ router.get(
           maxPrice = Math.max(maxPrice, max);
         });
         filters.discountPrice = { $gte: minPrice, $lte: maxPrice };
-      }
+      }     
       const allProducts = await Product.find(filters)
       const proi = allProducts.filter((p) => p.listing !== 'Event');
 
