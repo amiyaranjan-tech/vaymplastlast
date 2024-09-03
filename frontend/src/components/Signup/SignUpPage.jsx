@@ -1,5 +1,7 @@
 import { useGoogleLogin } from '@react-oauth/google';
 import { toast } from 'react-toastify';
+import {server} from '../../server';
+
 
 const SignUpPage = () => {
     const handleGoogleLoginSuccess = () => {
