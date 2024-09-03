@@ -16,15 +16,28 @@ const dotenv=require('dotenv');
 // CORS configuration
 const corsOptions = {
   origin: ['https://www.vaymp.com','https://vaymp.com'], // Replace with your frontend origin
+  credentials: true,
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   allowedHeaders: 'Content-Type,Authorization',
-  credentials: true, 
+   
 };
 
 app.use(cors(corsOptions));
 
 // Ensure preflight requests are handled
 app.options('*', cors(corsOptions));
+app.use(
+  session({
+    secret: process.env.JWT_SECRET_KEY,
+    resave: false,
+    saveUninitialized: false,
+  })
+);
+
+
+
+app.use(passport.initialize());
+app.use(passport.session());
 app.get('/test-cors', (req, res) => {
   res.json({ message: 'CORS is working!' });
 });
