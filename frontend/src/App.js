@@ -92,6 +92,7 @@ import Categories from "./components/Route/Categories/Categories.jsx";
 import ComingSoon from "./components/Layout/ComingSoon.jsx";
 // import AllOrders from "./pages/AllOrders.jsx";
 import CaptureToken from "./components/Login/CaptureToken.jsx";
+import PrivacyPolicy from "./components/PrivacyPolicy.jsx";
 
 const App = () => {
   const [stripeApikey, setStripeApiKey] = useState("");
@@ -194,6 +195,12 @@ const App = () => {
             <ProtectedRoute>
               <Cart />
             </ProtectedRoute>
+          }
+        />
+         <Route
+          path="/PrivacyPolicy"
+          element={
+              <PrivacyPolicy />
           }
         />
         <Route
