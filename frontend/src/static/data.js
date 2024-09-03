@@ -1905,8 +1905,8 @@ export const eventType =
       link: "/about"
     },
     {
-      name: "PrivacyPolicy",
-      link: "/PrivacyPolicy"
+      name: "Careers",
+      link: "/carrers"
     },
     {
       name: "Store Locations",

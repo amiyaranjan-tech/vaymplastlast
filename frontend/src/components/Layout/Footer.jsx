@@ -117,8 +117,15 @@ const Footer = () => {
         className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5
      text-center pt-2 text-gray-400 text-sm pb-8"
       >
-        <span>© vaymp. All rights reserved.</span>
-        <span>Terms · Privacy Policy</span>
+        <p className="text-sm">
+          &copy; 2024 Vaymp. All rights reserved.
+        </p>
+
+        <p className="text-sm">
+          <Link to="/PrivacyPolicy" className="text-blue-400 hover:underline">
+            Privacy Policy
+          </Link>
+        </p>
         <div className="flex items-center justify-center">
           <span>UPI payments coming soon</span>
           {/* <img
