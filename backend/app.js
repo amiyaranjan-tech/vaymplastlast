@@ -18,7 +18,7 @@ const dotenv = require('dotenv');
 
 // CORS configuration
 const corsOptions = {
-  origin: ['https://www.vaymp.com'], // Replace with your frontend origin
+  origin: ['https://www.vaymp.com','https://vaymp.com'], // Replace with your frontend origin
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   allowedHeaders: 'Content-Type,Authorization',
 credentials: true,

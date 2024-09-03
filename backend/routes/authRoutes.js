@@ -24,7 +24,7 @@ router.get('/google/callback',
       res.cookie("token", token, options);
 
       // Redirect to frontend application
-      res.redirect('https://vaymp.com');
+      res.redirect('https://www.vaymp.com');
     } else {
       res.redirect('/'); // Redirect to homepage if authentication fails
     }
