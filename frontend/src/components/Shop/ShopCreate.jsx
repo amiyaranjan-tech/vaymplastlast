@@ -38,7 +38,7 @@ const ShopCreate = () => {
       })
       .then((res) => {
         toast.success(res.data.message,{
-          autoClose:2000, // Duration in milliseconds
+          autoClose:4000, // Duration in milliseconds
           });
         setLoading(false);
 

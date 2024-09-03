@@ -9,8 +9,38 @@ const sendMail = require("../utils/sendMail");
 const sendToken = require("../utils/jwtToken");
 const crypto = require("crypto");
 const { isAuthenticated, isAdmin } = require("../middleware/auth");
+const passport = require('passport');
+require('./passport')(passport); // Ensure this path is correct
 
-// create user
+
+
+router.get("/google", passport.authenticate("google", { scope: ["profile", "email"] }));
+
+// @desc Google auth callback
+// @route GET /auth/google/callback
+router.get(
+  "/google/callback",
+  passport.authenticate("google", { failureRedirect: "/login" }),
+  (req, res) => {
+    res.redirect("/"); // Redirect to your desired route after successful login
+  }
+);
+
+router.post('/user/save-token', async (req, res) => {
+  const { token } = req.body;
+  if (!token) {
+    return res.status(400).json({ message: 'Token is required' });
+  }
+
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
+    // Your logic to find the user and update session or create session
+    res.status(200).json({ message: 'Token saved successfully' });
+  } catch (error) {
+    res.status(400).json({ message: 'Invalid token' });
+  }
+});
+
 router.post("/create-user", async (req, res, next) => {
   try {
     const { name, email, password } = req.body;

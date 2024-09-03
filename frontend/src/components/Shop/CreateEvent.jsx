@@ -15,6 +15,7 @@ import {
   neckType,
   color,
   fabric,
+  ratings,
   occasion,
   accessorySubCategories,
   shoeOccasions,
@@ -66,6 +67,7 @@ const CreateEvent = () => {
   const [selectedBrand, setSelectedBrand] = useState("");
   const [selectedColor, setSelectedColor] = useState([]);
   const [selectedFabric, setSelectedFabric] = useState([]);
+  const [selectedRatings, setSelectedRatings] = useState("");
   const [selectedPattern, setSelectedPattern] = useState([]);
   const [selectedOccasion, setSelectedOccasion] = useState([]);
   const [selectedFit, setSelectedFit] = useState([]);
@@ -320,6 +322,10 @@ const CreateEvent = () => {
       );
     }
   };
+  const handleRatingsChange = (event) => {
+    const selectedRating = event.target.value;
+    setSelectedRatings(selectedRating); // Update the state to store a single rating
+  };
   const handleFabricChange = (e) => {
     const { value, checked } = e.target;
 
@@ -518,6 +524,7 @@ const CreateEvent = () => {
     newForm.append("sleeveType", selectedSleeveType.join(","));
     newForm.append("color", selectedColor.join(","));
     newForm.append("fabric", selectedFabric.join(","));
+    newForm.append("ratings", selectedRatings);
     newForm.append("pattern", selectedPattern.join(","));
     newForm.append("occasion", selectedOccasion.join(","));
     newForm.append("shoeOccasions", selectedShoesOccasion.join(","));
@@ -548,6 +555,7 @@ const CreateEvent = () => {
         brand: selectedBrand,
         color: selectedColor,
         fabric: selectedFabric,
+        ratings: selectedRatings,
         pattern: selectedPattern,
         eventType: selectedEventType,
         eventDescription,
@@ -860,6 +868,21 @@ const CreateEvent = () => {
           </div>
         )}
         <br />
+        
+        <div>
+          <label className="pb-2">
+            Brand <span className="text-red-500">*</span>
+          </label>
+          <input
+            type="text"
+            name="name"
+            value={selectedBrand}
+            onChange={(e) => setSelectedBrand(e.target.value)}
+            placeholder="Enter your product name..."
+            className="mt-2 appearance-none block w-full px-3 h-[35px] border border-gray-300 rounded-[3px] placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+          />
+        </div>
+        <br />
         {category === "Clothes" && (
           <div>
             <label className="pb-2">Sleeve Type</label>
@@ -881,20 +904,6 @@ const CreateEvent = () => {
             </div>
           </div>
         )}
-        <br />
-        <div>
-          <label className="pb-2">
-            Brand <span className="text-red-500">*</span>
-          </label>
-          <input
-            type="text"
-            name="name"
-            value={selectedBrand}
-            onChange={(e) => setSelectedBrand(e.target.value)}
-            placeholder="Enter your product name..."
-            className="mt-2 appearance-none block w-full px-3 h-[35px] border border-gray-300 rounded-[3px] placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-          />
-        </div>
         <br />
         <div>
           <label className="pb-2">Color</label>
@@ -1024,6 +1033,29 @@ const CreateEvent = () => {
             </div>
           </div>
         )}
+        <div>
+  <label className="pb-2">Ratings</label>
+  <div className="mt-2">
+    {ratings.map((type) => (
+      <div key={type.type}>
+        <input
+          type="radio"
+          id={type.type}
+          name="rating" // Add a name attribute to group the radio buttons
+          value={type.type}
+          onChange={handleRatingsChange} // Ensure this handles single value selection
+          checked={selectedRatings === type.type} // Update this condition
+        />
+        <label htmlFor={type.type} className="ml-2">
+          {type.type}
+        </label>
+      </div>
+    ))}
+  </div>
+</div>
+
+          <br/>
+          
         <br />
         <div>
           <label className="pb-2">Gender</label>

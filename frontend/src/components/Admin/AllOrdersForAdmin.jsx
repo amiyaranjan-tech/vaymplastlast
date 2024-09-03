@@ -80,7 +80,7 @@ const AllOrdersForAdmin = () => {
       renderCell: (params) => {
         return (
           <>
-            <Link to={`/user/AdminOrder/${params.row?.orderId}`}>
+            <Link to={`/user/AdminOrder/${params.row?.kuchviId}`}>
               <Button>
                 <AiOutlineArrowRight size={20} />
               </Button>

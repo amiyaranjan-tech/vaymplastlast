@@ -10,6 +10,7 @@ import ComingSoon from "../components/Layout/ComingSoon.jsx";
 import EventsPage from "../pages/EventsPage";
 import FAQPage from "../pages/FAQPage";
 import ShopsPage from "../pages/Shop/ShopsPage.jsx";
+import CaptureToken from "../components/Login/CaptureToken.jsx";
 import AllCoupons from "../components/Shop/AllCoupons.jsx";
 import CheckoutPage from "../pages/CheckoutPage";
 import PaymentPage from "../pages/PaymentPage";
@@ -45,6 +46,7 @@ export {
     ProductsPage,
     SuccessfulRefunds,
     ProcessingRefunds,
+    CaptureToken,
     // BestSellingPage,
     ComingSoon,
     EventsPage,

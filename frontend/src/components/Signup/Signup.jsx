@@ -39,7 +39,7 @@ const Singup = () => {
       .post(`${server}/user/create-user`, { name, email, password })
       .then((res) => {
         toast.success(res.data.message,{
-          autoClose:1000, // Duration in milliseconds
+          autoClose:4000, // Duration in milliseconds
           });
         setLoading(false);
 
@@ -215,7 +215,7 @@ const Singup = () => {
             </div>
             <div className={`${styles.noramlFlex} w-full`}>
               <h4>Already have an account?</h4>
-              <Link to="/login" className="text-blue-600 pl-2">
+              <Link to="/login" className="text-blue-600 pl-2 font-bold">
                 Sign In
               </Link>
             </div>

@@ -15,6 +15,7 @@ import {
   neckType,
   color,
   fabric,
+  ratings,
   pattern,
   occasion,
   accessorySubCategories,
@@ -60,6 +61,7 @@ const CreateProduct = () => {
   // const [selectedColor, setSelectedColor] = useState("");
   const [selectedColor, setSelectedColor] = useState([]);
   const [selectedFabric, setSelectedFabric] = useState([]);
+  const [selectedRatings, setSelectedRatings] = useState("");
   const [selectedPattern, setSelectedPattern] = useState([]);
   const [selectedOccasion, setSelectedOccasion] = useState([]);
   const [selectedShoesOccasion, setSelectedShoesOccasion] = useState([]);
@@ -320,6 +322,11 @@ const CreateProduct = () => {
       );
     }
   };
+  const handleRatingsChange = (event) => {
+    const selectedRating = event.target.value;
+    setSelectedRatings(selectedRating); // Update the state to store a single rating
+  };
+  
 
   const handlePatternChange = (e) => {
     const { value, checked } = e.target;
@@ -502,6 +509,7 @@ const CreateProduct = () => {
     newForm.append("brand", selectedBrand);
     newForm.append("color", selectedColor.join(","));
     newForm.append("fabric", selectedFabric.join(","));
+    newForm.append("ratings", selectedRatings);
     newForm.append("pattern", selectedPattern.join(","));
     newForm.append("occasion", selectedOccasion.join(","));
     newForm.append("shoeOccasions", selectedShoesOccasion.join(","));
@@ -528,6 +536,7 @@ const CreateProduct = () => {
         brand: selectedBrand,
         color: selectedColor,
         fabric: selectedFabric,
+        ratings: selectedRatings,
         pattern: selectedPattern,
         occasion: selectedOccasion,
         fit: selectedFit,
@@ -787,6 +796,21 @@ const CreateProduct = () => {
         )}
 
         <br />
+        
+        <div>
+          <label className="pb-2">
+            Brand <span className="text-red-500">*</span>
+          </label>
+          <input
+            type="text"
+            name="name"
+            value={selectedBrand}
+            onChange={(e) => setSelectedBrand(e.target.value)}
+            placeholder="Enter your product name..."
+            className="mt-2 appearance-none block w-full px-3 h-[35px] border border-gray-300 rounded-[3px] placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+          />
+        </div>
+        <br />
         {category === "Clothes" && (
           <div>
             <label className="pb-2">Sleeve Type</label>
@@ -809,20 +833,6 @@ const CreateProduct = () => {
           </div>
         )}
 
-        <br />
-        <div>
-          <label className="pb-2">
-            Brand <span className="text-red-500">*</span>
-          </label>
-          <input
-            type="text"
-            name="name"
-            value={selectedBrand}
-            onChange={(e) => setSelectedBrand(e.target.value)}
-            placeholder="Enter your product name..."
-            className="mt-2 appearance-none block w-full px-3 h-[35px] border border-gray-300 rounded-[3px] placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-          />
-        </div>
         <br />
         <div>
           <label className="pb-2">Color</label>
@@ -958,6 +968,30 @@ const CreateProduct = () => {
 
         <br />
         <div>
+  <label className="pb-2">Ratings</label>
+  <div className="mt-2">
+    {ratings.map((type) => (
+      <div key={type.type}>
+        <input
+          type="radio"
+          id={type.type}
+          name="rating" // Add a name attribute to group the radio buttons
+          value={type.type}
+          onChange={handleRatingsChange} // Ensure this handles single value selection
+          checked={selectedRatings === type.type} // Update this condition
+        />
+        <label htmlFor={type.type} className="ml-2">
+          {type.type}
+        </label>
+      </div>
+    ))}
+  </div>
+</div>
+
+          <br/>
+          <br/>
+          <br/>
+        <div>
           <label className="pb-2">Gender</label>
           <select
             className="w-full mt-2 border h-[35px] rounded-[5px]"
@@ -973,6 +1007,8 @@ const CreateProduct = () => {
           </select>
         </div>
         <br />
+        <br/>
+        <br/>
         <div>
           <label className="pb-2">
             Upload Images <span className="text-red-500">*</span>

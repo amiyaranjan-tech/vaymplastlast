@@ -91,6 +91,7 @@ import Wishlist from "./components/Wishlist/Wishlist.jsx";
 import Categories from "./components/Route/Categories/Categories.jsx";
 import ComingSoon from "./components/Layout/ComingSoon.jsx";
 // import AllOrders from "./pages/AllOrders.jsx";
+import CaptureToken from "./components/Login/CaptureToken.jsx";
 
 const App = () => {
   const [stripeApikey, setStripeApiKey] = useState("");
@@ -128,6 +129,7 @@ const App = () => {
 
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/capture-token" element={<CaptureToken />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/password/reset/:token" element={<PasswordReset />} />
         <Route path="/sign-up" element={<SignupPage />} />
