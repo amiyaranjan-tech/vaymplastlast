@@ -1,8 +1,7 @@
 // Ensure dotenv is loaded at the very top of your entry file (e.g., app.js or server.js)
 // require('dotenv').config({ path: './config/.env' });
-require("dotenv").config({
-  path: path.resolve(__dirname, '.env') // Use path.resolve to ensure correct path
-});
+const path = require('path');
+
 const express = require("express");
 const passport = require("passport");
 const session = require("express-session");
@@ -15,8 +14,10 @@ const { isAuthenticated, isSeller, isAdmin } = require("./middleware/auth");
 // Initialize Express
 const app = express();
 require('./controller/passport')(passport); // Load passport configuration
-const path = require('path');
 const dotenv = require('dotenv');
+require("dotenv").config({
+  path: path.resolve(__dirname, '.env') // Use path.resolve to ensure correct path
+});
 // CORS configuration
 const corsOptions = {
   origin: ['https://www.vaymp.com','https://vaymp.com'], // Replace with your frontend origin
