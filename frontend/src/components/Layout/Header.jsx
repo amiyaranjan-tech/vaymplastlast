@@ -193,13 +193,13 @@ const Header = ({ activeHeading }) => {
         setOpen(false);
       }
     };
-    if (open) {
-      document.addEventListener("click", handleClickOutside);
-    } else {
-      document.removeEventListener("click", handleClickOutside);
-    }
+    // if (open) {
+      document.addEventListener("mousedown", handleClickOutside);
+    // } else {
+      // document.removeEventListener("click", handleClickOutside);
+    // }
     return () => {
-      document.removeEventListener("click", handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [open]);
   useEffect(() => {
