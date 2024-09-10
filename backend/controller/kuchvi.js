@@ -80,7 +80,7 @@ router.post(
 router.get(
     "/get-all-admin-kuchvi-request",
     isAuthenticated,
-    isAdmin("Admin"),
+    // isAdmin("Admin"),
     catchAsyncErrors(async (req, res, next) => {
       try {
         const kuchvis1 = await Kuchvi.find();
