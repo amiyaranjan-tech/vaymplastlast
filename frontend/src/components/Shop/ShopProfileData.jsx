@@ -27,7 +27,7 @@ const ShopProfileData = ({ isOwner }) => {
   const initialPage = parseInt(queryParams.get('page')) || 1;
   const [currentPage, setCurrentPage] = useState(initialPage);
   // const [totalPages, setTotalPages] = useState(1);
-
+const [isLoading,setIsLoading]=useState(false)
 console.log("11111111",totalPages)
 useEffect(() => {
   setIsLoading(true);
