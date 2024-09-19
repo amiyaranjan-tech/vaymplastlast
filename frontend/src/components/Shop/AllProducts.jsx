@@ -1,28 +1,42 @@
+
 import React, { useEffect, useState } from "react";
 import { Button, FormControl, MenuItem, Select } from "@material-ui/core";
 import { DataGrid } from "@material-ui/data-grid";
 import { AiOutlineDelete, AiOutlineEye } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, useLocation } from "react-router-dom"; // For React Router v6
 import { Link } from "react-router-dom";
 import { getAllProductsShop, deleteProduct, updateProductStock } from "../../redux/actions/product";
 import Loader from "../Layout/Loader";
-
+import BasicPagination from "../../pages/BasicPagination"
 const AllProducts = () => {
-  const { products, isLoading } = useSelector((state) => state.products);
+  const { products, isLoading, totalPages} = useSelector((state) => state.products);
   const { seller } = useSelector((state) => state.seller);
   const dispatch = useDispatch();
+  const location = useLocation();
+  const navigate = useNavigate();
 
+  const queryParams = new URLSearchParams(location.search);
+  const initialPage = parseInt(queryParams.get("page")) || 1;
+  const [currentPage, setCurrentPage] = useState(initialPage);
+
+  console.log("111111111",currentPage)
   useEffect(() => {
-    dispatch(getAllProductsShop(seller._id));
-  }, [dispatch, seller._id]);
+    dispatch(getAllProductsShop(seller._id, currentPage));
+  }, [dispatch, seller._id, currentPage]);
 
+  const handlePageChange = (value) => {
+    setCurrentPage(value);
+    navigate(`?page=${value}`); 
+  };
   // Filter products where listing is not equal to "Event"
   const filteredProducts = products && products.filter((product) => product.listing !== "Event");
 
   // Define state for selected size and quantity
   const [selectedSize, setSelectedSize] = useState({});
   const [selectedQuantity, setSelectedQuantity] = useState({});
-
+  
+    
   // Event handler for size change
   const handleSizeChange = (productId, size) => {
     setSelectedSize((prevSize) => ({ ...prevSize, [productId]: size }));
@@ -162,10 +176,25 @@ const AllProducts = () => {
                   </div>
                 </div>
               </div>
-            ))
+            )
+            )
+            
+            
           )
-        )}
+
+        
+        )
+        }
+
       </div>
+      {totalPages > 1 && (
+        <BasicPagination 
+          count={totalPages} 
+          page={currentPage} 
+          onChange={handlePageChange} 
+        />
+      )}
+
     </div>
   );
 };

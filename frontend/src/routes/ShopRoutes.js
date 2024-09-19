@@ -15,7 +15,7 @@ import ShopAllRefunds from "../pages/Shop/ShopAllRefunds";
 import ShopSettingsPage from "../pages/Shop/ShopSettingsPage";
 import ShopWithDrawMoneyPage from "../pages/Shop/ShopWithDrawMoneyPage";
 import ShopInboxPage from "../pages/Shop/ShopInboxPage";
-
+import AdminShopPreviewPage from "../pages/Shop/AdminShopPreviewPage";
 export {
     ShopDashboardPage,
     ShopSuccessfulRefunds,
@@ -33,5 +33,6 @@ export {
     ShopSettingsPage,
     ShopWithDrawMoneyPage,
     ShopInboxPage,
-    ShopUploadPhoto
+    ShopUploadPhoto,
+    AdminShopPreviewPage
 }

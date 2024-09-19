@@ -42,6 +42,7 @@ import {
   ShopAllCoupouns,
   ShopPreviewPage,
   ShopPreviewPageForShop,
+  AdminShopPreviewPage,
   ShopAllOrders,
   ShopOrderDetails,
   ShopSuccessfulRefunds,
@@ -268,6 +269,11 @@ const App = () => {
           }
         />
         <Route path="/shop/preview/:id" element={<ShopPreviewPage />} />
+        <Route path="/admin/shop/preview/:id" element={
+          <ProtectedAdminRoute>
+            <AdminShopPreviewPage />
+          </ProtectedAdminRoute>
+        } />
         <Route path="/shop/detail/:id" element={<ShopPreviewPageForShop />} />
 
         {/* shop Routes */}

@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAllProductsShop } from "../../redux/actions/product";
 import { BsShop } from "react-icons/bs";
 import { AiFillStar } from "react-icons/ai";
+import { IoArrowBack } from "react-icons/io5";
 
 const ShopInfo = ({ isOwner }) => {
   const [data, setData] = useState({});
@@ -67,6 +68,17 @@ const ShopInfo = ({ isOwner }) => {
         <>
           <div className="md:hidden">
             <div className="w-full py-2">
+            <button
+  className="fixed top-0 left-0 flex items-center cursor-pointer bg-slate-200 text-black px-1 py-1 rounded-md shadow-lg transition-transform hover:scale-105 active:scale-95 z-50"
+  onClick={() => navigate('/shop')}
+>
+  <IoArrowBack className="text-[30px]" />
+  <span className="ml-1 font-semibold">Shops Page</span>
+</button>
+
+
+
+
               <div className="w-full flex item-center justify-center">
                 <div className="w-[150px] h-[150px] flex items-center justify-center rounded-full bg-slate-200">
                   <BsShop className="w-[85px] h-[85px] text-black-500 object-contain" />

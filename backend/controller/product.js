@@ -196,7 +196,9 @@ router.get(
       }
 
       console.log("Final Filtered Products Count:", filteredProducts.length);
-
+      filteredProducts = filteredProducts.sort((a, b) => {
+        return new Date(b.createdAt) - new Date(a.createdAt);
+      });
       // Apply pagination
       const startIndex = (page - 1) * limit;
       const endIndex = page * limit;
@@ -340,12 +342,21 @@ router.get(
 
       // Count the total number of products after filtering
       const totalProducts = await Product.countDocuments(filters);
+      const filteredProducts = allProducts.filter(product =>
+        product.stock.some(stockItem => stockItem.quantity > 0)
+      );
 
+      // Count the total number of products after filtering
+
+      // Paginate and sort the filtered products
+      const paginatedProducts = filteredProducts
+        .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)) // Sort by creation date
+        .slice((page - 1) * perPage, page * perPage);
       // Fetch paginated and sorted products
-      const paginatedProducts = await Product.find(filters)
-        .sort({ createdAt: -1 }) // Sort products by creation date
-        .skip((page - 1) * perPage)
-        .limit(perPage);
+      // const paginatedProducts = await Product.find(filters)
+      //   .sort({ createdAt: -1 }) // Sort products by creation date
+      //   .skip((page - 1) * perPage)
+      //   .limit(perPage);
 
       res.status(200).json({
         success: true,
@@ -387,7 +398,7 @@ router.get(
       let avail3 = words.some(word => ["shoes", "shoe", "shoe's", "shoe'", "shoes'", "joota", "juta", "jhoota", "jutta",].some(validWord => word.toLowerCase() === validWord.toLowerCase()));
 
       console.log("query11111", avail2)
-      console.log("query22222", color)
+      console.log("query22222", avail)
       console.log("query33333", query)
 
       console.log("query22222", avail3)
@@ -495,9 +506,55 @@ router.get(
         "skirts", "leggings", "jackets", "coats", "blazers", "vests", "raincoats",
         "maxi", "cocktail", "sundresses", "sports bras", "gym tops", "yoga pants", "track pants",
         "running shorts", "pajamas", "robes", "sweatpants", "lounge tops", "half pants", "bras", "panties", "boxers",
-        "briefs", "undershirts", "suits", "tuxedos", "undergarment", "kurti", "salwar", "socks", "Checkered",
+        "briefs", "undershirts", "suits", "tuxedos", "undergarment", "kurti", "kurta","salwar", "socks", "Checked",
         "Color Block", "Dyed/Ombre", "Embellished", "Embroidered", "Ethnic Motifs", "Floral Print", "Geometric Print", "Graphic Print", "Military Camouflage",
-        "Polka Print", "Printed", "Self Design", "Solid", "Striped", "Washed", "Woven Design"
+        "Polka Print", "Printed", "Self Design", "Solid", "Striped", "Washed", "Woven Design","Sherwani",
+  "Night Suit",
+  "Full Pants",
+  "Churidar",
+  "Co-ords",
+  "Coords",
+  "Palazzos",
+  "Capris",
+  "Body Tuckers",
+  "Three-quarter",
+  "Jeggings",
+  "Lingerie",
+  "Lehenga choli",
+  "Night dress",
+  "Long Kurtis",
+  "Short Kurtis",
+  "Bandis",
+  "Nehru Jackets",
+  "Sarees",
+  "Shawls",
+  "Track suits",
+  "Dhotis",
+  "Dupatta",
+  "Lungis",
+  "Sweatshirts",
+  "Thermals",
+  "Thermal tops",
+  "Thermal bottoms",
+  "Thermal set",
+  "Inners",
+  "Dungarees",
+  "Harem pants",
+  "Patiala",
+  "Stockings",
+  "Tights",
+  "Cargo",
+  "Body Suits",
+  "Shrugs",
+  "Long coats",
+  "Frocks",
+  "One piece",
+  "Body cons",
+  "Crop tops",
+  "Gowns",
+  "Hot pants",
+  "Stoles",
+  "Mufflers"
       ];
 
       const shoesKeywords = [
@@ -529,7 +586,7 @@ router.get(
         return true; // Keep the keyword if it does not match
       });
 
-      console.log("Filtered Products after keyword check:", filteredProducts);
+      // console.log("Filtered Products after keyword check:", filteredProducts);
       console.log("Remaining words after filtering:", words);
       console.log("Remaining words after filtering:", shoesKeywords);
 
@@ -540,7 +597,7 @@ router.get(
         filteredProducts = a1;
       }
 
-      if (avail2) {
+      if (avail2 && !avail) {
         const a2 = filteredProducts.filter(val =>
           val?.subCategory?.some(subCat => subCat.includes("Shirts"))
         );

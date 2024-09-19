@@ -86,6 +86,9 @@ const productSchema = new mongoose.Schema({
     type: [String],
 
   },
+  fragrance: {
+    type: [String],
+  },
   accessorySubCategories: {
     type: [String],
   },

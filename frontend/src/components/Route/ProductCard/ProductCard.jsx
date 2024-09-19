@@ -112,7 +112,7 @@ const ProductCard = ({ data, isEvent }) => {
         )}
         </a>
         <Link to={`/shop/preview/${data?.shop._id}`}>
-          <h5 className={`${styles.shop_name} mt-0 -mb-4 `}>{data.shop.name}</h5>
+          <h5 className={`${styles.shop_name} mt-0 -mb-4 block truncate`}>{data.shop.name}</h5>
         </Link>
         <Link
           to={`${

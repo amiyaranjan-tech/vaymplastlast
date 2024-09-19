@@ -354,6 +354,9 @@ export const navItems = [
     { id: 88, title: "Hot pants" },
     { id: 89, title: "Stoles" },
     { id: 90, title: "Mufflers" },
+    { id: 91, title: "Underwears" },
+    { id: 92, title: "Pullover" },
+    { id: 93, title: "Plazzo" },
   ];
   export const ratings = [
     {
@@ -443,7 +446,7 @@ export const navItems = [
   ];
   export const pattern= [
     { "id": 1, "type": "Animal Print" },
-    { "id": 2, "type": "Checkered" },
+    { "id": 2, "type": "Checked" },
     { "id": 3, "type": "Color Block" },
     { "id": 4, "type": "Dyed/Ombre" },
     { "id": 5, "type": "Embellished" },
@@ -464,6 +467,7 @@ export const navItems = [
     { "id": 20, "type": "No Fade" },
     { "id": 21, "type": "light Fade" },
     { "id": 22, "type": "Heavy Fade" },
+    { "id": 23, "type": "Abstract" },
 
 
 ];
@@ -581,6 +585,14 @@ export const navItems = [
     {
       id: 25,
       title: "strapless",
+    },
+    {
+      id: 26,
+      title: "U-Neck",
+    },
+    {
+      id: 27,
+      title: "Wide U-Neck",
     }
   ];
   export const color = [
@@ -695,6 +707,14 @@ export const navItems = [
     {
       id: 28,
       name: "Violet",
+    },
+    {
+      id: 29,
+      name: "Light Grey",
+    },
+    {
+      id: 30,
+      name: "Light Brown",
     }
   ];
   export const fabric = [
@@ -938,8 +958,27 @@ export const navItems = [
     {
       id: 20,
       title: "Phone Cases"
-    }
-  ];
+    },
+  {
+    id: 21,
+    title: "Perfumes"
+  },
+  {
+    id: 22,
+    title: "Ear Rings"
+  },
+  {
+    id: 23,
+    title: "Lipstick"
+  },
+];
+export const fragrance=[
+{ "id": 1, "type": "Fresh" },
+{ "id": 2, "type": "Floral" },
+{ "id": 3, "type": "Woody" },
+{ "id": 4, "type": "Fruity" },
+{ "id": 5, "type": "Oriental" },
+];
 
   
   
@@ -1078,11 +1117,15 @@ export const navItems = [
     },
     {
       id: 8,
-      type: "jogger fit",
+      type: "joggers fit",
     },
     {
       id: 9,
       type: "Straight fit",
+    },
+    {
+      id: 10,
+      type: "Narrow fit",
     },
   ];
   export const gender = [
