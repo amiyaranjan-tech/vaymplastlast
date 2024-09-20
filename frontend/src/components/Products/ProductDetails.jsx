@@ -451,87 +451,88 @@ console.log("4444444",data?.subCategory)
                       >
                         Select Size
                       </label>
-{data?.category==="Footwear"||
-data?.subCategory.includes("T-shirts") || 
-data?.subCategory.includes("Shirts") || 
-data?.subCategory.includes("Jeans") || 
-data?.subCategory.includes("Tops") || 
-data?.subCategory.includes("Trousers") || 
-data?.subCategory.includes("Shorts") || 
-data?.subCategory.includes("Kurta") || 
-data?.subCategory.includes("Sweaters") || 
-data?.subCategory.includes("Hoodies") || 
-data?.subCategory.includes("Skirts") || 
-data?.subCategory.includes("Leggings") || 
-data?.subCategory.includes("Jackets") || 
-data?.subCategory.includes("Coats") || 
-data?.subCategory.includes("Blazers") || 
-data?.subCategory.includes("Vests") || 
-data?.subCategory.includes("Maxi dresses") || 
-data?.subCategory.includes("Cocktail dresses") || 
-data?.subCategory.includes("Sundresses") || 
-data?.subCategory.includes("Sports bras") || 
-data?.subCategory.includes("Gym tops") || 
-data?.subCategory.includes("Yoga pants") || 
-data?.subCategory.includes("Track pants") || 
-data?.subCategory.includes("Running shorts") || 
-data?.subCategory.includes("Pajamas") || 
-data?.subCategory.includes("Robes") || 
-data?.subCategory.includes("Sweatpants") || 
-data?.subCategory.includes("Lounge tops") || 
-data?.subCategory.includes("Half Pants") || 
-data?.subCategory.includes("Bras") || 
-data?.subCategory.includes("Panties") || 
-data?.subCategory.includes("Boxers") || 
-data?.subCategory.includes("Briefs") || 
-data?.subCategory.includes("Undershirts") || 
-data?.subCategory.includes("Suits") || 
-data?.subCategory.includes("Tuxedos") || 
-data?.subCategory.includes("Tank tops") || 
-data?.subCategory.includes("Blouses") || 
-data?.subCategory.includes("Undergarments") || 
-data?.subCategory.includes("Kurtis") || 
-data?.subCategory.includes("Night Suit") || 
-data?.subCategory.includes("Full Pants") || 
-data?.subCategory.includes("Co-ords") || 
-data?.subCategory.includes("Coords") || 
-data?.subCategory.includes("Palazzos") || 
-data?.subCategory.includes("Capris") || 
-data?.subCategory.includes("Body Tuckers") || 
-data?.subCategory.includes("Three-quarter") || 
-data?.subCategory.includes("Jeggings") || 
-data?.subCategory.includes("Lingerie") || 
-data?.subCategory.includes("Short Kurtis") || 
-data?.subCategory.includes("Bandis") || 
-data?.subCategory.includes("Nehru Jackets") || 
-data?.subCategory.includes("Track suits") || 
-data?.subCategory.includes("Lungis") || 
-data?.subCategory.includes("Sweatshirts") || 
-data?.subCategory.includes("Thermals") || 
-data?.subCategory.includes("Thermal tops") || 
-data?.subCategory.includes("Thermal bottoms") || 
-data?.subCategory.includes("Thermal set") || 
-data?.subCategory.includes("Dungarees") || 
-data?.subCategory.includes("Harem pants") || 
-data?.subCategory.includes("Patiala") || 
-data?.subCategory.includes("Stockings") || 
-data?.subCategory.includes("Tights") || 
-data?.subCategory.includes("Cargo") || 
-data?.subCategory.includes("Body Suits") || 
-data?.subCategory.includes("One piece") || 
-data?.subCategory.includes("Body cons") || 
-data?.subCategory.includes("Crop tops") || 
-data?.subCategory.includes("Gowns") || 
-data?.subCategory.includes("Hot pants")
- &&<div
-        className="text-right font-semibold text-gray-800 text-lg lg:text-xl -mt-9 flex justify-end items-center cursor-pointer"
-        onClick={handleClick}
-      >
-        <span className="transform rotate-90">
-          <GiThermometerScale size={48} />
-        </span>
-        Size Chart
-      </div>}
+                      {(data?.category === "Footwear" ||
+  data?.subCategory.includes("T-shirts") ||  
+  data?.subCategory.includes("Shirts") ||  
+  data?.subCategory.includes("Jeans") ||  
+  data?.subCategory.includes("Tops") ||  
+  data?.subCategory.includes("Trousers") ||  
+  data?.subCategory.includes("Shorts") ||  
+  data?.subCategory.includes("Kurta") ||  
+  data?.subCategory.includes("Sweaters") ||  
+  data?.subCategory.includes("Hoodies") ||  
+  data?.subCategory.includes("Skirts") ||  
+  data?.subCategory.includes("Leggings") ||  
+  data?.subCategory.includes("Jackets") ||  
+  data?.subCategory.includes("Coats") ||  
+  data?.subCategory.includes("Blazers") ||  
+  data?.subCategory.includes("Vests") ||  
+  data?.subCategory.includes("Maxi dresses") ||  
+  data?.subCategory.includes("Cocktail dresses") ||  
+  data?.subCategory.includes("Sundresses") ||  
+  data?.subCategory.includes("Sports bras") ||  
+  data?.subCategory.includes("Gym tops") ||  
+  data?.subCategory.includes("Yoga pants") ||  
+  data?.subCategory.includes("Track pants") ||  
+  data?.subCategory.includes("Running shorts") ||  
+  data?.subCategory.includes("Pajamas") ||  
+  data?.subCategory.includes("Robes") ||  
+  data?.subCategory.includes("Sweatpants") ||  
+  data?.subCategory.includes("Lounge tops") ||  
+  data?.subCategory.includes("Half Pants") ||  
+  data?.subCategory.includes("Bras") ||  
+  data?.subCategory.includes("Panties") ||  
+  data?.subCategory.includes("Boxers") ||  
+  data?.subCategory.includes("Briefs") ||  
+  data?.subCategory.includes("Undershirts") ||  
+  data?.subCategory.includes("Suits") ||  
+  data?.subCategory.includes("Tuxedos") ||  
+  data?.subCategory.includes("Tank tops") ||  
+  data?.subCategory.includes("Blouses") ||  
+  data?.subCategory.includes("Undergarments") ||  
+  data?.subCategory.includes("Kurtis") ||  
+  data?.subCategory.includes("Night Suit") ||  
+  data?.subCategory.includes("Full Pants") ||  
+  data?.subCategory.includes("Co-ords") ||  
+  data?.subCategory.includes("Coords") ||  
+  data?.subCategory.includes("Palazzos") ||  
+  data?.subCategory.includes("Capris") ||  
+  data?.subCategory.includes("Body Tuckers") ||  
+  data?.subCategory.includes("Three-quarter") ||  
+  data?.subCategory.includes("Jeggings") ||  
+  data?.subCategory.includes("Lingerie") ||  
+  data?.subCategory.includes("Short Kurtis") ||  
+  data?.subCategory.includes("Bandis") ||  
+  data?.subCategory.includes("Nehru Jackets") ||  
+  data?.subCategory.includes("Track suits") ||  
+  data?.subCategory.includes("Lungis") ||  
+  data?.subCategory.includes("Sweatshirts") ||  
+  data?.subCategory.includes("Thermals") ||  
+  data?.subCategory.includes("Thermal tops") ||  
+  data?.subCategory.includes("Thermal bottoms") ||  
+  data?.subCategory.includes("Thermal set") ||  
+  data?.subCategory.includes("Dungarees") ||  
+  data?.subCategory.includes("Harem pants") ||  
+  data?.subCategory.includes("Patiala") ||  
+  data?.subCategory.includes("Stockings") ||  
+  data?.subCategory.includes("Tights") ||  
+  data?.subCategory.includes("Cargo") ||  
+  data?.subCategory.includes("Body Suits") ||  
+  data?.subCategory.includes("One piece") ||  
+  data?.subCategory.includes("Body cons") ||  
+  data?.subCategory.includes("Crop tops") ||  
+  data?.subCategory.includes("Gowns") ||  
+  data?.subCategory.includes("Hot pants")) && (
+  <div
+    className="text-right font-semibold text-gray-800 text-lg lg:text-xl -mt-9 flex justify-end items-center cursor-pointer"
+    onClick={handleClick}
+  >
+    <span className="transform rotate-90">
+      <GiThermometerScale size={48} />
+    </span>
+    Size Chart
+  </div>
+)}
       {( 
   (data?.subCategory.includes("Jeans") ||
    data?.subCategory.includes("Trousers") ||
@@ -556,7 +557,6 @@ data?.subCategory.includes("Hot pants")
    data?.subCategory.includes("T-shirts") ||
    data?.subCategory.includes("Bandis") ||
    data?.subCategory.includes("Nehru Jackets") ||
-   data?.subCategory.includes("Inners") ||
    data?.subCategory.includes("Track suits") ||
    data?.subCategory.includes("Kurta") ||
    data?.subCategory.includes("Sweaters") ||
@@ -575,7 +575,6 @@ data?.subCategory.includes("Hot pants")
    data?.subCategory.includes("Thermal tops") ||
    data?.subCategory.includes("Crop tops") ||
    data?.subCategory.includes("Gowns") ||
-   data?.subCategory.includes("Inners") ||
    data?.subCategory.includes("Body cons") ||
    data?.subCategory.includes("One piece") ||
    data?.subCategory.includes("Frocks") ||
@@ -630,6 +629,7 @@ data?.subCategory.includes("Hot pants")
 
 {(
   data?.subCategory.includes("Undergarments") || 
+  data?.subCategory.includes("Underwears") || 
   data?.subCategory.includes("Briefs")
 ) && data?.gender.includes("Men") && showSizeChart && (
   <MenUnderWear onClose={closeModal} />
@@ -637,6 +637,7 @@ data?.subCategory.includes("Hot pants")
 
 {(
   (data?.subCategory.includes("Undergarments") || 
+  data?.subCategory.includes("Underwears") || 
    data?.subCategory.includes("Panties") ||
    data?.subCategory.includes("Briefs") ||
    data?.subCategory.includes("Lingerie")) &&
@@ -645,7 +646,8 @@ data?.subCategory.includes("Hot pants")
   <WomenUnderWear onClose={closeModal} />
 )}
 
-{data?.subCategory.includes("Vests") ||data?.subCategory.includes("Undershirts") && data?.gender.includes("Men") && showSizeChart && (
+{data?.subCategory.includes("Vests") ||  data?.subCategory.includes("Inners") || 
+data?.subCategory.includes("Undershirts") && data?.gender.includes("Men") && showSizeChart && (
   <MenVest onClose={closeModal} />
 )}
 
