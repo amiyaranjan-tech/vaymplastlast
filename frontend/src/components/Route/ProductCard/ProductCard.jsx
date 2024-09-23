@@ -74,6 +74,11 @@ const ProductCard = ({ data, isEvent }) => {
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       >
+
+      <div className="absolute top-0 left-0 bg-transparent text-blue-900 text-xs font-bold px-2 py-1 rounded">
+          Try & Buy
+        </div>
+
         <div className="flex justify-end"></div>
         <a
           href={`${

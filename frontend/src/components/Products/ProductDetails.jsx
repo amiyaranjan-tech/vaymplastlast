@@ -6,6 +6,7 @@ import {
   AiOutlineShoppingCart,
   AiOutlineInfoCircle,
   AiFillStar,
+  AiOutlineClose,
   AiTwotonePicture
 } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
@@ -43,6 +44,8 @@ import MenShoes from "./MenShoes";
 
 const ProductDetails = ({ data }) => {
   const [openCart, setOpenCart] = useState(false);
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [isBuyDrawerOpen, setIsBuyDrawerOpen] = useState(false);
   const { wishlist } = useSelector((state) => state.wishlist);
   const { cart } = useSelector((state) => state.cart);
   const { user, isAuthenticated } = useSelector((state) => state.user);
@@ -84,6 +87,15 @@ const ProductDetails = ({ data }) => {
   const handleMouseLeave = () => {
     setShowDescription(false);
   };
+
+  const toggleDrawer = (dropdownType) => {
+    setIsDrawerOpen(!isDrawerOpen);
+  };
+
+  const toggleBuyDrawer = (dropdownType) => {
+    setIsBuyDrawerOpen(!isBuyDrawerOpen);
+  };
+
   //const [adminuser,setadminuser]=useState({});
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -279,6 +291,9 @@ console.log("4444444",data?.subCategory)
                     style={{ width: '100%', height: 'auto', whiteSpace: 'nowrap', overflowX: 'scroll' }}
                   >
                     <div className="flex">
+                    <div className="absolute top-0 left-0 bg-transparent text-blue-900 text-xs font-bold px-2 py-1 rounded">
+                       Try & Buy
+                       </div> 
                       {data.images.map((i, index) => (
                         <img
                           key={index}
@@ -441,6 +456,154 @@ console.log("4444444",data?.subCategory)
 </div>
 
                 </div>
+                   {/* select size  */}
+                   <div className={`fixed left-0 bottom-0 w-full bg-white shadow-lg transition-transform transform ${isDrawerOpen ? 'translate-y-0' : 'translate-y-full'} z-50`}>
+                   {isDrawerOpen && (
+                <div className="flex items-center pt-8">
+                  <div className="bg-gray-50 p-6 rounded-lg shadow-lg w-full">
+                    <div className="mr-4">
+                    <div className="flex items-center justify-between p-4">
+                      <label
+                        htmlFor="sizeSelect"
+                        className="font-semibold text-gray-800 text-xl lg:text-2xl"
+                      >
+                        Select Size
+                      </label>
+                      <button onClick={toggleDrawer} className="text-2xl">
+                     <AiOutlineClose />
+                     </button>
+                       </div>
+                      <div className="flex flex-wrap mt-8">
+                        {data.stock.map((item) => {
+                          // Calculate the isAvailable variable outside of the JSX
+                          const isAvailable = item.quantity > 0;
+
+                          // Calculate the button classes based on whether the item is available
+                          const sizeButtonClasses = isAvailable
+                            ? `mr-2 mb-2 px-3 py-1 border rounded-full focus:outline-none ${selectedSize === item.size
+                              ? "bg-blue-600 text-white border-blue-600"
+                              : "bg-gray-100 text-gray-800 border-gray-300"
+                            }`
+                            : `mr-2 mb-2 px-3 py-1 border rounded-full cursor-not-allowed focus:outline-none bg-gray-300 text-gray-400 border-gray-300 line-through`;
+                          return (
+                            <button
+                              key={item.size}
+                              className={sizeButtonClasses}
+                              onClick={() => {
+                                if (isAvailable) {
+                                  setSelectedSize(item.size);
+                                }
+                              }}
+                            // disabled={!isAvailable} // Optionally, you can add this to disable the button if the size is not available
+                            >
+                              {item.size}
+                            </button>
+                          );
+                        })}
+                      </div>
+                         {/* Add to Cart Button */}
+                         <div
+                        className={`!mt-6 !rounded !h-11 flex items-center justify-center !bg-flipkart-yellow`}
+                        onClick={() => {
+                          if (selectedSize === "") {
+                            toast.error("Please select a size!", {
+                              autoClose: 1000, // Duration in milliseconds
+                            });
+                            return;
+                          }
+                          const j1 = data.stock.find(
+                            (val) => val.size === selectedSize
+                          );
+                          console.log("object data", data);
+                          addToCartHandler2(data, selectedSize, count);
+                          setIsDrawerOpen(false);
+                        }}
+                      >
+                        <span className="text-white flex items-center font-bold text-lg">
+                          Continue
+                        </span>
+                    </div>
+                    </div>
+                  </div>
+                </div>
+                )}
+               </div>
+
+               <div className={`fixed left-0 bottom-0 w-full bg-white shadow-lg transition-transform transform ${isBuyDrawerOpen ? 'translate-y-0' : 'translate-y-full'} z-50`}>
+                {isBuyDrawerOpen && (
+                <div className="flex items-center pt-8">
+                  <div className="bg-gray-50 p-6 rounded-lg shadow-lg w-full">
+                    <div className="mr-4">
+                    <div className="flex items-center justify-between p-4">
+                      <label
+                        htmlFor="sizeSelect"
+                        className="font-semibold text-gray-800 text-xl lg:text-2xl"
+                      >
+                        Select Size
+                      </label>
+                      <button onClick={toggleBuyDrawer} className="text-2xl">
+                     <AiOutlineClose />
+                     </button>
+                       </div>
+                      <div className="flex flex-wrap mt-8">
+                        {data.stock.map((item) => {
+                          // Calculate the isAvailable variable outside of the JSX
+                          const isAvailable = item.quantity > 0;
+
+                          // Calculate the button classes based on whether the item is available
+                          const sizeButtonClasses = isAvailable
+                            ? `mr-2 mb-2 px-3 py-1 border rounded-full focus:outline-none ${selectedSize === item.size
+                              ? "bg-blue-600 text-white border-blue-600"
+                              : "bg-gray-100 text-gray-800 border-gray-300"
+                            }`
+                            : `mr-2 mb-2 px-3 py-1 border rounded-full cursor-not-allowed focus:outline-none bg-gray-300 text-gray-400 border-gray-300 line-through`;
+                          return (
+                            <button
+                              key={item.size}
+                              className={sizeButtonClasses}
+                              onClick={() => {
+                                if (isAvailable) {
+                                  setSelectedSize(item.size);
+                              
+                                }
+                              }}
+                            // disabled={!isAvailable} // Optionally, you can add this to disable the button if the size is not available
+                            >
+                              {item.size}
+                            </button>
+                          );
+                        })}
+                      </div>
+                     {/* Add to Cart Button */}
+                           <div
+                        className={`!mt-6 !rounded !h-11 flex items-center justify-center !bg-flipkart-yellow`}
+                        onClick={() => {
+                          if (selectedSize === "") {
+                            toast.error("Please select a size!", {
+                              autoClose: 1000, // Duration in milliseconds
+                            });
+                            return;
+                          }
+                          const j1 = data.stock.find(
+                            (val) => val.size === selectedSize
+                          );
+                          console.log("object data", data);
+                          addToCartHandler2(data, selectedSize, count);
+                          setOpenCart(true);
+                          setIsBuyDrawerOpen(false);
+                        }}
+                      >
+                        <span className="text-white flex items-center font-bold text-lg">
+                          Continue
+                        </span>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+                )}
+               </div>
+
                 {/* select size  */}
                 <div className="flex items-center pt-8">
                   <div className="bg-gray-50 p-6 rounded-lg shadow-lg w-full">
@@ -724,9 +887,7 @@ data?.subCategory.includes("Undershirts") && data?.gender.includes("Men") && sho
                         className={`${styles.button} !mt-6 !rounded !h-11 flex items-center mr-10 !bg-flipkart-yellow`}
                         onClick={() => {
                           if (selectedSize === "") {
-                            toast.error("Please select a size!", {
-                              autoClose: 1000, // Duration in milliseconds
-                            });
+                            setIsDrawerOpen(true);
                             return;
                           }
                           const j1 = data.stock.find(
@@ -747,9 +908,7 @@ data?.subCategory.includes("Undershirts") && data?.gender.includes("Men") && sho
                         className={`${styles.button} !mt-6 !rounded !h-11 flex items-center !bg-flipkart-orange`}
                         onClick={() => {
                           if (selectedSize === "") {
-                            toast.error("Please select a size!", {
-                              autoClose: 1000, // Duration in milliseconds
-                            });
+                            setIsBuyDrawerOpen(true);
                             return;
                           }
                           const j1 = data.stock.find(
