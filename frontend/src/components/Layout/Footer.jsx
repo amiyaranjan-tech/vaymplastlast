@@ -127,12 +127,12 @@ const Footer = () => {
           </Link>
         </p>
         <div className="flex items-center justify-center">
-          <span>UPI payments coming soon</span>
-          {/* <img
+          <span>Incubated at LPU</span>
+          <img
             src="/Lovely_Professional_University_logo.png"
             alt="Lovely Professional University Logo"
             className="ml-2 h-8"
-          /> */}
+          />
         </div>
         <div className="block lg:hidden">
       <br></br>
