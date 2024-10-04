@@ -1398,6 +1398,15 @@ export const fragrance=[
     { id: 146, type: "10E" },
     { id: 147, type: "10D" },
     { id: 148, type: "10A" }
+    ,
+    { id: 149, type: "75" },
+    { id: 150, type: "80" },
+    { id: 151, type: "85" },
+    { id: 152, type: "90" },
+    { id: 153, type: "95" },
+    { id: 154, type: "100" },
+    { id: 155, type: "105" },
+    { id: 156, type: "110" }
   ];
   
   export const jeansSizes = [
