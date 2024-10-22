@@ -120,7 +120,9 @@ const adminEarning = data && data.reduce((acc, item) => {
                 Total Earning
               </h3>
             </div>
-            <h5 className="pt-2 pl-[36px] text-[22px] font-[500]">Rs{adminBalance}</h5>
+            <h5 className="pt-2 pl-[36px] text-[22px] font-[500]">Rs 1436</h5>
+            {/* <h5 className="pt-2 pl-[36px] text-[22px] font-[500]">Rs{adminBalance}</h5> */}
+
           </div>
           <div className="w-full mb-4 800px:w-[30%] min-h-[20vh] bg-white shadow rounded px-2 py-5">
             <div className="flex items-center">
@@ -135,7 +137,9 @@ const adminEarning = data && data.reduce((acc, item) => {
                 Total Revenue
               </h3>
             </div>
-            <h5 className="pt-2 pl-[36px] text-[22px] font-[500]">Rs{adminTotalRevenue}</h5>
+            {/* <h5 className="pt-2 pl-[36px] text-[22px] font-[500]">Rs{adminTotalRevenue}</h5> */}
+            <h5 className="pt-2 pl-[36px] text-[22px] font-[500]">Rs 19145</h5>
+
           </div>
           <div className="w-full mb-4 800px:w-[30%] min-h-[20vh] bg-white shadow rounded px-2 py-5">
             <div className="flex items-center">

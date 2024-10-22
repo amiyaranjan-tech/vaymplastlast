@@ -66,6 +66,20 @@ const HomePage = () => {
       {/* <Sponsored /> */}
       <BottomNav />
       <Footer />
+      <div
+  className="flex md:hidden fixed -right-4 bottom-10 mb-2 p-4 bg-transparent cursor-pointer"
+>
+  <a href="https://wa.me/917277244691" target="_blank" rel="noopener noreferrer">
+    <img src="whatsappIcon.png" width="100px" alt="WhatsApp Message" />
+  </a>
+</div>
+<div
+  className="hidden md:flex fixed right-0 bottom-2 mb-2 p-4 bg-transparent cursor-pointer"
+>
+  <a href="https://wa.me/917277244691" target="_blank" rel="noopener noreferrer">
+    <img src="whatsappIcon.png" width="150px" alt="WhatsApp Message" />
+  </a>
+</div>
     </div>
   );
 };

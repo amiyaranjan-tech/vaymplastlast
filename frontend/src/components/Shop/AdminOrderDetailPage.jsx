@@ -106,9 +106,16 @@ const AdminOrderDetailPage = () => {
           <h5>
             Order ID: <span className="font-semibold text-gray-800">#{data.kuchviId?.slice(16, 24)}</span>
           </h5>
-          <h5>
+          {/* <h5>
             Placed on: <span className="font-semibold text-gray-800">{data.createdAt?.slice(0, 10)}</span>
+          </h5> */}
+          <h5>
+            Placed on: 
+            <span className="font-semibold text-gray-800">
+              {new Date(data.createdAt).toLocaleDateString()} at {new Date(data.createdAt).toLocaleTimeString()}
+            </span>
           </h5>
+
         </div>
 
         <div className="flex flex-col sm:flex-row items-start mb-6">
