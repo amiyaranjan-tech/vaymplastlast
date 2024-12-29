@@ -130,7 +130,7 @@ const Footer = () => {
           <span>Incubated at LPU</span>
           <img
             src="/Lovely_Professional_University_logo.png"
-            alt="Lovely Professional University Logo"
+            alt="Lovely Professional University"
             className="ml-2 h-8"
           />
         </div>
