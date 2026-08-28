@@ -11,6 +11,24 @@ const crypto = require("crypto");
 const { isAuthenticated, isAdmin } = require("../middleware/auth");
 const passport = require('passport');
 require('./passport')(passport); // Ensure this path is correct
+const Conversation = require("../model/conversation");
+const Messages = require("../model/messages");
+const Product = require("../model/product");
+const rateLimiter = require("../utils/rateLimiter");
+
+const deletionIpLimiter = rateLimiter({
+  windowMs: 15 * 60 * 1000,
+  max: 10,
+  keyFn: (req) => req.ip,
+  message: "Too many account deletion requests from this network. Please try again later.",
+});
+
+const deletionEmailLimiter = rateLimiter({
+  windowMs: 30 * 60 * 1000,
+  max: 3,
+  keyFn: (req) => req.body?.email?.toLowerCase().trim(),
+  message: "Too many deletion requests for this account. Please check your inbox or try again shortly.",
+});
 
 
 
@@ -546,6 +564,184 @@ router.put(
   })
 );
 
+// request account deletion — sends a confirmation link to the account's email
+router.post(
+  "/request-account-deletion",
+  deletionIpLimiter,
+  deletionEmailLimiter,
+  catchAsyncErrors(async (req, res, next) => {
+    const { email, reason } = req.body;
+
+    if (!email) {
+      return next(new ErrorHandler("Please provide your account email!", 400));
+    }
+
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      return next(new ErrorHandler("No account found with this email", 404));
+    }
+
+    if (user.role === "Admin") {
+      return next(
+        new ErrorHandler(
+          "Admin accounts can't be deleted through this form. Please contact support.",
+          403
+        )
+      );
+    }
+
+    const deletionToken = crypto.randomBytes(20).toString("hex");
+
+    user.deleteAccountToken = crypto
+      .createHash("sha256")
+      .update(deletionToken)
+      .digest("hex");
+    user.deleteAccountTokenExpire = Date.now() + 30 * 60 * 1000; // 30 minutes
+
+    await user.save({ validateBeforeSave: false });
+
+    const confirmUrl = `https://vaymp.com/delete-account/confirm/${deletionToken}`;
+
+    const html = `
+      <p>Hello ${user.name},</p>
+      <p>We received a request to permanently delete your Vaymp account (${user.email}).</p>
+      ${reason ? `<p>Reason provided: ${reason}</p>` : ""}
+      <p>Click the button below to confirm this request. This link expires in 30 minutes.</p>
+      <a href="${confirmUrl}" style="display: inline-block; padding: 10px 20px; font-size: 16px; color: #ffffff; background-color: #dc2626; text-decoration: none; border-radius: 5px;">Confirm Account Deletion</a>
+      <p>If you did not request this, please ignore this email and your account will remain unchanged.</p>
+    `;
+
+    try {
+      await sendMail({
+        email: user.email,
+        subject: "Confirm your Vaymp account deletion request",
+        message: `Confirm deletion of your Vaymp account by visiting: ${confirmUrl}`,
+        html,
+      });
+
+      res.status(200).json({
+        success: true,
+        message: `A confirmation link has been sent to ${user.email}. Please check your inbox to confirm account deletion.`,
+      });
+    } catch (error) {
+      user.deleteAccountToken = undefined;
+      user.deleteAccountTokenExpire = undefined;
+      await user.save({ validateBeforeSave: false });
+
+      return next(new ErrorHandler(error.message, 500));
+    }
+  })
+);
+
+// verify a deletion token before showing the final confirmation step
+router.get(
+  "/verify-deletion-token/:token",
+  catchAsyncErrors(async (req, res, next) => {
+    const deleteAccountToken = crypto
+      .createHash("sha256")
+      .update(req.params.token)
+      .digest("hex");
+
+    const user = await User.findOne({
+      deleteAccountToken,
+      deleteAccountTokenExpire: { $gt: Date.now() },
+    });
+
+    if (!user) {
+      return next(
+        new ErrorHandler("This deletion link is invalid or has expired", 400)
+      );
+    }
+
+    res.status(200).json({
+      success: true,
+      email: user.email,
+      name: user.name,
+    });
+  })
+);
+
+// confirm and permanently delete the account and its associated data
+router.post(
+  "/confirm-account-deletion",
+  catchAsyncErrors(async (req, res, next) => {
+    const { token } = req.body;
+
+    if (!token) {
+      return next(new ErrorHandler("Deletion token is required", 400));
+    }
+
+    const deleteAccountToken = crypto
+      .createHash("sha256")
+      .update(token)
+      .digest("hex");
+
+    // atomically find-and-remove the user so a duplicate/concurrent
+    // confirmation (double click, refresh, replayed request) can never act
+    // on the same account twice — the token is consumed in one DB operation
+    const user = await User.findOneAndDelete({
+      deleteAccountToken,
+      deleteAccountTokenExpire: { $gt: Date.now() },
+    });
+
+    if (!user) {
+      return next(
+        new ErrorHandler(
+          "This deletion link is invalid, expired, or the account was already deleted",
+          400
+        )
+      );
+    }
+
+    const userId = user._id.toString();
+
+    // avatar (if any) uploaded to cloudinary
+    if (user.avatar?.public_id) {
+      await cloudinary.v2.uploader.destroy(user.avatar.public_id);
+    }
+
+    // conversations & messages with sellers, including any images attached
+    // to those messages so no orphaned files are left in cloudinary
+    const conversations = await Conversation.find({
+      members: { $in: [userId] },
+    });
+    const conversationIds = conversations.map((c) => c._id.toString());
+
+    const messagesToDelete = await Messages.find({
+      conversationId: { $in: conversationIds },
+    });
+    await Promise.all(
+      messagesToDelete
+        .filter((m) => m.images?.public_id)
+        .map((m) => cloudinary.v2.uploader.destroy(m.images.public_id))
+    );
+    await Messages.deleteMany({ conversationId: { $in: conversationIds } });
+    await Conversation.deleteMany({ _id: { $in: conversationIds } });
+
+    // product reviews authored by this user
+    await Product.updateMany(
+      {},
+      { $pull: { reviews: { "user._id": userId } } }
+    );
+
+    // ponytail: order/refund/delivery records keep a snapshot of the user for
+    // accounting & dispute-resolution purposes and are intentionally left alone
+    console.log(`[account-deletion] user ${userId} deleted at ${new Date().toISOString()}`);
+
+    res.cookie("token", null, {
+      expires: new Date(Date.now()),
+      httpOnly: true,
+      sameSite: "None",
+      secure: true,
+    });
+
+    res.status(200).json({
+      success: true,
+      message: "Your account and associated data have been permanently deleted.",
+    });
+  })
+);
 
 
 

@@ -86,6 +86,14 @@ const userSchema = new mongoose.Schema({
   },
   resetPasswordToken: String,
   resetPasswordTime: Date,
+  deleteAccountToken: {
+    type: String,
+    select: false,
+  },
+  deleteAccountTokenExpire: {
+    type: Date,
+    select: false,
+  },
 });
 
 // Hash password before saving

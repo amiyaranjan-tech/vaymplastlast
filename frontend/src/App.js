@@ -30,7 +30,9 @@ import {
   TrackOrderr,
   AllCoupons,
   ForgotPassword,
-  PasswordReset
+  PasswordReset,
+  DeleteAccountPage,
+  ConfirmAccountDeletion
 } from "./routes/Routes.js";
 import {
   ShopDashboardPage,
@@ -140,6 +142,8 @@ const App = () => {
           element={<ActivationPage />}
         />
         <Route path="/coming-soon" element={<ComingSoon/>} />
+        <Route path="/delete-account" element={<DeleteAccountPage />} />
+        <Route path="/delete-account/confirm/:token" element={<ConfirmAccountDeletion />} />
 
         <Route
           path="/seller/activation/:activation_token"

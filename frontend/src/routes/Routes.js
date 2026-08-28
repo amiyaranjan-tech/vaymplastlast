@@ -36,7 +36,9 @@ import ProcessingRefunds from "../components/Shop/ProcessingRefunds.jsx";
 import Wishlist from "../components/Wishlist/Wishlist.jsx";
 import Categories from "../components/Route/Categories/Categories.jsx";
 import ShopAllCoupons from "../components/Shop/ShopAllCoupons.jsx";
-export { 
+import DeleteAccountPage from "../pages/DeleteAccountPage.jsx";
+import ConfirmAccountDeletion from "../pages/ConfirmAccountDeletion.jsx";
+export {
     LoginPage,
     ForgotPassword,
     PasswordReset,
@@ -75,4 +77,6 @@ export {
     Wishlist,
     Categories,
     ShopAllCoupons,
+    DeleteAccountPage,
+    ConfirmAccountDeletion,
 };

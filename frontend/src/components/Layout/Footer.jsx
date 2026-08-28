@@ -125,6 +125,10 @@ const Footer = () => {
           <Link to="/PrivacyPolicy" className="text-blue-400 hover:underline">
             Privacy Policy
           </Link>
+          {" | "}
+          <Link to="/delete-account" className="text-blue-400 hover:underline">
+            Delete Account
+          </Link>
         </p>
         <div className="flex items-center justify-center">
           <span>Incubated at LPU</span>
